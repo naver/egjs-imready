@@ -212,10 +212,8 @@
                     <a href="https://github.com/naver/egjs-imready" target="_blank">
                         <img src="https://img.shields.io/badge/language-typescript-blue.svg?style=flat-square" />
                     </a>
-                    <a href="https://github.com/naver/egjs-imready/blob/main/LICENSE" target="_blank">
-                        <img
-                            src="https://img.shields.io/github/license/naver/egjs-imready.svg?style=flat-square&label=license&color=08CE5D" />
-                    </a>
+                    <a href="https://github.com/naver/egjs-imready/blob/main/LICENSE" target="_blank"><img
+                            src="https://img.shields.io/static/v1?style=flat-square&label=license&message=MIT&color=08CE5D" /></a>
                     <a href="https://github.com/naver/egjs-imready/blob/main/packages/react-imready/README.md"
                         target="_blank"><img alt="React"
                             src="https://img.shields.io/static/v1.svg?label=&message=React&style=flat-square&logo=React&logoColor=white&color=61dafb"></a>
@@ -288,6 +286,23 @@ function App() {
 <script>
     const totalCount = 25;
     let im;
+    let queue = [];
+    let queueTimer = 0;
+    function executeQueue() {
+        if (queueTimer) {
+            return;
+        }
+        queueTimer = requestAnimationFrame(() => {
+            queueTimer = 0;
+            const func = queue.shift();
+
+            if (!func) {
+                return;
+            }
+            func();
+            executeQueue();
+        });
+    }
     function check() {
         if (im) {
             im.destroy();
@@ -298,37 +313,45 @@ function App() {
         const fragment = document.createDocumentFragment();
 
         titleElement.innerHTML = "Are you Ready?";
-        progressElement.innerHTML = "0";
+        progressElement.innerHTML = "0%";
         backgroundElement.innerHTML = "";
 
-        for (let i = 0; i < 25; ++i) {
-            const img = document.createElement("img");
-
-            fragment.appendChild(img);
-        }
 
         backgroundElement.appendChild(fragment);
 
         const imgs = [].slice.call(backgroundElement.children);
         im = new eg.ImReady();
+        queue = [];
+        queueTimer = 0;
 
         let count = 0;
-        setTimeout(function insert() {
+        requestAnimationFrame(function insert() {
             // https://naver.github.io/egjs-infinitegrid/assets/image/1.jpg
-            imgs[count].style.opacity = 1;
-            imgs[count].src = `https://naver.github.io/egjs-infinitegrid/assets/image/${count + 1}.jpg`;
+
+            const img = document.createElement("img");
+            img.style.opacity = 1;
+            img.src = `https://naver.github.io/egjs-infinitegrid/assets/image/${count + 1}.jpg`;
+            backgroundElement.appendChild(img);
+
 
             if (++count >= totalCount) {
+                im.check(document.querySelectorAll("img")).on("readyElement", e => {
+                    queue.push(() => {
+                        progressElement.innerHTML = `${Math.floor(e.readyCount / e.totalCount * 100)}%`;
+                    });
+                    executeQueue();
+                }).on("ready", e => {
+                    queue.push(() => {
+                        titleElement.innerHTML = "I'm Ready!";
+                    });
+                    executeQueue();
+                });
                 return;
             }
-            setTimeout(insert, 100);
-        }, 100);
-
-        im.check(document.querySelectorAll("img")).on("readyElement", e => {
-            progressElement.innerHTML = `${Math.floor(e.readyCount / e.totalCount * 100)}%`;
-        }).on("ready", e => {
-            titleElement.innerHTML = "I'm Ready!";
+            requestAnimationFrame(insert);
         });
+
+
     }
 
     check();
