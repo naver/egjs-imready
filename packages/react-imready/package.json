@@ -49,6 +49,7 @@
   "license": "MIT",
   "keywords": [
     "react",
+    "react-hook",
     "react-hooks",
     "react-use",
     "use-imready",
