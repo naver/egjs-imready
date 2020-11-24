@@ -51,7 +51,12 @@ const im = new ImReady().on("preReady", () => {
 im.check([element]);
 ```
 
-
+* When the [loading="lazy"] property is used, the `preReadyElement`(hasLoading=true) event occurs and the size is 0. When loading is complete, the `readyElement` event occurs and you can get the size.
+```html
+<img src="..." />
+<img src="..." />
+<img src="..." loading="lazy" />
+```
 * If you use `data-width` and `data-height` attributes, the size of self, child image, and video elements is automatically adjusted until loading is complete.
 ```html
 <div data-width="100" data-height="100">
