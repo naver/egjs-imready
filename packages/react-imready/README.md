@@ -229,7 +229,7 @@ If you find a bug, please report to us opening a new [Issues](https://github.com
 egjs-imready is released under the [MIT license](http://naver.github.io/egjs/license.txt).
 
 ```
-Copyright (c) 2020~present NAVER Corp.
+Copyright (c) 2020-present NAVER Corp.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
