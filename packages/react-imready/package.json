@@ -5,6 +5,7 @@
   "main": "dist/imready.js",
   "module": "dist/imready.esm.js",
   "types": "declaration/index.d.ts",
+  "sideEffects": false,
   "devDependencies": {
     "@egjs/build-helper": "^0.1.2",
     "@types/chai": "^4.1.7",
@@ -46,6 +47,18 @@
     "name": "NAVER Corp."
   },
   "license": "MIT",
+  "keywords": [
+    "react",
+    "react-hooks",
+    "react-use",
+    "use-imready",
+    "lazyloading",
+    "ready",
+    "imready",
+    "image",
+    "video",
+    "egjs"
+  ],
   "eslintConfig": {
     "extends": [
       "react-app"
@@ -64,6 +77,6 @@
     ]
   },
   "dependencies": {
-    "@egjs/imready": "file:../.."
+    "@egjs/imready": "^0.1.0"
   }
 }

@@ -32,6 +32,14 @@
   "namespace": {
     "eg": "eg"
   },
+  "keywords": [
+    "lazyloading",
+    "ready",
+    "imready",
+    "image",
+    "video",
+    "egjs"
+  ],
   "license": "MIT",
   "devDependencies": {
     "@daybrush/jsdoc": "^0.3.8",
