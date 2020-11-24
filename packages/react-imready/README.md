@@ -143,7 +143,7 @@ function App() {
 }
 ```
 
-* When the [loading="lazy"] property is used, the `preReadyElement`(hasLoading=true) event occurs and the size is 0. When loading is complete, the `readyElement` event occurs and you can get the size.
+* When the `loading="lazy"` attribute is used, the `preReadyElement`(hasLoading=true) event occurs and the size is 0. When loading is complete, the `readyElement`(hasLoading=true) event occurs and you can get the size.
 ```html
 <img src="..." />
 <img src="..." />
