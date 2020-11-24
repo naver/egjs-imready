@@ -1,0 +1,50 @@
+<script src="../../dist/imready.js"></script>
+
+<body>
+	<img src="https://naver.github.io/egjs-infinitegrid/assets/image/1.jpg" data-width="1280" data-height="853"
+		style="width:1280px;height:853px;" />
+	<img src="https://naver.github.io/egjs-infinitegrid/assets/image/2.jpg" data-width="1280" data-height="853"
+		style="width:1280px;height:853px;">
+	<img src="https://naver.github.io/egjs-infinitegrid/assets/image/3.jpg" style="width:1280px;height:853px;">
+	<img src="https://naver.github.io/egjs-infinitegrid/assets/image/4.jpg" data-width="1280" data-height="853"
+		style="width:1280px;height:853px;">
+	<!-- WRONG URL -->
+	<img src="https://naver.github.io/egjs-infinitegrid/assets/image/5e.jpg">
+	<img src="https://naver.github.io/egjs-infinitegrid/assets/image/6.jpg" data-width="1280" data-height="853">
+	<div data-width class="fancy">
+		<div>
+			<img src="https://naver.github.io/egjs-infinitegrid/assets/image/7.jpg" data-width="1280" data-height="853">
+		</div>
+	</div>
+	<video src="https://naver.github.io/egjs-view360/examples/img/equi.mp4"></video>
+	<!-- WRONG URL -->
+	<img src="https://naver.github.io/egjs-infinitegrid/assets/image/8ㄸ.jpg" data-width="1280" data-height="853">
+	<!-- LOADING -->
+	<!-- <img src="https://naver.github.io/egjs-infinitegrid/assets/image/9.jpg" data-width="1280" data-height="853"
+		loading="lazy"> -->
+</body>
+<script>
+	document.body.insertAdjacentHTML("beforeend", `<img src="https://naver.github.io/egjs-infinitegrid/assets/image/9.jpg"
+	loading="lazy" />`);
+	const im = new eg.ImReady();
+	im.check(document.body.children).on({
+		preReadyElement: e => {
+			console.log("preReadyElement", e);
+		},
+		preReady: e => {
+			console.log("preReady", e);
+		},
+		readyElement: e => {
+			console.log("readyElement", e);
+		},
+		ready: e => {
+			console.log("ready", e);
+		},
+		complete: e => {
+			console.log("complete", e);
+		},
+		error: e => {
+			console.log("error", e);
+		},
+	});
+</script>

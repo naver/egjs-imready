@@ -1,0 +1,62 @@
+{
+  "tags": {
+    "allowUnknownTags" : true,
+    "dictionaries": ["jsdoc","closure"]
+  },
+  "source": {
+      "include": [
+        "src", "README.md",
+        "packages/react-imready/src/react-imready",
+        "node_modules/@egjs/component/src"
+      ],
+      "includePattern": ".+\\.(j|t)s(doc|x)?$",
+      "excludePattern": "(^|\\/|\\\\)_"
+  },
+  "opts": {
+      "template": "node_modules/egjs-jsdoc-template",
+      "destination": "./doc/",
+      "ignores": ["eg.Component"],
+      "expendsItemMembers": true,
+      "recurse": true
+  },
+  "plugins": [
+    "plugins/markdown",
+    "node_modules/egjs-jsdoc-template/jsdoc-plugin/ko",
+    "node_modules/egjs-jsdoc-template/jsdoc-plugin/group",
+    "node_modules/egjs-jsdoc-template/jsdoc-plugin/support"
+  ],
+  "templates": {
+    "cleverLinks": true,
+    "monospaceLinks": true,
+    "default": {
+      "outputSourceFiles" : true
+    },
+    "applicationName": "eg.ImReady",
+    "disqus": "egjs",
+    "googleAnalytics": "G-4139M7LXY0",
+    "openGraph": {
+      "title": "",
+      "type": "website",
+      "image": "",
+      "site_name": "",
+      "url": ""
+    },
+    "meta": {
+      "title": "egjs::ImReady - API",
+      "description": "This module is used to wait for the image or video to be ready.",
+      "keyword": "Lazy loading, egjs, imready, infinitegrid, view360, image, video, ready"
+    },
+    "linenums": true,
+    "link": {
+      "canonical": "https://naver.github.io/egjs-imready/release/latest/doc/"
+    }
+  },
+  "linkMap": {
+    "Component": "https://naver.github.io/egjs-component/release/latest/doc/eg.Component.html"
+  },
+  "markdown": {
+    "parser": "gfm",
+    "hardwrap": true,
+    "tags": ["examples", "ko"]
+  }
+}
