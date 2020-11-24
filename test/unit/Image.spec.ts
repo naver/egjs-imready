@@ -12,6 +12,7 @@ describe("Test image", () => {
   beforeEach(() => {
     im = new ImReady();
     el = sandbox("");
+    el.style.overflow = "hidden";
   });
   afterEach(() => {
     im.destroy();
