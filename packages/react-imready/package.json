@@ -1,8 +1,8 @@
 {
   "name": "@egjs/react-imready",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "This react module is used to wait for the image or video to be ready.",
-  "main": "dist/imready.js",
+  "main": "dist/imready.cjs.js",
   "module": "dist/imready.esm.js",
   "types": "declaration/index.d.ts",
   "sideEffects": false,
@@ -78,6 +78,6 @@
     ]
   },
   "dependencies": {
-    "@egjs/imready": "^0.1.0"
+    "@egjs/imready": "^1.0.0"
   }
 }
