@@ -1,6 +1,6 @@
 {
 	"name": "@egjs/imready",
-	"version": "1.0.0",
+	"version": "1.0.0-snapshot",
 	"description": "This module is used to wait for the image or video to be ready.",
 	"main": "dist/imready.js",
 	"module": "dist/imready.esm.js",
@@ -19,7 +19,7 @@
 		"demo:build": "npm run build && cpx 'dist/**/*' demo/release/latest/dist --clean",
 		"demo:prebuild-version": "cpx 'dist/**/*' demo/release/$npm_package_version/dist --clean && cpx 'doc/**/*' demo/release/$npm_package_version/doc --clean",
 		"demo:prebuild-latest": "cpx 'dist/**/*' demo/release/latest/dist --clean && cpx 'doc/**/*' demo/release/latest/doc --clean",
-		"demo:deploy": "npm run build && npm run jsdoc && npm run demo:prebuild-version && npm run demo:prebuild-latest && gh-pages -d demo/ --remote upstream",
+		"demo:deploy": "npm run build && npm run jsdoc && npm run demo:prebuild-version && npm run demo:prebuild-latest && gh-pages -d demo/ --add --remote upstream",
 		"release": "release-helper upstream"
 	},
 	"repository": {
