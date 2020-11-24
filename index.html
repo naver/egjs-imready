@@ -1,0 +1,324 @@
+<style>
+    html,
+    body {
+        position: relative;
+        height: 100%;
+        margin: 0;
+    }
+
+    a {
+        text-decoration: none;
+    }
+
+    .page {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        padding: 20px;
+        box-sizing: border-box;
+    }
+
+    #home {
+        min-height: 800px;
+    }
+    .container {
+        position: relative;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        padding: 10px;
+        box-sizing: border-box;
+        max-width: 800px;
+    }
+
+    .background {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        filter: blur(5px);
+        overflow: hidden;
+    }
+
+    .background:after {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(255, 255, 255, 0.3);
+        -webkit-backdrop-filter: blur(10px);
+        backdrop-filter: blur(10px);
+    }
+
+    .background .wrapper {
+        position: relative;
+        width: 110%;
+        height: 110%;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        min-width: 500px;
+        min-height: 500px;
+    }
+
+    .background img {
+        position: relative;
+        width: 20%;
+        height: 20%;
+        border: 0;
+        appearance: none;
+        opacity: 0;
+    }
+
+    .progress {
+        font-weight: bold;
+    }
+
+    .buttons a,
+    .buttons button {
+        margin: 0;
+        position: relative;
+        text-decoration: none;
+        color: #333;
+        background: transparent;
+        border: 1px solid #333;
+        padding: 12px 30px;
+        min-width: 140px;
+        text-align: center;
+        font-size: 16px;
+        font-weight: bold;
+        display: inline-block;
+        box-sizing: border-box;
+        margin: 5px;
+        transition: all ease 0.5s;
+    }
+
+    .buttons a:hover,
+    .buttons button:hover,
+    .buttons a.selected {
+        background: #333;
+        color: #fff;
+    }
+    #howtouse {
+        height: auto;
+        padding: 80px 20px;
+    }
+    #howtouse .container {
+        top: 0;
+        transform: translate(-50%);
+    }
+    #howtouse h2 {
+        font-size: 1.7em;
+    }
+
+    .page.footer {
+        background: #333;
+        height: auto;
+        text-align: left;
+        padding: 50px 20px;
+        font-weight: 400;
+        text-align: center;
+    }
+
+    .footer p {
+        margin: 8px 0;
+        font-weight: 400;
+    }
+
+    .page.footer,
+    .page.footer a {
+        color: #fff;
+    }
+
+
+    .footer .egjs {
+        font-size: 30px;
+        line-height: 40px;
+        letter-spacing: 1px;
+    }
+
+    .footer .egjs img {
+        height: 40px;
+        vertical-align: top;
+        margin-right: 5px;
+    }
+
+    .footer .egjs .eg {
+        color: #fff;
+        vertical-align: top;
+    }
+
+    .footer .egjs .js {
+        color: #F2B51D;
+        vertical-align: top;
+    }
+
+    .footer .article p.license,
+    .footer .article p.copy {
+        font-size: 14px;
+        font-weight: bold;
+    }
+
+    .footer .article p.license {
+        margin-bottom: 16px;
+    }
+
+    .footer p.copy {
+        color: #30B78E;
+    }
+</style>
+<link rel="stylesheet" type="text/css" href="prism.css" />
+<div>
+    <div class="page" id="home">
+        <div class="background">
+            <div class="wrapper"></div>
+        </div>
+        <div class="container">
+            <h1>Are you Ready?</h1>
+            <p class="progress">0%</p>
+            <p class="badges">
+                <a href="https://www.npmjs.com/package/@egjs/imready" target="_blank">
+                    <img src="https://img.shields.io/npm/v/@egjs/imready.svg?style=flat-square&color=007acc&label=version"
+                        alt="npm version" /></a>
+                <a href="https://github.com/naver/egjs-imready" target="_blank">
+                    <img
+                        src="https://img.shields.io/github/stars/naver/egjs-imready.svg?color=42b883&style=flat-square" /></a>
+                <a href="https://github.com/naver/egjs-imready" target="_blank">
+                    <img src="https://img.shields.io/badge/language-typescript-blue.svg?style=flat-square" />
+                </a>
+                <a href="https://github.com/naver/egjs-imready/blob/main/LICENSE" target="_blank">
+                    <img
+                        src="https://img.shields.io/github/license/naver/egjs-imready.svg?style=flat-square&label=license&color=08CE5D" />
+                </a>
+                <a href="https://github.com/naver/egjs-imready/blob/main/packages/react-imready/README.md"
+                    target="_blank"><img alt="React"
+                        src="https://img.shields.io/static/v1.svg?label=&message=React&style=flat-square&logo=React&logoColor=white&color=61dafb"></a>
+            </p>
+            <p class="description">This module is used to wait for the image or video to be ready.</p>
+            <div class="buttons">
+                <button class="button recheck">Re check</button>
+                <a href="https://github.com/naver/egjs-imready" target="_blank">Download</a>
+                <a href="https://naver.github.io/egjs-imready/release/latest/doc" target="_blank">API</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="page" id="howtouse">
+    <div class="container">
+        <h2>How to use</h2>
+        <h3>Vanilla</h3>
+        <pre><code class="language-js">
+import ImReady from "@egjs/imready";
+
+const im = new ImReady();
+
+im.check(document.querySelectorAll("img")).on("readyElement", e => {
+    progressElement.innerHTML = `${Math.floor(e.readyCount / e.totalCount * 100)}%`;
+}).on("ready", e => {
+    titleElement.innerHTML = "I'm Ready!";
+});
+    </code></pre>
+    <h3>React</h3>
+        <pre><code class="language-jsx">
+import { useImReady, useReadyElement } from "@egjs/react-imready";
+
+function App() {
+    const { register, isReady, readyCount, totalCount } = useReadyElement({
+        selector: "img",
+    });
+
+    return (&lt;div className="page">
+        &lt;div className="background" ref={register()}>
+            &lt;img src="..." />
+            &lt;img src="..." />
+            &lt;img src="..." />
+            &lt;img src="..." />
+            &lt;img src="..." />
+            &lt;img src="..." />
+        &lt;/div>
+        &lt;div class="container">
+            &lt;h1>{isReady ? "Are you Ready?" : "I'm Ready"}&lt;/h1>
+            &lt;p class="progress">{totalCount ? Math.floor(readyCount / totalCount * 100) : 0}%&lt;/p>
+        &lt;/div>
+    &lt;/div>);
+}
+    </code></pre>
+    </div>
+</div>
+<div class="page footer">
+    <p>
+        <span class="egjs">
+            <a href="https://naver.github.io/egjs" target="_blank"><img
+                    src="https://naver.github.io/egjs/img/logo.svg"><span class="eg">eg</span><span
+                    class="js">js</span></a>
+        </span>
+    </p>
+    <p class="license">This project is licensed under the MIT license.</p>
+    <p class="copy">© NAVER Corp.</p>
+</div>
+<script src="./release/latest/dist/imready.js"></script>
+<script src="./prism.js"></script>
+<script>
+    const totalCount = 25;
+    let im;
+    function check() {
+        if (im) {
+            im.destroy();
+        }
+        const titleElement = document.querySelector("h1");
+        const progressElement = document.querySelector(".progress");
+        const backgroundElement = document.querySelector(".background .wrapper");
+        const fragment = document.createDocumentFragment();
+
+        titleElement.innerHTML = "Are you Ready?";
+        progressElement.innerHTML = "0";
+        backgroundElement.innerHTML = "";
+
+        for (let i = 0; i < 25; ++i) {
+            const img = document.createElement("img");
+
+            fragment.appendChild(img);
+        }
+
+        backgroundElement.appendChild(fragment);
+
+        const imgs = [].slice.call(backgroundElement.children);
+        im = new eg.ImReady();
+
+        let count = 0;
+        setTimeout(function insert() {
+            // https://naver.github.io/egjs-infinitegrid/assets/image/1.jpg
+            imgs[count].style.opacity = 1;
+            imgs[count].src = `https://naver.github.io/egjs-infinitegrid/assets/image/${count + 1}.jpg`;
+
+            if (++count >= totalCount) {
+                return;
+            }
+            setTimeout(insert, 100);
+        }, 100);
+
+        im.check(document.querySelectorAll("img")).on("readyElement", e => {
+            progressElement.innerHTML = `${Math.floor(e.readyCount / e.totalCount * 100)}%`;
+        }).on("ready", e => {
+            titleElement.innerHTML = "I'm Ready!";
+        });
+    }
+
+    check();
+
+    document.querySelector(".recheck").addEventListener("click", () => {
+        check();
+    });
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-4139M7LXY0"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-4139M7LXY0');
+</script>
