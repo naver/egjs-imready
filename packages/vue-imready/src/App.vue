@@ -1,26 +1,29 @@
 <template>
-  <div :ref="register()">
+  <div >
     <img alt="Vue logo" src="./assets/logo.png">
     <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
-    {{state.isPreReady}}
-    {{state.isReady}}
-    {{state.totalCount}}
+    <HelloWorld2 />
+    <!-- {{im.isPreReady}}
+    {{im.isReady}}
+    {{im.totalCount}} -->
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
 import HelloWorld from './components/HelloWorld.vue';
+import HelloWorld2 from "./components/HelloWorld2";
 import { useImReady } from "./components/useImReady";
 
 export default defineComponent({
   name: 'App',
   components: {
-    HelloWorld
+    HelloWorld,
+    HelloWorld2,
   },
   setup() {
     console.log("SET");
-    return useImReady();
+    // return useImReady();
   },
 });
 </script>

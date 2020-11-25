@@ -24,24 +24,24 @@ export function useImReady(props: Partial<ImReadyProps> = {}) {
     isReady: false,
     isPreReadyOver: false,
     hasError: false,
+    register<T extends HTMLElement>(ref?: Ref<T | null> | ((el: T | null) => any)): ((el: any) => any) {
+      return (instance: T | null) => {
+        if (instance) {
+          children.push(instance);
+        }
+        if (!ref) {
+          return;
+        }
+        if (typeof ref === "function") {
+          ref(instance);
+        } else {
+          ref.value = instance;
+        }
+      };
+    },
   });
   const imRef = ref<ImReady>();
 
-  function register<T extends HTMLElement>(ref?: Ref<T> | ((el: T) => any)) {
-    return (instance: T) => {
-      if (instance) {
-        children.push(instance);
-      }
-      if (!ref) {
-        return;
-      }
-      if (typeof ref === "function") {
-        ref(instance);
-      } else {
-        ref.value = instance;
-      }
-    };
-  }
 
   onMounted(() => {
     const im = new ImReady(options);
@@ -94,8 +94,5 @@ export function useImReady(props: Partial<ImReadyProps> = {}) {
     imRef.value?.destroy();
   });
 
-  return {
-    state,
-    register,
-  };
+  return state;
 }
