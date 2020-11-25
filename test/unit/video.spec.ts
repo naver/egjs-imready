@@ -12,9 +12,10 @@ describe("Test video", () => {
   beforeEach(() => {
     im = new ImReady();
     el = sandbox("");
-    el.style.overflow = "hidden";
+    document.body.style.overflow = "hidden";
   });
   afterEach(() => {
+    document.body.style.overflow = "visible";
     im.destroy();
     cleanup();
   });

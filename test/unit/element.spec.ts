@@ -9,8 +9,10 @@ describe("Test Element", () => {
   beforeEach(() => {
     im = new ImReady();
     el = sandbox("");
+    document.body.style.overflow = "hidden";
   });
   afterEach(() => {
+    document.body.style.overflow = "visible";
     cleanup();
     im.destroy();
   });
