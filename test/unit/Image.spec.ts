@@ -227,7 +227,7 @@ describe("Test image", () => {
       "readyElement", "readyElement", "ready",
     ]);
   });
-  it("should check that call preReady if include the loading attribute.", async () => {
+  it("should check that call preReady if include the loading img.", async () => {
     // Given
     el.innerHTML = `
       <img src="https://naver.github.io/egjs-infinitegrid/assets/image/15.jpg" loading="lazy"/>
@@ -236,6 +236,42 @@ describe("Test image", () => {
     const img = el.querySelector("img");
 
     // inject loading attribute for not supported browser
+    img.setAttribute("loading", "lazy");
+    Object.defineProperty(img, "loading", {
+      value: "lazy",
+    });
+
+    const events = checkEventOrders(im);
+
+    // When
+    im.check([el]);
+
+    await waitEvent(im, "preReady");
+    const loadingSize = getSize(img);
+
+    await waitEvent(im, "ready");
+
+
+    // Then
+    expect(loadingSize).to.be.deep.equals([0, 0]);
+    // preReadyElement
+    expect(events[0].hasLoading).to.be.equals(true);
+    // preReady
+    expect(events[1].hasLoading).to.be.equals(true);
+    expectOrders(events, [
+      "preReadyElement", "preReady", "readyElement", "ready",
+    ]);
+  });
+  it("should check that call preReady if include the loading attribute.", async () => {
+    // Given
+    el.innerHTML = `
+      <img src="https://naver.github.io/egjs-infinitegrid/assets/image/18.jpg" loading="lazy"/>
+    `;
+
+    const img = el.querySelector("img");
+
+    // inject loading attribute for not supported browser
+    img.setAttribute("loading", "lazy");
     Object.defineProperty(img, "loading", {
       value: "lazy",
     });
@@ -277,7 +313,7 @@ describe("Test image", () => {
 
     viewport.set(600, 400);
     // When the network state is too early, an finish event occurs in an instant.
-    await waitFor(60);
+    await waitFor(30);
 
     // maybe 600 x 600
     const size2 = getSize(img);
@@ -317,7 +353,7 @@ describe("Test image", () => {
 
     viewport.set(400, 600);
     // When the network state is too early, an finish event occurs in an instant.
-    await waitFor(60);
+    await waitFor(30);
     // window size 600
     const width2 = innerWidth(img);
     const height2 = innerHeight(img);

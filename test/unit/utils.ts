@@ -72,5 +72,6 @@ export function expectOrders(events: EventType[], values: string[]) {
   // Then
   const eventNames = events.map(e => e.eventType);
 
+  console.log(eventNames);
   expect(eventNames).to.be.deep.equals(values);
 }

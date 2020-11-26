@@ -210,7 +210,7 @@ describe("Test video", () => {
 
     viewport.set(600, 400);
     // When the network state is too early, an finish event occurs in an instant.
-    await waitFor(60);
+    await waitFor(30);
 
     // maybe 600 x 600
     const size2 = getSize(video);
