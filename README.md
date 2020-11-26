@@ -66,7 +66,7 @@ im.check([element]);
 </div>
 ```
 
-* If you use `data-skip="ture"` attribute, you can omit it even if there are images in itself and child image, and video elements.
+* If you use `data-skip="true"` attribute, you can omit it even if there are images in itself and child image, and video elements.
 ```html
 <div data-skip="true">
    <img src="..." />
