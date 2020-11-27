@@ -1,9 +1,7 @@
-import { sandbox, cleanup, waitEvent, waitFor, getSize, checkEventOrders, expectOrders } from "./utils";
+import { sandbox, cleanup, waitEvent, getSize, checkEventOrders, expectOrders } from "./utils";
 import ImReady from "../../src/index";
 import { spy } from "sinon";
 import { toArray, innerWidth, innerHeight } from "../../src/utils";
-
-declare const viewport: any;
 
 describe("Test image", () => {
   let el: HTMLElement;
@@ -311,11 +309,11 @@ describe("Test image", () => {
     // maybe 400 x 400
     const size1 = getSize(img);
 
-    viewport.set(600, 400);
-    // When the network state is too early, an finish event occurs in an instant.
-    await waitFor(30);
+    // The resize event is fired synchronously.
+    el.style.width = "90%";
+    window.dispatchEvent(new Event("resize"));
 
-    // maybe 600 x 600
+    // maybe 360 x 360
     const size2 = getSize(img);
 
     await waitEvent(im, "ready");
@@ -351,10 +349,11 @@ describe("Test image", () => {
     const width1 = innerWidth(img);
     const height1 = innerHeight(img);
 
-    viewport.set(400, 600);
-    // When the network state is too early, an finish event occurs in an instant.
-    await waitFor(30);
-    // window size 600
+    // The resize event is fired synchronously.
+    el.style.height = "90%";
+    window.dispatchEvent(new Event("resize"));
+
+    // maybe 270 x 270
     const width2 = innerWidth(img);
     const height2 = innerHeight(img);
 
