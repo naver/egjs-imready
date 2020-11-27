@@ -167,7 +167,7 @@ class ImReadyManager extends Component<ImReadyEvents> {
     const loader = new ElementLoader(element, options);
     const children = toArray(element.querySelectorAll<HTMLElement>(tags.join(", ")));
 
-    loader.hasLoading = children.some(el => hasLoadingAttribute(el));
+    loader.setHasLoading(children.some(el => hasLoadingAttribute(el)));
     let withPreReady = false;
 
     const childrenImReady = this.clone().on("error", e => {

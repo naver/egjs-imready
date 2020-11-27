@@ -12,12 +12,12 @@ import { removeEvent, hasSizeAttribute, hasLoadingAttribute, addEvent } from "..
 export default abstract class Loader<T extends HTMLElement = any> extends Component<ImReadyLoaderEvents> {
   public static EVENTS: string[] = [];
   public options!: ImReadyLoaderOptions;
-  public isReady = false;
-  public isPreReady = false;
-  public hasDataSize = false;
-  public hasLoading = false;
   public abstract checkElement(): boolean;
   protected element!: T;
+  protected isReady = false;
+  protected isPreReady = false;
+  protected hasDataSize = false;
+  protected hasLoading = false;
 
   constructor(element: HTMLElement, options: Partial<ImReadyLoaderOptions> = {}) {
     super();
