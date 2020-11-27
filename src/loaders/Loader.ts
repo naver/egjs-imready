@@ -99,6 +99,9 @@ export default abstract class Loader<T extends HTMLElement = any> extends Compon
     if (this.isReady) {
       return;
     }
+    if (withPreReady) {
+      this.isPreReady = true;
+    }
     this.removeAutoSizer();
     this.isReady = true;
     this.trigger("ready", {
