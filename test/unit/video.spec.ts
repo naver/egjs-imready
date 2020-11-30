@@ -188,9 +188,9 @@ describe("Test video", () => {
     await waitEvent(im, "ready");
 
     // Then
-    expect(readyElementSpy.callCount).to.be.equals(2);
-    expect(readySpy.args[0][0].totalCount).to.be.equals(2);
-    expect(im.getTotalCount()).to.be.equals(2);
+    expect(readyElementSpy.callCount).to.be.equals(3);
+    expect(readySpy.args[0][0].totalCount).to.be.equals(3);
+    expect(im.getTotalCount()).to.be.equals(3);
   });
   it("should check that AutoSizer works when window resize (400 => 600)", async () => {
     // Given

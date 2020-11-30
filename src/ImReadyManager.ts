@@ -6,7 +6,7 @@ MIT license
 import Component from "@egjs/component";
 import { ElementLoader } from "./loaders/ElementLoader";
 import { ArrayFormat, ElementInfo, ImReadyEvents, ImReadyLoaderOptions, ImReadyOptions } from "./types";
-import { hasSkipAttribute, toArray, getContentElements, hasLoadingAttribute } from "./utils";
+import { toArray, getContentElements, hasLoadingAttribute } from "./utils";
 /**
  * @alias eg.ImReady
  * @extends eg.Component
@@ -61,9 +61,7 @@ class ImReadyManager extends Component<ImReadyEvents> {
     const { prefix } = this.options;
 
     this.clear();
-    this.elementInfos = toArray(elements).filter(element => {
-      return !hasSkipAttribute(element, prefix);
-    }).map((element, index) => {
+    this.elementInfos = toArray(elements).map((element, index) => {
       const loader = this.getLoader(element, { prefix });
 
       loader.check();

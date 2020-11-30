@@ -6,7 +6,7 @@ MIT license
 import Component from "@egjs/component";
 import { addAutoSizer, removeAutoSizer } from "../AutoSizer";
 import { ImReadyLoaderEvents, ImReadyLoaderOptions } from "../types";
-import { removeEvent, hasSizeAttribute, hasLoadingAttribute, addEvent } from "../utils";
+import { removeEvent, hasSizeAttribute, hasLoadingAttribute, addEvent, hasSkipAttribute } from "../utils";
 
 
 export default abstract class Loader<T extends HTMLElement = any> extends Component<ImReadyLoaderEvents> {
@@ -26,11 +26,11 @@ export default abstract class Loader<T extends HTMLElement = any> extends Compon
       ...options,
     };
     this.element = element as T;
-    this.hasDataSize = hasSizeAttribute(this.element, this.options.prefix);
-    this.hasLoading = hasLoadingAttribute(this.element);
+    this.hasDataSize = hasSizeAttribute(element, this.options.prefix);
+    this.hasLoading = hasLoadingAttribute(element);
   }
   public check() {
-    if (!this.checkElement()) {
+    if (hasSkipAttribute(this.element) || !this.checkElement()) {
       // I'm Ready
       this.onAlreadyReady(true);
       return false;
