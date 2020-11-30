@@ -1,9 +1,7 @@
-import { sandbox, cleanup, waitEvent, waitFor, getSize, checkEventOrders, expectOrders } from "./utils";
+import { sandbox, cleanup, waitEvent, getSize, checkEventOrders, expectOrders } from "./utils";
 import ImReady from "../../src/index";
 import { spy } from "sinon";
 import { toArray, innerWidth, innerHeight } from "../../src/utils";
-
-declare const viewport: any;
 
 describe("Test image", () => {
   let el: HTMLElement;
@@ -227,7 +225,7 @@ describe("Test image", () => {
       "readyElement", "readyElement", "ready",
     ]);
   });
-  it("should check that call preReady if include the loading attribute.", async () => {
+  it("should check that call preReady if include the loading img.", async () => {
     // Given
     el.innerHTML = `
       <img src="https://naver.github.io/egjs-infinitegrid/assets/image/15.jpg" loading="lazy"/>
@@ -236,6 +234,42 @@ describe("Test image", () => {
     const img = el.querySelector("img");
 
     // inject loading attribute for not supported browser
+    img.setAttribute("loading", "lazy");
+    Object.defineProperty(img, "loading", {
+      value: "lazy",
+    });
+
+    const events = checkEventOrders(im);
+
+    // When
+    im.check([el]);
+
+    await waitEvent(im, "preReady");
+    const loadingSize = getSize(img);
+
+    await waitEvent(im, "ready");
+
+
+    // Then
+    expect(loadingSize).to.be.deep.equals([0, 0]);
+    // preReadyElement
+    expect(events[0].hasLoading).to.be.equals(true);
+    // preReady
+    expect(events[1].hasLoading).to.be.equals(true);
+    expectOrders(events, [
+      "preReadyElement", "preReady", "readyElement", "ready",
+    ]);
+  });
+  it("should check that call preReady if include the loading attribute.", async () => {
+    // Given
+    el.innerHTML = `
+      <img src="https://naver.github.io/egjs-infinitegrid/assets/image/18.jpg" loading="lazy"/>
+    `;
+
+    const img = el.querySelector("img");
+
+    // inject loading attribute for not supported browser
+    img.setAttribute("loading", "lazy");
     Object.defineProperty(img, "loading", {
       value: "lazy",
     });
@@ -275,11 +309,11 @@ describe("Test image", () => {
     // maybe 400 x 400
     const size1 = getSize(img);
 
-    viewport.set(600, 400);
-    // When the network state is too early, an finish event occurs in an instant.
-    await waitFor(60);
+    // The resize event is fired synchronously.
+    el.style.width = "90%";
+    window.dispatchEvent(new Event("resize"));
 
-    // maybe 600 x 600
+    // maybe 360 x 360
     const size2 = getSize(img);
 
     await waitEvent(im, "ready");
@@ -315,10 +349,11 @@ describe("Test image", () => {
     const width1 = innerWidth(img);
     const height1 = innerHeight(img);
 
-    viewport.set(400, 600);
-    // When the network state is too early, an finish event occurs in an instant.
-    await waitFor(60);
-    // window size 600
+    // The resize event is fired synchronously.
+    el.style.height = "90%";
+    window.dispatchEvent(new Event("resize"));
+
+    // maybe 270 x 270
     const width2 = innerWidth(img);
     const height2 = innerHeight(img);
 

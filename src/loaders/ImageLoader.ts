@@ -8,13 +8,9 @@ import Loader from "./Loader";
 
 export default class ImageLoader extends Loader<HTMLImageElement> {
   public static EVENTS = ["load", "error"];
-  public isPreReady() {
-    const element = this.element;
-    return element.complete && (!IS_IE || (IS_IE && !!element.naturalWidth));
-  }
   public checkElement() {
     const element = this.element;
-    if (this.isPreReady()) {
+    if (element.complete && (!IS_IE || !!element.naturalWidth)) {
       if (!element.naturalWidth) {
         this.onAlreadyError(this.element);
       }

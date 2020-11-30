@@ -6,7 +6,7 @@ MIT license
 import Component from "@egjs/component";
 import { ElementLoader } from "./loaders/ElementLoader";
 import { ArrayFormat, ElementInfo, ImReadyEvents, ImReadyLoaderOptions, ImReadyOptions } from "./types";
-import { hasSkipAttribute, toArray, getContentElements } from "./utils";
+import { hasSkipAttribute, toArray, getContentElements, hasLoadingAttribute } from "./utils";
 /**
  * @alias eg.ImReady
  * @extends eg.Component
@@ -165,6 +165,9 @@ class ImReadyManager extends Component<ImReadyEvents> {
       return new loaders[tagName](element, options);
     }
     const loader = new ElementLoader(element, options);
+    const children = toArray(element.querySelectorAll<HTMLElement>(tags.join(", ")));
+
+    loader.setHasLoading(children.some(el => hasLoadingAttribute(el)));
     let withPreReady = false;
 
     const childrenImReady = this.clone().on("error", e => {
@@ -175,9 +178,9 @@ class ImReadyManager extends Component<ImReadyEvents> {
 
     loader.on("requestChildren", () => {
       // has not data size
-      const children = getContentElements(element, tags, this.options.prefix);
+      const contentElements = getContentElements(element, tags, this.options.prefix);
 
-      childrenImReady.check(children).on("preReady", e => {
+      childrenImReady.check(contentElements).on("preReady", e => {
         withPreReady = e.isReady;
         if (!withPreReady) {
           loader.onPreReady();
@@ -187,8 +190,6 @@ class ImReadyManager extends Component<ImReadyEvents> {
       // has data size
       // loader call preReady
       // check only video, image elements
-      const children = toArray(element.querySelectorAll<HTMLElement>(tags.join(", ")));
-
       childrenImReady.check(children);
     }).on("requestDestroy", () => {
       childrenImReady.destroy();

@@ -1,9 +1,7 @@
-import { sandbox, cleanup, waitEvent, waitFor, getSize } from "./utils";
+import { sandbox, cleanup, waitEvent, getSize } from "./utils";
 import ImReady from "../../src/index";
 import { spy } from "sinon";
 import { toArray, innerWidth, innerHeight } from "../../src/utils";
-
-declare const viewport: any;
 
 describe("Test video", () => {
   let el: HTMLElement;
@@ -208,11 +206,12 @@ describe("Test video", () => {
     // maybe 400 x 400
     const size1 = getSize(video);
 
-    viewport.set(600, 400);
-    // When the network state is too early, an finish event occurs in an instant.
-    await waitFor(60);
 
-    // maybe 600 x 600
+    // The resize event is fired synchronously.
+    el.style.width = "90%";
+    window.dispatchEvent(new Event("resize"));
+
+    // maybe 360 x 360
     const size2 = getSize(video);
 
     await waitEvent(im, "ready");
@@ -248,10 +247,11 @@ describe("Test video", () => {
     const width1 = innerWidth(video);
     const height1 = innerHeight(video);
 
-    viewport.set(400, 600);
-    // When the network state is too early, an finish event occurs in an instant.
-    await waitFor(60);
-    // window size 600
+    // The resize event is fired synchronously.
+    el.style.height = "90%";
+    window.dispatchEvent(new Event("resize"));
+
+    // maybe 270 x 270
     const width2 = innerWidth(video);
     const height2 = innerHeight(video);
 

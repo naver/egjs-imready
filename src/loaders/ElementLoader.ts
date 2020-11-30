@@ -11,6 +11,9 @@ export class ElementLoader<T extends HTMLElement> extends Loader<T> {
   public static EVENTS: string[] = [];
   public options!: ImReadyLoaderOptions;
 
+  public setHasLoading(hasLoading: boolean) {
+    this.hasLoading = hasLoading;
+  }
   public checkElement() {
     if (!this.hasDataSize) {
       // has not data size
