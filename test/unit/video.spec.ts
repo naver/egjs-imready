@@ -1,4 +1,4 @@
-import { sandbox, cleanup, waitEvent, getSize } from "./utils";
+import { sandbox, cleanup, waitEvent, getSize, checkEventOrders, expectOrders } from "./utils";
 import ImReady from "../../src/index";
 import { spy } from "sinon";
 import { toArray, innerWidth, innerHeight } from "../../src/utils";
@@ -179,6 +179,8 @@ describe("Test video", () => {
     `;
     const readyElementSpy = spy();
     const readySpy = spy();
+    const events = checkEventOrders(im);
+
     im.on("readyElement", readyElementSpy);
     im.on("ready", readySpy);
 
@@ -188,9 +190,19 @@ describe("Test video", () => {
     await waitEvent(im, "ready");
 
     // Then
+    // skip
+    expect(events[0].isSkip).to.be.equals(true);
+    expect(events[1].isSkip).to.be.equals(true);
+    // no skip
+    expect(events[2].isSkip).to.be.equals(false);
     expect(readyElementSpy.callCount).to.be.equals(3);
     expect(readySpy.args[0][0].totalCount).to.be.equals(3);
     expect(im.getTotalCount()).to.be.equals(3);
+    expectOrders(events, [
+      "preReadyElement", "readyElement",
+      "preReadyElement", "preReadyElement", "preReady",
+      "readyElement", "readyElement", "ready",
+    ]);
   });
   it("should check that AutoSizer works when window resize (400 => 600)", async () => {
     // Given

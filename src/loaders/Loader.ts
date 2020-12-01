@@ -18,6 +18,7 @@ export default abstract class Loader<T extends HTMLElement = any> extends Compon
   protected isPreReady = false;
   protected hasDataSize = false;
   protected hasLoading = false;
+  protected isSkip = false;
 
   constructor(element: HTMLElement, options: Partial<ImReadyLoaderOptions> = {}) {
     super();
@@ -28,9 +29,10 @@ export default abstract class Loader<T extends HTMLElement = any> extends Compon
     this.element = element as T;
     this.hasDataSize = hasSizeAttribute(element, this.options.prefix);
     this.hasLoading = hasLoadingAttribute(element);
+    this.isSkip = hasSkipAttribute(this.element);
   }
   public check() {
-    if (hasSkipAttribute(this.element) || !this.checkElement()) {
+    if (this.isSkip || hasSkipAttribute(this.element) || !this.checkElement()) {
       // I'm Ready
       this.onAlreadyReady(true);
       return false;
@@ -93,6 +95,7 @@ export default abstract class Loader<T extends HTMLElement = any> extends Compon
     this.trigger("preReady", {
       element: this.element,
       hasLoading: this.hasLoading,
+      isSkip: this.isSkip,
     });
   }
   public onReady(withPreReady: boolean) {
@@ -108,6 +111,7 @@ export default abstract class Loader<T extends HTMLElement = any> extends Compon
       element: this.element,
       withPreReady,
       hasLoading: this.hasLoading,
+      isSkip: this.isSkip,
     });
   }
   public onAlreadyError(target: HTMLElement) {

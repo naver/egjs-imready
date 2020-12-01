@@ -35,6 +35,7 @@ export interface ElementInfo {
   isPreReady: boolean;
   hasLoading: boolean;
   isReady: boolean;
+  isSkip: boolean;
 }
 
 export interface AutoSizerElement extends HTMLElement {
@@ -79,6 +80,8 @@ export type OnPreReadyElement = {
   hasLoading: boolean;
   isPreReady: boolean;
   isReady: boolean;
+
+  isSkip: boolean;
 };
 
 /**
@@ -101,6 +104,7 @@ export type OnReadyElement = {
 
   hasError: boolean;
   isPreReadyOver: boolean;
+  isSkip: boolean;
 };
 
 /**
@@ -151,6 +155,7 @@ export type OnLoaderError = {
 export type OnLoaderPreReady = {
   element: HTMLElement;
   hasLoading: boolean;
+  isSkip: boolean;
 }
 /**
  * @memberof eg.ImReady
@@ -160,6 +165,7 @@ export type OnLoaderReady = {
   element: HTMLElement;
   withPreReady: boolean;
   hasLoading: boolean;
+  isSkip: boolean;
 }
 /**
  * @memberof eg.ImReady

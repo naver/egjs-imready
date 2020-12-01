@@ -217,7 +217,9 @@ describe("Test image", () => {
     expect(preReadyElementSpy.callCount).to.be.equals(1);
     expect(preReadySpy.args[0][0].totalCount).to.be.equals(1);
     expect(im.getTotalCount()).to.be.equals(1);
-
+    // skip
+    expect(events[0].isSkip).to.be.equals(true);
+    expect(events[1].isSkip).to.be.equals(true);
     expectOrders(events, [
       "preReadyElement", "readyElement",
       "preReady", "ready",
@@ -253,6 +255,11 @@ describe("Test image", () => {
     expect(preReadySpy.args[0][0].totalCount).to.be.equals(3);
     expect(im.getTotalCount()).to.be.equals(3);
 
+    // skip
+    expect(events[0].isSkip).to.be.equals(true);
+    expect(events[1].isSkip).to.be.equals(true);
+    // no skip
+    expect(events[2].isSkip).to.be.equals(false);
     // readyElement
     expect(events[6].isPreReadyOver).to.be.equals(true);
     expectOrders(events, [
