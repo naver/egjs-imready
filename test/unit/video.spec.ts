@@ -78,6 +78,7 @@ describe("Test video", () => {
     const e = errorSpy.args[0][0];
 
     // Then
+    expect(im.hasError()).to.be.true;
     expect(errorSpy.calledOnce).to.be.true;
     expect(readySpy.calledOnce).to.be.true;
 
@@ -99,13 +100,30 @@ describe("Test video", () => {
     // When
 
     im.check([el]);
+    // no error
+    const hasError1 = im.hasError();
 
     await waitEvent(im, "ready");
+
+    // occur error
+    const hasError2 = im.hasError();
 
     im.check([el]);
 
+    // no error
+    const hasError3 = im.hasError();
+
     await waitEvent(im, "ready");
+
+    // occur error
+    const hasError4 = im.hasError();
+
+
     // Then
+    expect(hasError1).to.be.false;
+    expect(hasError2).to.be.true;
+    expect(hasError3).to.be.false;
+    expect(hasError4).to.be.true;
     expect(errorSpy.callCount).to.be.equals(2);
     expect(readySpy.callCount).to.be.equals(2);
 

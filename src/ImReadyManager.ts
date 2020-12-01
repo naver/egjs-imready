@@ -132,6 +132,13 @@ class ImReadyManager extends Component<ImReadyEvents> {
     return this.elementInfos.every(info => info.isReady);
   }
   /**
+   * Whether an error occurred during check.
+   * @ko 체크하는 동안 에러가 났는지 여부
+   */
+  public hasError() {
+    return this.totalErrorCount > 0;
+  }
+  /**
    * Clears events of elements being checked.
    * @ko 체크 중인 엘리먼트들의 이벤트를 해제 한다.
    */

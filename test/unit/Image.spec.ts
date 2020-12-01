@@ -83,6 +83,7 @@ describe("Test image", () => {
     const e = errorSpy.args[0][0];
 
     // Then
+    expect(im.hasError()).to.be.true;
     expect(errorSpy.callCount).to.be.equals(2);
     expect(errorSpy.args[0][0].errorCount).to.be.equals(1);
     expect(errorSpy.args[0][0].totalErrorCount).to.be.equals(1);
@@ -114,13 +115,29 @@ describe("Test image", () => {
     // When
 
     im.check([el]);
+    // no error
+    const hasError1 = im.hasError();
 
     await waitEvent(im, "ready");
+
+    // occur error
+    const hasError2 = im.hasError();
 
     im.check([el]);
 
+    // no error
+    const hasError3 = im.hasError();
+
     await waitEvent(im, "ready");
+
+    const hasError4 = im.hasError();
+
     // Then
+
+    expect(hasError1).to.be.false;
+    expect(hasError2).to.be.true;
+    expect(hasError3).to.be.false;
+    expect(hasError4).to.be.true;
     expect(errorSpy.callCount).to.be.equals(2);
     expect(readySpy.callCount).to.be.equals(2);
     expect(preReadySpy.callCount).to.be.equals(2);
