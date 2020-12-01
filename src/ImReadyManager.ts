@@ -124,18 +124,25 @@ class ImReadyManager extends Component<ImReadyEvents> {
     return this.totalCount;
   }
   /**
-   * Whether the elements are all pre-ready (all sizes are known)
-   * @ko 엘리먼트들이 모두 사전 준비가 됐는지 (사이즈를 전부 알 수 있는지) 여부
+   * Whether the elements are all pre-ready. (all sizes are known)
+   * @ko 엘리먼트들이 모두 사전 준비가 됐는지 (사이즈를 전부 알 수 있는지) 여부.
    */
   public isPreReady() {
     return this.elementInfos.every(info => info.isPreReady);
   }
   /**
-   * Whether the elements are all ready
-   * @ko 엘리먼트들이 모두 준비가 됐는지 여부
+   * Whether the elements are all ready.
+   * @ko 엘리먼트들이 모두 준비가 됐는지 여부.
    */
   public isReady() {
     return this.elementInfos.every(info => info.isReady);
+  }
+  /**
+   * Whether an error has occurred in the elements in the current state.
+   * @ko 현재 상태에서 엘리먼트들이 에러가 발생했는지 여부.
+   */
+  public hasError() {
+    return this.totalErrorCount > 0;
   }
   /**
    * Clears events of elements being checked.
@@ -155,7 +162,7 @@ class ImReadyManager extends Component<ImReadyEvents> {
     this.elementInfos = [];
   }
   /**
-   * Destory all events .
+   * Destory all events.
    * @ko 모든 이벤트를 해제 한다.
    */
   public destroy() {
