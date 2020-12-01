@@ -6,7 +6,7 @@ MIT license
 import Component from "@egjs/component";
 import { ElementLoader } from "./loaders/ElementLoader";
 import { ArrayFormat, ElementInfo, ImReadyEvents, ImReadyLoaderOptions, ImReadyOptions } from "./types";
-import { hasSkipAttribute, toArray, getContentElements, hasLoadingAttribute } from "./utils";
+import { toArray, getContentElements, hasLoadingAttribute } from "./utils";
 /**
  * @alias eg.ImReady
  * @extends eg.Component
@@ -61,24 +61,29 @@ class ImReadyManager extends Component<ImReadyEvents> {
     const { prefix } = this.options;
 
     this.clear();
-    this.elementInfos = toArray(elements).filter(element => {
-      return !hasSkipAttribute(element, prefix);
-    }).map((element, index) => {
+    this.elementInfos = toArray(elements).map((element, index) => {
       const loader = this.getLoader(element, { prefix });
 
       loader.check();
       loader.on("error", e => {
         this.onError(index, e.target);
       }).on("preReady", e => {
-        this.elementInfos[index].hasLoading = e.hasLoading;
+        const info = this.elementInfos[index];
+
+        info.hasLoading = e.hasLoading;
+        info.isSkip = e.isSkip;
         const isPreReady = this.checkPreReady(index);
 
         this.onPreReadyElement(index);
 
         isPreReady && this.onPreReady();
-      }).on("ready", ({ withPreReady, hasLoading }) => {
+      }).on("ready", ({ withPreReady, hasLoading, isSkip }) => {
         // Pre-ready and ready occur simultaneously
-        this.elementInfos[index].hasLoading = hasLoading;
+        const info = this.elementInfos[index];
+
+        info.hasLoading = hasLoading;
+        info.isSkip = isSkip;
+
         const isPreReady = withPreReady && this.checkPreReady(index);
         const isReady = this.checkReady(index);
 
@@ -96,6 +101,7 @@ class ImReadyManager extends Component<ImReadyEvents> {
         hasError: false,
         isPreReady: false,
         isReady: false,
+        isSkip: false,
       };
     });
 
@@ -279,6 +285,7 @@ class ImReadyManager extends Component<ImReadyEvents> {
      * @param {boolean} [e.isPreReady] - Whether all elements are pre-ready <ko>모든 엘리먼트가 사전 준비가 끝났는지 여부</ko>
      * @param {boolean} [e.isReady] - Whether all elements are ready <ko>모든 엘리먼트가 준비가 끝났는지 여부</ko>
      * @param {boolean} [e.hasLoading] - Whether the loading attribute has been applied <ko>loading 속성이 적용되었는지 여부</ko>
+     * @param {boolean} [e.isSkip] - Whether the check is omitted due to skip attribute <ko>skip 속성으로 인하여 체크가 생략됐는지 여부</ko>
      * @example
      * ```html
      * <div>
@@ -313,6 +320,7 @@ class ImReadyManager extends Component<ImReadyEvents> {
       isPreReady: this.isPreReady(),
       isReady: this.isReady(),
       hasLoading: info.hasLoading,
+      isSkip: info.isSkip,
     });
   }
   private onPreReady() {
@@ -373,6 +381,7 @@ class ImReadyManager extends Component<ImReadyEvents> {
      * @param {boolean} [e.isReady] - Whether all elements are ready <ko>모든 엘리먼트가 준비가 끝났는지 여부</ko>
      * @param {boolean} [e.hasLoading] - Whether the loading attribute has been applied <ko>loading 속성이 적용되었는지 여부</ko>
      * @param {boolean} [e.isPreReadyOver] - Whether pre-ready is over <ko>사전 준비가 끝났는지 여부</ko>
+     * @param {boolean} [e.isSkip] - Whether the check is omitted due to skip attribute <ko>skip 속성으로 인하여 체크가 생략됐는지 여부</ko>
      * @example
      * ```html
      * <div>
@@ -413,6 +422,7 @@ class ImReadyManager extends Component<ImReadyEvents> {
 
       hasLoading: info.hasLoading,
       isPreReadyOver: this.isPreReadyOver,
+      isSkip: info.isSkip,
     });
   }
   private onReady() {

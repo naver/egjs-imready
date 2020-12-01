@@ -187,7 +187,44 @@ describe("Test image", () => {
     expect(size1[0]).to.be.equals(size1[1]);
     expect(size2[0]).to.be.not.equals(size2[1]);
   });
+  it("should checks to ignore even if there are images in the skip element.", async () => {
+    // Given
+    el.setAttribute("data-skip", "true");
+    el.innerHTML = `
+      <img src="https://naver.github.io/egjs-infinitegrid/assets/image/19.jpg" data-width="100" data-height="100" style="width: 100%;"/>
+      <img src="https://naver.github.io/egjs-infinitegrid/assets/image/20.jpg" data-width="100" data-height="100" style="width: 100%;"/>
+      <img src="https://naver.github.io/egjs-infinitegrid/assets/image/21.jpg" data-width="100" data-height="100" style="width: 100%;"/>
+    `;
+    const readyElementSpy = spy();
+    const readySpy = spy();
+    const preReadyElementSpy = spy();
+    const preReadySpy = spy();
+    const events = checkEventOrders(im);
 
+    im.on("preReadyElement", preReadyElementSpy);
+    im.on("preReady", preReadySpy);
+    im.on("readyElement", readyElementSpy);
+    im.on("ready", readySpy);
+
+    // When
+    im.check([el]);
+
+    await waitEvent(im, "ready");
+
+    // Then
+    expect(readyElementSpy.callCount).to.be.equals(1);
+    expect(readySpy.args[0][0].totalCount).to.be.equals(1);
+    expect(preReadyElementSpy.callCount).to.be.equals(1);
+    expect(preReadySpy.args[0][0].totalCount).to.be.equals(1);
+    expect(im.getTotalCount()).to.be.equals(1);
+    // skip
+    expect(events[0].isSkip).to.be.equals(true);
+    expect(events[1].isSkip).to.be.equals(true);
+    expectOrders(events, [
+      "preReadyElement", "readyElement",
+      "preReady", "ready",
+    ]);
+  });
   it("should check that ignored when the property include a skip attribute.", async () => {
     // Given
     el.innerHTML = `
@@ -212,15 +249,21 @@ describe("Test image", () => {
     await waitEvent(im, "ready");
 
     // Then
-    expect(readyElementSpy.callCount).to.be.equals(2);
-    expect(readySpy.args[0][0].totalCount).to.be.equals(2);
-    expect(preReadyElementSpy.callCount).to.be.equals(2);
-    expect(preReadySpy.args[0][0].totalCount).to.be.equals(2);
-    expect(im.getTotalCount()).to.be.equals(2);
+    expect(readyElementSpy.callCount).to.be.equals(3);
+    expect(readySpy.args[0][0].totalCount).to.be.equals(3);
+    expect(preReadyElementSpy.callCount).to.be.equals(3);
+    expect(preReadySpy.args[0][0].totalCount).to.be.equals(3);
+    expect(im.getTotalCount()).to.be.equals(3);
 
+    // skip
+    expect(events[0].isSkip).to.be.equals(true);
+    expect(events[1].isSkip).to.be.equals(true);
+    // no skip
+    expect(events[2].isSkip).to.be.equals(false);
     // readyElement
-    expect(events[4].isPreReadyOver).to.be.equals(true);
+    expect(events[6].isPreReadyOver).to.be.equals(true);
     expectOrders(events, [
+      "preReadyElement", "readyElement",
       "preReadyElement", "preReadyElement", "preReady",
       "readyElement", "readyElement", "ready",
     ]);

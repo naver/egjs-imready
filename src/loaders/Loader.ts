@@ -6,7 +6,7 @@ MIT license
 import Component from "@egjs/component";
 import { addAutoSizer, removeAutoSizer } from "../AutoSizer";
 import { ImReadyLoaderEvents, ImReadyLoaderOptions } from "../types";
-import { removeEvent, hasSizeAttribute, hasLoadingAttribute, addEvent } from "../utils";
+import { removeEvent, hasSizeAttribute, hasLoadingAttribute, addEvent, hasSkipAttribute } from "../utils";
 
 
 export default abstract class Loader<T extends HTMLElement = any> extends Component<ImReadyLoaderEvents> {
@@ -18,6 +18,7 @@ export default abstract class Loader<T extends HTMLElement = any> extends Compon
   protected isPreReady = false;
   protected hasDataSize = false;
   protected hasLoading = false;
+  protected isSkip = false;
 
   constructor(element: HTMLElement, options: Partial<ImReadyLoaderOptions> = {}) {
     super();
@@ -26,11 +27,12 @@ export default abstract class Loader<T extends HTMLElement = any> extends Compon
       ...options,
     };
     this.element = element as T;
-    this.hasDataSize = hasSizeAttribute(this.element, this.options.prefix);
-    this.hasLoading = hasLoadingAttribute(this.element);
+    this.hasDataSize = hasSizeAttribute(element, this.options.prefix);
+    this.hasLoading = hasLoadingAttribute(element);
+    this.isSkip = hasSkipAttribute(this.element);
   }
   public check() {
-    if (!this.checkElement()) {
+    if (this.isSkip || hasSkipAttribute(this.element) || !this.checkElement()) {
       // I'm Ready
       this.onAlreadyReady(true);
       return false;
@@ -93,6 +95,7 @@ export default abstract class Loader<T extends HTMLElement = any> extends Compon
     this.trigger("preReady", {
       element: this.element,
       hasLoading: this.hasLoading,
+      isSkip: this.isSkip,
     });
   }
   public onReady(withPreReady: boolean) {
@@ -108,6 +111,7 @@ export default abstract class Loader<T extends HTMLElement = any> extends Compon
       element: this.element,
       withPreReady,
       hasLoading: this.hasLoading,
+      isSkip: this.isSkip,
     });
   }
   public onAlreadyError(target: HTMLElement) {
