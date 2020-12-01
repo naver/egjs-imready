@@ -130,6 +130,7 @@ describe("Test image", () => {
 
     await waitEvent(im, "ready");
 
+    // occur error
     const hasError4 = im.hasError();
 
     // Then
