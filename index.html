@@ -281,28 +281,13 @@ function App() {
         <p class="copy">© NAVER Corp.</p>
     </div>
 </body>
+<!-- <script src="../dist/imready.js"></script> -->
 <script src="./release/latest/dist/imready.js"></script>
 <script src="./prism.js"></script>
 <script>
     const totalCount = 25;
     let im;
-    let queue = [];
-    let queueTimer = 0;
-    function executeQueue() {
-        if (queueTimer) {
-            return;
-        }
-        queueTimer = requestAnimationFrame(() => {
-            queueTimer = 0;
-            const func = queue.shift();
 
-            if (!func) {
-                return;
-            }
-            func();
-            executeQueue();
-        });
-    }
     function check() {
         if (im) {
             im.destroy();
@@ -316,41 +301,35 @@ function App() {
         progressElement.innerHTML = "0%";
         backgroundElement.innerHTML = "";
 
+        for (let i = 0; i < totalCount; ++i) {
+            const img = document.createElement("img");
+            img.style.opacity = 0;
 
+            fragment.appendChild(img);
+        }
         backgroundElement.appendChild(fragment);
 
         const imgs = [].slice.call(backgroundElement.children);
         im = new eg.ImReady();
-        queue = [];
-        queueTimer = 0;
 
         let count = 0;
-        requestAnimationFrame(function insert() {
+
+
+        setTimeout(function insert() {
             // https://naver.github.io/egjs-infinitegrid/assets/image/1.jpg
-
-            const img = document.createElement("img");
-            img.style.opacity = 1;
-            img.src = `https://naver.github.io/egjs-infinitegrid/assets/image/${count + 1}.jpg`;
-            backgroundElement.appendChild(img);
-
+            imgs[count].style.opacity = 1;
+            imgs[count].src = `https://naver.github.io/egjs-infinitegrid/assets/image/${count + 1}.jpg`;
 
             if (++count >= totalCount) {
-                im.check(document.querySelectorAll("img")).on("readyElement", e => {
-                    queue.push(() => {
-                        progressElement.innerHTML = `${Math.floor(e.readyCount / e.totalCount * 100)}%`;
-                    });
-                    executeQueue();
-                }).on("ready", e => {
-                    queue.push(() => {
-                        titleElement.innerHTML = "I'm Ready!";
-                    });
-                    executeQueue();
-                });
                 return;
             }
-            requestAnimationFrame(insert);
+            setTimeout(insert, 100);
+        }, 100);
+        im.check(document.querySelectorAll("img")).on("readyElement", e => {
+            progressElement.innerHTML = `${Math.floor(e.readyCount / e.totalCount * 100)}%`;
+        }).on("ready", e => {
+            titleElement.innerHTML = "I'm Ready!";
         });
-
 
     }
 
