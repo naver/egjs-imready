@@ -10,14 +10,15 @@ export default class ImageLoader extends Loader<HTMLImageElement> {
   public static EVENTS = ["load", "error"];
   public checkElement() {
     const element = this.element;
-    if (element.complete && (!IS_IE || !!element.naturalWidth)) {
+    const src = element.getAttribute("src");
+    if (element.complete && src) {
       if (!element.naturalWidth) {
-        this.onAlreadyError(this.element);
+        this.onAlreadyError(element);
       }
       return false;
     }
     this.addEvents();
-    IS_IE && element.setAttribute("src", element.getAttribute("src") as string);
+    IS_IE && element.setAttribute("src", src!);
     return true;
   }
 }

@@ -1,4 +1,4 @@
-import { sandbox, cleanup, waitEvent, getSize, checkEventOrders, expectOrders } from "./utils";
+import { sandbox, cleanup, waitEvent, getSize, checkEventOrders, expectOrders, waitFor } from "./utils";
 import ImReady from "../../src/index";
 import { spy } from "sinon";
 import { toArray, innerWidth, innerHeight } from "../../src/utils";
@@ -391,7 +391,7 @@ describe("Test image", () => {
     expect(size1[1]).to.be.not.equals(size2[1]);
 
     // ready
-    expect(size2[0]).to.be. equals(size3[0]);
+    expect(size2[0]).to.be.equals(size3[0]);
     expect(size2[1]).to.be.not.equals(size3[1]);
   });
   it("should check that AutoSizer works when data-fixed='height' and window height (400 => 600)", async () => {
@@ -435,5 +435,36 @@ describe("Test image", () => {
     // ready
     expect(height2).to.be.equals(height3);
     expect(width2).to.be.not.equals(width3);
+  });
+  it("should check whether the image of empty src is checked even if it is complete", async () => {
+    // Given
+    el.innerHTML = `<img />`;
+
+    const img = el.querySelector("img");
+
+    Object.defineProperty(img, "complete", {
+      value: true,
+    });
+    const events = checkEventOrders(im);
+
+    // When
+    im.check([el]);
+
+    // The ready event does not occur immediately.
+    await waitFor(100);
+
+    const isReady1 = im.isReady();
+    img.src = "https://naver.github.io/egjs-infinitegrid/assets/image/22.jpg";
+
+    await waitEvent(im, "ready");
+    const isReady2 = im.isReady();
+
+    // Then
+    expect(isReady1).to.be.false;
+    expect(isReady2).to.be.true;
+    expectOrders(events, [
+      "preReadyElement", "readyElement",
+      "preReady", "ready",
+    ]);
   });
 });
