@@ -3,6 +3,7 @@ egjs-imready
 Copyright (c) 2020-present NAVER Corp.
 MIT license
 */
+import { addAutoSizer } from "../AutoSizer";
 import { ImReadyLoaderOptions } from "../types";
 import Loader from "./Loader";
 
@@ -14,11 +15,23 @@ export class ElementLoader<T extends HTMLElement> extends Loader<T> {
   public setHasLoading(hasLoading: boolean) {
     this.hasLoading = hasLoading;
   }
-  public checkElement() {
-    if (!this.hasDataSize) {
+  public check() {
+    if (this.isSkip) {
+      // I'm Ready
+      this.onAlreadyReady(true);
+      return false;
+    }
+
+    if (this.hasDataSize) {
+      addAutoSizer(this.element, this.options.prefix);
+      this.onAlreadyPreReady();
+    } else {
       // has not data size
       this.trigger("requestChildren");
     }
+    return true;
+  }
+  public checkElement() {
     return true;
   }
   public destroy() {

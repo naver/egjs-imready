@@ -321,6 +321,52 @@ describe("Test image", () => {
       "preReadyElement", "preReady", "readyElement", "ready",
     ]);
   });
+  it("should check that call preReady if include the loading img and not loading img.", async () => {
+    // Given
+    el.innerHTML = `
+      <img src="https://naver.github.io/egjs-infinitegrid/assets/image/23.jpg" loading="lazy"/>
+      <img src="https://naver.github.io/egjs-infinitegrid/assets/image/24.jpg"/>
+    `;
+
+    const imgs = el.querySelectorAll("img");
+
+    // inject loading attribute for not supported browser
+    imgs[0].setAttribute("loading", "lazy");
+    Object.defineProperty(imgs[0], "loading", {
+      value: "lazy",
+    });
+
+    const events = checkEventOrders(im);
+
+    // When
+    im.check([el]);
+
+    await waitEvent(im, "preReady");
+    // loading element1 is preReady
+    const element1Size1 = getSize(imgs[0]);
+    // no loading element2 is also preReady
+    const element2Size1 = getSize(imgs[1]);
+
+    await waitEvent(im, "ready");
+    // loading element1 is preReady
+    const element1Size2 = getSize(imgs[0]);
+    // no loading element2 is also preReady
+    const element2Size2 = getSize(imgs[1]);
+
+    // Then
+    expect(element1Size1).to.be.deep.equals([0, 0]);
+    expect(element2Size1).to.be.not.deep.equals([0, 0]);
+    expect(element1Size2).to.be.not.deep.equals([0, 0]);
+    // It is the same because preReady and ready occur at the same time.
+    expect(element2Size2).to.be.deep.equals(element2Size1);
+    // preReadyElement
+    expect(events[0].hasLoading).to.be.equals(true);
+    // preReady
+    expect(events[1].hasLoading).to.be.equals(true);
+    expectOrders(events, [
+      "preReadyElement", "preReady", "readyElement", "ready",
+    ]);
+  });
   it("should check that call preReady if include the loading attribute.", async () => {
     // Given
     el.innerHTML = `
