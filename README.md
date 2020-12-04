@@ -98,7 +98,13 @@ The following are the supported browsers.
 
 |Internet Explorer|Chrome|Firefox|Safari|iOS|Android|
 |---|---|---|---|---|---|
-|9+(polyfill 8+)|Latest|Latest|Latest|7+|2.3+(except 3.x)|
+|9+(polyfill 8+)|Latest|Latest|Latest|7+|4+(polyfill 2.2+)|
+
+### **Use polyfill if you want to use it in a lower version browser.**
+   * Array.prototype.forEach
+   * Array.prototype.map
+   * Array.prototype.some
+   * Array.prototype.filter
 
 
 ## How to start developing egjs-imready?

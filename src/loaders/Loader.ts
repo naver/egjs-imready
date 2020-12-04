@@ -32,7 +32,7 @@ export default abstract class Loader<T extends HTMLElement = any> extends Compon
     this.isSkip = hasSkipAttribute(this.element);
   }
   public check() {
-    if (this.isSkip || hasSkipAttribute(this.element) || !this.checkElement()) {
+    if (this.isSkip || !this.checkElement()) {
       // I'm Ready
       this.onAlreadyReady(true);
       return false;
