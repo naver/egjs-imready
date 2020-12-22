@@ -29,7 +29,7 @@ export default buildHelper([
 		input: "./src/index.umd.ts",
 		output: "./dist/imready.cjs.js",
 		format: "cjs",
-		exports: "named",
+		exports: "default",
 	},
 	{
 		input: "./src/index.ts",
