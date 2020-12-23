@@ -335,6 +335,24 @@ describe("Test image", () => {
     Object.defineProperty(imgs[0], "loading", {
       value: "lazy",
     });
+    // preReady(loading) => (preReady => ready)(not loading) => ready(loading)
+    // Complete a little faster than the network.
+    setTimeout(() => {
+      Object.defineProperty(imgs[1], "naturalWidth", {
+        value: 1920,
+      });
+      Object.defineProperty(imgs[1], "naturalHeight", {
+        value: 1080,
+      });
+      Object.defineProperty(imgs[1], "clientWidth", {
+        value: 1920,
+      });
+      Object.defineProperty(imgs[1], "clientHeight", {
+        value: 1080,
+      });
+      imgs[1].dispatchEvent(new Event("load"));
+    }, 30);
+
 
     const events = checkEventOrders(im);
 
