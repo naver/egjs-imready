@@ -54,12 +54,16 @@ export default abstract class Loader<T extends HTMLElement = any> extends Compon
       addEvent(element, name, this.onCheck);
     });
   }
-  public destroy() {
+  public clear() {
     const element = this.element;
     (this.constructor as typeof Loader).EVENTS.forEach(name => {
       removeEvent(element, name, this.onCheck);
     });
     this.removeAutoSizer();
+  }
+  public destroy() {
+    this.clear();
+    this.off();
   }
   public removeAutoSizer() {
     if (this.hasDataSize) {
@@ -70,7 +74,7 @@ export default abstract class Loader<T extends HTMLElement = any> extends Compon
     }
   }
   public onCheck = (e?: Event) => {
-    this.destroy();
+    this.clear();
 
 
     if (e && e.type === "error") {

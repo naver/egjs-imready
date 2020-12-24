@@ -529,4 +529,27 @@ describe("Test image", () => {
       "preReady", "ready",
     ]);
   });
+  it("should check that the ready event does not occur if you destroy before preReady.", async () => {
+    // Given
+    el.innerHTML = `
+      <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-width="1920" data-height="1080"/>
+    `;
+    const readySpy = spy();
+
+    const preReadySpy = spy();
+
+
+    im.on("preReady", preReadySpy);
+    im.on("ready", readySpy);
+
+    // When
+    im.check([el.querySelector("img")]);
+    im.destroy();
+
+    await waitFor(100);
+
+    // Then
+    expect(readySpy.callCount).to.be.equal(0);
+    expect(preReadySpy.callCount).to.be.equal(0);
+  });
 });
