@@ -35,8 +35,9 @@ export class ElementLoader<T extends HTMLElement> extends Loader<T> {
     return true;
   }
   public destroy() {
-    this.removeAutoSizer();
+    this.clear();
     this.trigger("requestDestroy");
+    this.off();
   }
   public onAlreadyPreReady() {
     // has data size

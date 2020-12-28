@@ -78,7 +78,6 @@ class ImReadyManager extends Component<ImReadyEvents> {
 
         isPreReady && this.onPreReady();
       }).on("ready", ({ withPreReady, hasLoading, isSkip }) => {
-        // Pre-ready and ready occur simultaneously
         const info = this.elementInfos[index];
 
         info.hasLoading = hasLoading;
@@ -87,6 +86,7 @@ class ImReadyManager extends Component<ImReadyEvents> {
         const isPreReady = withPreReady && this.checkPreReady(index);
         const isReady = this.checkReady(index);
 
+        // Pre-ready and ready occur simultaneously
         withPreReady && this.onPreReadyElement(index);
         this.onReadyElement(index);
 

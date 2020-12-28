@@ -325,7 +325,7 @@ describe("Test image", () => {
     // Given
     el.innerHTML = `
       <img src="https://naver.github.io/egjs-infinitegrid/assets/image/23.jpg" loading="lazy"/>
-      <img src="https://naver.github.io/egjs-infinitegrid/assets/image/24.jpg"/>
+      <img />
     `;
 
     const imgs = el.querySelectorAll("img");
@@ -355,17 +355,19 @@ describe("Test image", () => {
 
 
     const events = checkEventOrders(im);
+    const preReadyEvent = waitEvent(im, "preReady");
+    const readyEvent = waitEvent(im, "ready");
 
     // When
     im.check([el]);
 
-    await waitEvent(im, "preReady");
+    await preReadyEvent;
     // loading element1 is preReady
     const element1Size1 = getSize(imgs[0]);
     // no loading element2 is also preReady
     const element2Size1 = getSize(imgs[1]);
 
-    await waitEvent(im, "ready");
+    await readyEvent;
     const element1Size2 = getSize(imgs[0]);
     const element2Size2 = getSize(imgs[1]);
 
@@ -528,5 +530,28 @@ describe("Test image", () => {
       "preReadyElement", "readyElement",
       "preReady", "ready",
     ]);
+  });
+  it("should check that the ready event does not occur if you destroy before preReady.", async () => {
+    // Given
+    el.innerHTML = `
+      <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-width="1920" data-height="1080"/>
+    `;
+    const readySpy = spy();
+
+    const preReadySpy = spy();
+
+
+    im.on("preReady", preReadySpy);
+    im.on("ready", readySpy);
+
+    // When
+    im.check([el.querySelector("img")]);
+    im.destroy();
+
+    await waitFor(100);
+
+    // Then
+    expect(readySpy.callCount).to.be.equal(0);
+    expect(preReadySpy.callCount).to.be.equal(0);
   });
 });
