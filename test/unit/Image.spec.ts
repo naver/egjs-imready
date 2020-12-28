@@ -355,17 +355,19 @@ describe("Test image", () => {
 
 
     const events = checkEventOrders(im);
+    const preReadyEvent = waitEvent(im, "preReady");
+    const readyEvent = waitEvent(im, "ready");
 
     // When
     im.check([el]);
 
-    await waitEvent(im, "preReady");
+    await preReadyEvent;
     // loading element1 is preReady
     const element1Size1 = getSize(imgs[0]);
     // no loading element2 is also preReady
     const element2Size1 = getSize(imgs[1]);
 
-    await waitEvent(im, "ready");
+    await readyEvent;
     const element1Size2 = getSize(imgs[0]);
     const element2Size2 = getSize(imgs[1]);
 
