@@ -325,7 +325,7 @@ describe("Test image", () => {
     // Given
     el.innerHTML = `
       <img src="https://naver.github.io/egjs-infinitegrid/assets/image/23.jpg" loading="lazy"/>
-      <img src="https://naver.github.io/egjs-infinitegrid/assets/image/24.jpg"/>
+      <img />
     `;
 
     const imgs = el.querySelectorAll("img");
