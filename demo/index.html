@@ -217,6 +217,9 @@
                     <a href="https://github.com/naver/egjs-imready/blob/main/packages/react-imready/README.md"
                         target="_blank"><img alt="React"
                             src="https://img.shields.io/static/v1.svg?label=&message=React&style=flat-square&logo=React&logoColor=white&color=61dafb"></a>
+                    <a href="https://github.com/naver/egjs-imready/blob/main/packages/vue-imready/README.md"
+                        target="_blank"><img alt="Vue"
+                            src="https://img.shields.io/static/v1.svg?label=&message=Vue&style=flat-square&logo=vue.js&logoColor=white&color=42b883"></a>
                 </p>
                 <p class="description">I'm Ready to check if the images or videos are loaded!</p>
                 <div class="buttons">
@@ -267,7 +270,39 @@ function App() {
     &lt;/div>);
 }
     </code></pre>
-        </div>
+    <h3>Vue</h3>
+        <pre><code class="language-html">
+&lt;template>
+    &lt;div class="page">
+        &lt;div class="background" v-bind:ref="im.register()">
+            &lt;img src="..." />
+            &lt;img src="..." />
+            &lt;img src="..." />
+            &lt;img src="..." />
+            &lt;img src="..." />
+            &lt;img src="..." />
+        &lt;/div>
+        &lt;div class="container">
+            &lt;h1>{{im.isReady ? "Are you Ready?" : "I'm Ready"}}&lt;/h1>
+            &lt;p class="progress">{{im.totalCount ? Math.floor(im.readyCount / im.totalCount * 100) : 0}}%&lt;/p>
+        &lt;/div>
+    &lt;/div>
+&lt;/template>
+&lt;script>
+import { useImReady, useReadyElement } from "@egjs/vue-imready";
+
+export default {
+    setup() {
+        const im = useReadyElement({
+            selector: "img",
+        });
+        return {
+            im,
+        };
+    },
+}
+&lt;/script>
+    </code></pre>
     </div>
     <div class="page footer">
         <p>
