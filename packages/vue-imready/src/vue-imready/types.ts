@@ -3,7 +3,7 @@ import { Ref } from 'vue';
 
 /**
  * @typedef
- * @memberof ReactImReady
+ * @memberof VueImReady
  * @property - Ref function that can register the element to be checked <ko>체크할 엘리먼트를 등록할 수 있는 ref 함수</ko>
  * @property - Whether there is an error in the element <ko>해당 엘리먼트에 에러가 있는지 여부</ko>
  * @property - The number of elements with errors <ko>에러가 있는 엘리먼트들의 개수</ko>
@@ -16,7 +16,7 @@ import { Ref } from 'vue';
  * @property - Whether pre-ready is over <ko>사전 준비가 끝났는지 여부</ko>
  */
 export interface ImReadyValue {
-  register<T extends HTMLElement>(ref?: Ref<T> | ((el: T) => any)): (el: T) => any;
+  register<T extends HTMLElement>(ref?: Ref<T | null> | ((el: T | null) => any)): (el: T | null) => any;
   hasError: boolean;
   errorCount: number;
   totalErrorCount: number;
@@ -29,7 +29,7 @@ export interface ImReadyValue {
 }
 /**
  * @typedef
- * @memberof ReactImReady
+ * @memberof VueImReady
  * @extends eg.ImReady.ImReadyOptions
  * @property - Find the children of the element registered with the `register` function through the selector. (default: "") <ko>selector를 통해 `register` 함수로 등록한 엘리먼트의 children을를 찾는다. (default: "")</ko>
  * @property - Whether to use the `readyElement` event. You can use the `readyCount`, `isPreReadyOver` value. (default: true) <ko>`readyElement` 이벤트를 사용할지 여부. `readyCount`, `isPreReadyOver` 값을 사용할 수 있다. (default: true)</ko>
