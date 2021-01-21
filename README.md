@@ -1,4 +1,4 @@
-<p align="middle" ><img src="./demo/images/logo.png"/></p>
+<p align="middle" ><img src="https://github.com/naver/egjs-imready/raw/main/demo/images/logo.png"/></p>
 <h2 align="middle">I'm Ready</h2>
 <p align="middle">
 <a href="https://www.npmjs.com/package/@egjs/imready" target="_blank"><img src="https://img.shields.io/npm/v/@egjs/imready.svg?style=flat-square&color=007acc&label=version" alt="npm version" /></a>
@@ -7,6 +7,7 @@
 <a href="https://coveralls.io/github/naver/egjs-imready?branch=main&style=flat-square" target="_blank"><img alt="Coveralls github" src="https://img.shields.io/coveralls/github/naver/egjs-imready.svg?style=flat-square&label=%E2%9C%85%20coverage"></a>
 <a href="https://github.com/naver/egjs-imready/blob/main/LICENSE" target="_blank"><img src="https://img.shields.io/static/v1?style=flat-square&label=license&message=MIT&color=08CE5D"/></a>
 <a href="https://github.com/naver/egjs-imready/tree/main/packages/react-imready" target="_blank"><img alt="React" src="https://img.shields.io/static/v1.svg?label=&message=React&style=flat-square&color=61daeb"></a>
+<a href="https://github.com/naver/egjs-imready/tree/main/packages/vue-imready" target="_blank"><img alt="Vue" src="https://img.shields.io/static/v1.svg?label=&message=Vue&style=flat-square&color=42b883"></a>
 </p>
 <p align="middle">I'm Ready to check if the images or videos are loaded!</p>
 <p align="middle">
