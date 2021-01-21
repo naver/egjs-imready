@@ -1,18 +1,30 @@
 {
-  "name": "vue-imready",
-  "version": "0.1.0",
-  "private": true,
+  "name": "@egjs/vue-imready",
+  "version": "1.0.0",
+  "description": "This react module is used to wait for the image or video to be ready.",
+  "main": "dist/imready.cjs.js",
+  "module": "dist/imready.esm.js",
+  "types": "declaration/index.d.ts",
+  "sideEffects": false,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/naver/egjs-imready"
+  },
+  "author": {
+    "name": "NAVER Corp."
+  },
+  "license": "MIT",
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "build": "rollup -c && npm run declaration && print-sizes ./dist ",
+    "declaration": "rm -rf declaration && tsc -p tsconfig.declaration.json"
   },
   "dependencies": {
-    "@egjs/imready": "^0.1.0",
-    "core-js": "^3.6.5",
-    "vue": "^3.0.0"
+    "@egjs/imready": "^0.1.0"
   },
   "devDependencies": {
+    "@egjs/build-helper": "^0.1.2",
     "@typescript-eslint/eslint-plugin": "^2.33.0",
     "@typescript-eslint/parser": "^2.33.0",
     "@vue/cli-plugin-babel": "~4.5.0",
@@ -21,8 +33,11 @@
     "@vue/cli-service": "~4.5.0",
     "@vue/compiler-sfc": "^3.0.0",
     "@vue/eslint-config-typescript": "^5.0.2",
+    "core-js": "^3.6.5",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^7.0.0-0",
-    "typescript": "~3.9.3"
+    "print-sizes": "^0.1.0",
+    "typescript": "~3.9.3",
+    "vue": "^3.0.0"
   }
 }
