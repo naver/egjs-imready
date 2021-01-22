@@ -1,15 +1,13 @@
 <p align="middle" ><img src="https://github.com/naver/egjs-imready/raw/main/demo/images/logo.png"/></p>
-<h2 align="middle">I'm Ready</h2>
+<h2 align="middle">I'm Vue Ready</h2>
 <p align="middle">
-<a href="https://www.npmjs.com/package/@egjs/imready" target="_blank"><img src="https://img.shields.io/npm/v/@egjs/imready.svg?style=flat-square&color=007acc&label=version" alt="npm version" /></a>
+<a href="https://www.npmjs.com/package/@egjs/vue-imready" target="_blank"><img src="https://img.shields.io/npm/v/@egjs/vue-imready.svg?style=flat-square&color=007acc&label=version" alt="npm version" /></a>
 <img src="https://img.shields.io/badge/language-typescript-blue.svg?style=flat-square"/>
 <a href="https://travis-ci.org/naver/egjs-imready" target="_blank"><img alt="Travis (.org)" src="https://img.shields.io/travis/naver/egjs-imready.svg?style=flat-square&label=build" /></a>
-<a href="https://coveralls.io/github/naver/egjs-imready?branch=main&style=flat-square" target="_blank"><img alt="Coveralls github" src="https://img.shields.io/coveralls/github/naver/egjs-imready.svg?style=flat-square&label=%E2%9C%85%20coverage"></a>
-<a href="https://github.com/naver/egjs-imready/blob/main/LICENSE" target="_blank"><img src="https://img.shields.io/static/v1?style=flat-square&label=license&message=MIT&color=08CE5D"/></a>
-<a href="https://github.com/naver/egjs-imready/tree/main/packages/react-imready" target="_blank"><img alt="React" src="https://img.shields.io/static/v1.svg?label=&message=React&style=flat-square&color=61daeb"></a>
-<a href="https://github.com/naver/egjs-imready/tree/main/packages/vue-imready" target="_blank"><img alt="Vue" src="https://img.shields.io/static/v1.svg?label=&message=Vue&style=flat-square&color=42b883"></a>
+<a href="https://github.com/naver/egjs-imready/blob/main/LICENSE" target="_blank"><img src="https://img.shields.io/github/license/naver/egjs-imready.svg?style=flat-square&label=license&color=08CE5D"/></a>
+<a href="https://github.com/naver/egjs-imready/tree/main/packages/vue-imready" target="_blank"><img alt="Vue" src="https://img.shields.io/static/v1.svg?label=&message=Vue&style=flat-square&color=61daeb"></a>
 </p>
-<p align="middle">I'm Ready to check if the images or videos are loaded!</p>
+<p align="middle">I'm Vue Ready to check if the images or videos are loaded!</p>
 <p align="middle">
     <a href="https://naver.github.io/egjs-imready" target="_blank"><strong>Demo</strong></a> /
     <a href="https://naver.github.io/egjs-imready/release/latest/doc/" target="_blank"><strong>API</strong></a>
@@ -31,33 +29,158 @@
 Download dist files from repo directly or install it via npm.
 
 ```bash
-$ npm install @egjs/imready
-```
-
-```html
-<script src="//naver.github.io/egjs-imready/release/latest/dist/imready.min.js"></script>
+$ npm install @egjs/vue-imready
 ```
 
 ## How to use
-```js
-import ImReady from "@egjs/imready";
+```tsx
+import {
+    useImReady,
+    useReady,
+    useReadyElement,
+    usePreReady,
+    usePreReadyElement,
+} from "@egjs/vue-imready";
 
-const im = new ImReady().on("preReady", () => {
-   // I'm pre-ready
-}).on("ready", () => {
-   // I'm ready
-});
-
-// check element
-im.check([element]);
 ```
 
-* When the `loading="lazy"` attribute is used, the `preReadyElement`(hasLoading=true) event occurs and the size is 0. When loading is complete, the `readyElement`(hasLoading=true) event occurs and you can get the size.
+* Use readyElement (useReadyElement: true, useReady: true, useError: true)
 ```html
-<img src="..." />
-<img src="..." />
-<img src="..." loading="lazy" />
+<template>
+    <div v-bind:ref="im.register()">
+        <h2>{{im.isReady ? "I'm Ready" : "Loading..."}}</h2>
+        <h2>{{im.readyCount}}/{{im.totalCount}}</h2>
+        <img src=".." />
+        <img src=".." />
+        <img src=".." />
+    </div>
+</template>
+<script>
+import { useReadyElement } from "@egjs/vue-imready";
+
+export default {
+    setup() {
+        const im = useReadyElement({
+            selector: "img",
+        });
+        return {
+            im,
+        }
+    }
+}
+</script>
 ```
+
+* Use ready (useReady: true)
+```html
+<template>
+    <div v-bind:ref="im.register()">
+        <h2>{{im.isReady ? "I'm Ready" : "Loading..."}}</h2>
+        <img src=".." />
+        <img src=".." />
+        <img src=".." />
+    </div>
+</template>
+<script>
+import { useReady } from "@egjs/vue-imready";
+
+export default {
+    setup() {
+        const im = useReady({
+            selector: "img",
+        });
+        return {
+            im,
+        }
+    }
+}
+</script>
+```
+* Use preReadyElement (usePreReadyElement: true, usePreReady: true)
+```html
+<template>
+    <div v-bind:ref="im.register()">
+        <h2>{{im.isPreReady ? "I'm PreReady" : "Loading..."}}</h2>
+        <h2>{{im.preReadyCount}}/{{im.totalCount}}</h2>
+        <img src=".." />
+        <img src=".." />
+        <img src=".." />
+    </div>
+</template>
+<script>
+import { usePreReadyElement } from "@egjs/vue-imready";
+
+export default {
+    setup() {
+        const im = usePreReadyElement({
+            selector: "img",
+        });
+        return {
+            im,
+        }
+    }
+}
+</script>
+```
+
+
+* Use preReady (usePreReady: true)
+```html
+<template>
+    <div v-bind:ref="im.register()">
+        <h2>{{im.isPreReady ? "I'm PreReady" : "Loading..."}}</h2>
+        <img src=".." />
+        <img src=".." />
+        <img src=".." />
+    </div>
+</template>
+<script>
+import { usePreReady } from "@egjs/vue-imready";
+
+export default {
+    setup() {
+        const im = usePreReady({
+            selector: "img",
+        });
+        return {
+            im,
+        }
+    }
+}
+</script>
+```
+
+
+
+* Use useImReady (*: true)
+```html
+<template>
+    <div v-bind:ref="im.register()">
+        <h2>{{im.isReady ? "I'm Ready" : "Loading..."}}</h2>
+        <h2>{{im.readyCount}}/{{im.totalCount}}</h2>
+        <h2>{{im.isPreReady ? "I'm PreReady" : "Loading..."}}</h2>
+        <h2>{{im.preReadyCount}}/{{im.totalCount}}</h2>
+        <img src=".." />
+        <img src=".." />
+        <img src=".." />
+    </div>
+</template>
+<script>
+import { useImReady } from "@egjs/vue-imready";
+
+export default {
+    setup() {
+        const im = useImReady({
+            selector: "img",
+        });
+        return {
+            im,
+        }
+    }
+}
+</script>
+```
+
 * If you use `data-width` and `data-height` attributes, the size of self, child image, and video elements is automatically adjusted until loading is complete.
 ```html
 <div data-width="100" data-height="100">
@@ -67,7 +190,7 @@ im.check([element]);
 </div>
 ```
 
-* If you use `data-skip="true"` attribute, you can omit it even if there are images in itself and child image, and video elements.
+* If you use `data-skip="ture"` attribute, you can omit it even if there are images in itself and child image, and video elements.
 ```html
 <div data-skip="true">
    <img src="..." />
@@ -93,21 +216,6 @@ preReadyElement * N => (preReadyElement => readyElement) x M => **preReady** =>
 readyElement(isPreReadyOver: true) x N => **ready**
 
 
-
-## Supported Browsers
-The following are the supported browsers.
-
-|Internet Explorer|Chrome|Firefox|Safari|iOS|Android|
-|---|---|---|---|---|---|
-|9+(polyfill 8+)|Latest|Latest|Latest|7+|4+(polyfill 2.2+)|
-
-### **Use polyfill if you want to use it in a lower version browser.**
-* Array.prototype.forEach
-* Array.prototype.map
-* Array.prototype.some
-* Array.prototype.filter
-
-
 ## How to start developing egjs-imready?
 
 For anyone interested to develop egjs-imready, follow the instructions below.
@@ -121,52 +229,24 @@ Clone the egjs-imready repository and install the dependency modules.
 ```bash
 # Clone the repository.
 $ git clone https://github.com/naver/egjs-imready.git
+$ cd egjs-imready/packages/vue-imready
 ```
 
-#### 2. Install dependencies
 
+## Project setup
 ```
-# Install the dependency modules.
-$ npm install
-```
-
-#### 3. Build
-
-Use npm script to build eg.ImReady
-
-```bash
-# Run webpack-dev-server for development
-$ npm start
-
-# Build
-$ npm run build
-
-# Generate jsdoc
-$ npm run jsdoc
+npm install
 ```
 
-Two folders will be created after complete build is completed.
-
-- **dist** folder: Includes the **imready.js** and **imready.min.js** files.
-- **doc** folder: Includes API documentation. The home page for the documentation is **doc/index.html**.
-
-### Linting
-
-To keep the same code style, we adopted [ESLint](http://eslint.org/) to maintain our code quality. The [rules](https://github.com/naver/eslint-config-naver/tree/main/rules) are modified version based on [Airbnb JavaScript Style Guide](https://github.com/airbnb/javascript).
-Setup your editor for check or run below command for linting.
-
-```bash
-$ npm run lint
+### Compiles and hot-reloads for development
+```
+npm run serve
 ```
 
-### Test
-
-Once you created a branch and done with development, you must perform a test running with `npm test` command before your push the code to a remote repository.
-
-```bash
-$ npm run test
+### Compiles and minifies for production
 ```
-Running `npm test` command will start [Mocha](https://mochajs.org/) tests via [Karma-runner](https://karma-runner.github.io/).
+npm run build
+```
 
 
 ## Bug Report
@@ -200,13 +280,13 @@ THE SOFTWARE.
 ```
 
 <!-- badges -->
-[badge-version]: https://img.shields.io/npm/v/@egjs/imready.svg?style=flat
+[badge-version]: https://img.shields.io/npm/v/@egjs/vue-imready.svg?style=flat
 [badge-build-status]: https://travis-ci.org/naver/egjs-imready.svg?branch=main
 [badge-coverage]: https://coveralls.io/repos/github/naver/egjs-imready/badge.svg?branch=main
 [badge-gk]: https://badges.greenkeeper.io/naver/egjs-imready.svg
 
 <!-- links -->
-[link-version]: https://www.npmjs.com/package/@egjs/imready
+[link-version]: https://www.npmjs.com/package/@egjs/vue-imready
 [link-build-status]: https://travis-ci.org/naver/egjs-imready
 [link-coverage]: https://coveralls.io/github/naver/egjs-imready?branch=main
 [link-gk]: https://greenkeeper.io/
