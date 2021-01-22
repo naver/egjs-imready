@@ -1,7 +1,7 @@
 {
   "name": "@egjs/vue-imready",
   "version": "1.0.0",
-  "description": "This react module is used to wait for the image or video to be ready.",
+  "description": "This vue module is used to wait for the image or video to be ready.",
   "main": "dist/imready.cjs.js",
   "module": "dist/imready.esm.js",
   "types": "declaration/index.d.ts",
@@ -20,6 +20,16 @@
     "build": "rollup -c && npm run declaration && print-sizes ./dist ",
     "declaration": "rm -rf declaration && tsc -p tsconfig.declaration.json"
   },
+  "keywords": [
+    "lazyloading",
+    "vue",
+    "hooks",
+		"ready",
+		"imready",
+		"image",
+		"video",
+		"egjs"
+	],
   "dependencies": {
     "@egjs/imready": "^0.1.0"
   },
