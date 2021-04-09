@@ -106,6 +106,8 @@ export default abstract class Loader<T extends HTMLElement = any> extends Compon
     if (this.isReady) {
       return;
     }
+    withPreReady = !this.isPreReady && withPreReady;
+
     if (withPreReady) {
       this.isPreReady = true;
     }
