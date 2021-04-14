@@ -527,8 +527,8 @@ describe("Test image", () => {
     expect(isReady1).to.be.false;
     expect(isReady2).to.be.true;
     expectOrders(events, [
-      "preReadyElement", "readyElement",
-      "preReady", "ready",
+      "preReadyElement", "preReady",
+      "readyElement", "ready",
     ]);
   });
   it("should check that the ready event does not occur if you destroy before preReady.", async () => {
