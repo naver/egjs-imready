@@ -286,6 +286,54 @@ describe("Test image", () => {
       "readyElement", "readyElement", "ready",
     ]);
   });
+
+  it("should check that ignored when the property include a skip attribute. with prefix 'data-a-'", async () => {
+    // Given
+    im.destroy();
+    im = new ImReady({
+      prefix: "data-a-",
+    });
+    el.innerHTML = `
+      <img src="${getImageURL()}" data-a-skip="true" data-a-width="100" data-a-height="100" style="width: 100%;"/>
+      <img src="${getImageURL()}" data-a-width="100" data-a-height="100" style="width: 100%;"/>
+      <img src="${getImageURL()}" data-a-width="100" data-a-height="100" style="width: 100%;"/>
+    `;
+    const readyElementSpy = spy();
+    const readySpy = spy();
+    const preReadyElementSpy = spy();
+    const preReadySpy = spy();
+    const events = checkEventOrders(im);
+
+    im.on("preReadyElement", preReadyElementSpy);
+    im.on("preReady", preReadySpy);
+    im.on("readyElement", readyElementSpy);
+    im.on("ready", readySpy);
+
+    // When
+    im.check(el.querySelectorAll("img"));
+
+    await waitEvent(im, "ready");
+
+    // Then
+    expect(readyElementSpy.callCount).to.be.equals(3);
+    expect(readySpy.args[0][0].totalCount).to.be.equals(3);
+    expect(preReadyElementSpy.callCount).to.be.equals(3);
+    expect(preReadySpy.args[0][0].totalCount).to.be.equals(3);
+    expect(im.getTotalCount()).to.be.equals(3);
+
+    // skip
+    expect(events[0].isSkip).to.be.equals(true);
+    expect(events[1].isSkip).to.be.equals(true);
+    // no skip
+    expect(events[2].isSkip).to.be.equals(false);
+    // readyElement
+    expect(events[6].isPreReadyOver).to.be.equals(true);
+    expectOrders(events, [
+      "preReadyElement", "readyElement",
+      "preReadyElement", "preReadyElement", "preReady",
+      "readyElement", "readyElement", "ready",
+    ]);
+  });
   it("should check that call preReady if include the loading img.", async () => {
     // Given
     el.innerHTML = `
