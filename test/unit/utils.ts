@@ -2,6 +2,12 @@ import Component from "@egjs/component";
 import ImReady from "../../src/ImReady";
 import { innerWidth, innerHeight } from "../../src/utils";
 
+let imageCount = 0;
+export function getImageURL() {
+  ++imageCount;
+
+  return `https://naver.github.io/egjs-infinitegrid/assets/image/${imageCount}.jpg`;
+}
 export function sandbox(obj: object | string, prop?: object): HTMLElement {
   const tmp = document.createElement("div");
   tmp.className = "_tempSandbox_";
