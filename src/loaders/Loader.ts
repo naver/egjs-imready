@@ -27,9 +27,11 @@ export default abstract class Loader<T extends HTMLElement = any> extends Compon
       ...options,
     };
     this.element = element as T;
-    this.hasDataSize = hasSizeAttribute(element, this.options.prefix);
+    const prefix = this.options.prefix;
+
+    this.hasDataSize = hasSizeAttribute(element, prefix);
+    this.isSkip = hasSkipAttribute(element, prefix);
     this.hasLoading = hasLoadingAttribute(element);
-    this.isSkip = hasSkipAttribute(this.element);
   }
   public check() {
     if (this.isSkip || !this.checkElement()) {

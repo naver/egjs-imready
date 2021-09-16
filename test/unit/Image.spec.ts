@@ -1,4 +1,4 @@
-import { sandbox, cleanup, waitEvent, getSize, checkEventOrders, expectOrders, waitFor } from "./utils";
+import { sandbox, cleanup, waitEvent, getSize, checkEventOrders, expectOrders, waitFor, getImageURL } from "./utils";
 import ImReady from "../../src/index";
 import { spy } from "sinon";
 import { toArray, innerWidth, innerHeight } from "../../src/utils";
@@ -20,8 +20,8 @@ describe("Test image", () => {
   it("should check there are images", async () => {
     // Given
     el.innerHTML = `
-      <img src="https://naver.github.io/egjs-infinitegrid/assets/image/1.jpg"/>
-      <img src="https://naver.github.io/egjs-infinitegrid/assets/image/2.jpg"/>
+      <img src="${getImageURL()}"/>
+      <img src="${getImageURL()}"/>
     `;
     const readySpy = spy();
     const preReadySpy = spy();
@@ -43,7 +43,7 @@ describe("Test image", () => {
   it("should check that the element(image) is loaded.", async () => {
     // Given
     el.innerHTML = `
-      <img src="https://naver.github.io/egjs-infinitegrid/assets/image/3.jpg"/>
+      <img src="${getImageURL()}"/>
     `;
     // When
     const img = el.querySelector("img");
@@ -63,7 +63,7 @@ describe("Test image", () => {
   it("should check that error event occurs when there are error images", async () => {
     // Given
     el.innerHTML = `
-      <img src="https://naver.github.io/egjs-infinitegrid/assets/image/4.jpg"/>
+      <img src="${getImageURL()}"/>
       <img src="https://ERR"/>
       <img src="https://ERR"/>
     `;
@@ -102,7 +102,7 @@ describe("Test image", () => {
   it("should check that error event occurs when there are error images (cache)", async () => {
     // Given
     el.innerHTML = `
-      <img src="https://naver.github.io/egjs-infinitegrid/assets/image/5.jpg"/>
+      <img src="${getImageURL()}"/>
       <img src="https://ERR2"/>
     `;
     const readySpy = spy();
@@ -156,9 +156,9 @@ describe("Test image", () => {
   it("should check that preReady caculate virtual sizes when there are data prefixes", async () => {
     // Given
     el.innerHTML = `
-      <img src="https://naver.github.io/egjs-infinitegrid/assets/image/6.jpg" data-width="100" data-height="100" style="width: 100%;"/>
-      <img src="https://naver.github.io/egjs-infinitegrid/assets/image/7.jpg" data-width="100" data-height="100" style="width: 100%;"/>
-      <img src="https://naver.github.io/egjs-infinitegrid/assets/image/8.jpg" data-width="100" data-height="100" style="width: 100%;"/>
+      <img src="${getImageURL()}" data-width="100" data-height="100" style="width: 100%;"/>
+      <img src="${getImageURL()}" data-width="100" data-height="100" style="width: 100%;"/>
+      <img src="${getImageURL()}" data-width="100" data-height="100" style="width: 100%;"/>
     `;
     // When
     im.check([el]);
@@ -185,9 +185,9 @@ describe("Test image", () => {
     el.setAttribute("data-width", "100");
     el.setAttribute("data-height", "100");
     el.innerHTML = `
-      <img src="https://naver.github.io/egjs-infinitegrid/assets/image/9.jpg" data-width="100" data-height="100" style="width: 100%;"/>
-      <img src="https://naver.github.io/egjs-infinitegrid/assets/image/10.jpg" data-width="100" data-height="100" style="width: 100%;"/>
-      <img src="https://naver.github.io/egjs-infinitegrid/assets/image/11.jpg" data-width="100" data-height="100" style="width: 100%;"/>
+      <img src="${getImageURL()}" data-width="100" data-height="100" style="width: 100%;"/>
+      <img src="${getImageURL()}" data-width="100" data-height="100" style="width: 100%;"/>
+      <img src="${getImageURL()}" data-width="100" data-height="100" style="width: 100%;"/>
     `;
     // When
     im.check([el]);
@@ -209,9 +209,9 @@ describe("Test image", () => {
     // Given
     el.setAttribute("data-skip", "true");
     el.innerHTML = `
-      <img src="https://naver.github.io/egjs-infinitegrid/assets/image/19.jpg" data-width="100" data-height="100" style="width: 100%;"/>
-      <img src="https://naver.github.io/egjs-infinitegrid/assets/image/20.jpg" data-width="100" data-height="100" style="width: 100%;"/>
-      <img src="https://naver.github.io/egjs-infinitegrid/assets/image/21.jpg" data-width="100" data-height="100" style="width: 100%;"/>
+      <img src="${getImageURL()}" data-width="100" data-height="100" style="width: 100%;"/>
+      <img src="${getImageURL()}" data-width="100" data-height="100" style="width: 100%;"/>
+      <img src="${getImageURL()}" data-width="100" data-height="100" style="width: 100%;"/>
     `;
     const readyElementSpy = spy();
     const readySpy = spy();
@@ -246,9 +246,57 @@ describe("Test image", () => {
   it("should check that ignored when the property include a skip attribute.", async () => {
     // Given
     el.innerHTML = `
-      <img src="https://naver.github.io/egjs-infinitegrid/assets/image/12.jpg" data-skip="true" data-width="100" data-height="100" style="width: 100%;"/>
-      <img src="https://naver.github.io/egjs-infinitegrid/assets/image/13.jpg" data-width="100" data-height="100" style="width: 100%;"/>
-      <img src="https://naver.github.io/egjs-infinitegrid/assets/image/14.jpg" data-width="100" data-height="100" style="width: 100%;"/>
+      <img src="${getImageURL()}" data-skip="true" data-width="100" data-height="100" style="width: 100%;"/>
+      <img src="${getImageURL()}" data-width="100" data-height="100" style="width: 100%;"/>
+      <img src="${getImageURL()}" data-width="100" data-height="100" style="width: 100%;"/>
+    `;
+    const readyElementSpy = spy();
+    const readySpy = spy();
+    const preReadyElementSpy = spy();
+    const preReadySpy = spy();
+    const events = checkEventOrders(im);
+
+    im.on("preReadyElement", preReadyElementSpy);
+    im.on("preReady", preReadySpy);
+    im.on("readyElement", readyElementSpy);
+    im.on("ready", readySpy);
+
+    // When
+    im.check(el.querySelectorAll("img"));
+
+    await waitEvent(im, "ready");
+
+    // Then
+    expect(readyElementSpy.callCount).to.be.equals(3);
+    expect(readySpy.args[0][0].totalCount).to.be.equals(3);
+    expect(preReadyElementSpy.callCount).to.be.equals(3);
+    expect(preReadySpy.args[0][0].totalCount).to.be.equals(3);
+    expect(im.getTotalCount()).to.be.equals(3);
+
+    // skip
+    expect(events[0].isSkip).to.be.equals(true);
+    expect(events[1].isSkip).to.be.equals(true);
+    // no skip
+    expect(events[2].isSkip).to.be.equals(false);
+    // readyElement
+    expect(events[6].isPreReadyOver).to.be.equals(true);
+    expectOrders(events, [
+      "preReadyElement", "readyElement",
+      "preReadyElement", "preReadyElement", "preReady",
+      "readyElement", "readyElement", "ready",
+    ]);
+  });
+
+  it("should check that ignored when the property include a skip attribute. with prefix 'data-a-'", async () => {
+    // Given
+    im.destroy();
+    im = new ImReady({
+      prefix: "data-a-",
+    });
+    el.innerHTML = `
+      <img src="${getImageURL()}" data-a-skip="true" data-a-width="100" data-a-height="100" style="width: 100%;"/>
+      <img src="${getImageURL()}" data-a-width="100" data-a-height="100" style="width: 100%;"/>
+      <img src="${getImageURL()}" data-a-width="100" data-a-height="100" style="width: 100%;"/>
     `;
     const readyElementSpy = spy();
     const readySpy = spy();
@@ -289,7 +337,7 @@ describe("Test image", () => {
   it("should check that call preReady if include the loading img.", async () => {
     // Given
     el.innerHTML = `
-      <img src="https://naver.github.io/egjs-infinitegrid/assets/image/15.jpg" loading="lazy"/>
+      <img src="${getImageURL()}" loading="lazy"/>
     `;
 
     const img = el.querySelector("img");
@@ -324,7 +372,7 @@ describe("Test image", () => {
   it("should check that call preReady if include the loading img and not loading img.", async () => {
     // Given
     el.innerHTML = `
-      <img src="https://naver.github.io/egjs-infinitegrid/assets/image/23.jpg" loading="lazy"/>
+      <img src="${getImageURL()}" loading="lazy"/>
       <img />
     `;
 
@@ -388,7 +436,7 @@ describe("Test image", () => {
   it("should check that call preReady if include the loading attribute.", async () => {
     // Given
     el.innerHTML = `
-      <img src="https://naver.github.io/egjs-infinitegrid/assets/image/18.jpg" loading="lazy"/>
+      <img src="${getImageURL()}" loading="lazy"/>
     `;
 
     const img = el.querySelector("img");
@@ -423,7 +471,7 @@ describe("Test image", () => {
   it("should check that AutoSizer works when window resize (400 => 600)", async () => {
     // Given
     el.innerHTML = `
-    <img src="https://naver.github.io/egjs-infinitegrid/assets/image/16.jpg" data-width="100" data-height="100" style="width: 100%;"/>
+    <img src="${getImageURL()}" data-width="100" data-height="100" style="width: 100%;"/>
   `;
 
     // When
@@ -464,7 +512,7 @@ describe("Test image", () => {
     el.style.width = "100%";
     el.style.height = "100%";
     el.innerHTML = `
-      <img src="https://naver.github.io/egjs-infinitegrid/assets/image/17.jpg" data-fixed="height" data-width="100" data-height="100" style="height: 100%;"/>
+      <img src="${getImageURL()}" data-fixed="height" data-width="100" data-height="100" style="height: 100%;"/>
     `;
     // When
     im.check([el]);
@@ -518,7 +566,7 @@ describe("Test image", () => {
     await waitFor(100);
 
     const isReady1 = im.isReady();
-    img.src = "https://naver.github.io/egjs-infinitegrid/assets/image/22.jpg";
+    img.src = `${getImageURL()}`;
 
     await waitEvent(im, "ready");
     const isReady2 = im.isReady();
