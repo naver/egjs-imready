@@ -1,6 +1,6 @@
 {
 	"name": "@egjs/imready",
-	"version": "1.1.4",
+	"version": "1.1.4-snapshot",
 	"description": "This module is used to wait for the image or video to be ready.",
 	"main": "dist/imready.cjs.js",
 	"module": "dist/imready.esm.js",
