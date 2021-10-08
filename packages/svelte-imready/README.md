@@ -1,12 +1,12 @@
 <p align="middle" ><img src="https://github.com/naver/egjs-imready/raw/main/demo/images/logo.png"/></p>
-<h2 align="middle">I'm React Ready</h2>
+<h2 align="middle">I'm Svelte Ready</h2>
 <p align="middle">
-<a href="https://www.npmjs.com/package/@egjs/react-imready" target="_blank"><img src="https://img.shields.io/npm/v/@egjs/react-imready.svg?style=flat-square&color=007acc&label=version" alt="npm version" /></a>
+<a href="https://www.npmjs.com/package/@egjs/svelte-imready" target="_blank"><img src="https://img.shields.io/npm/v/@egjs/svelte-imready.svg?style=flat-square&color=007acc&label=version" alt="npm version" /></a>
 <img src="https://img.shields.io/badge/language-typescript-blue.svg?style=flat-square"/>
 <a href="https://travis-ci.org/naver/egjs-imready" target="_blank"><img alt="Travis (.org)" src="https://img.shields.io/travis/naver/egjs-imready.svg?style=flat-square&label=build" /></a>
-<a href="https://github.com/naver/egjs-imready/blob/main/LICENSE" target="_blank"><img src="https://img.shields.io/static/v1?style=flat-square&label=license&message=MIT&color=08CE5D"/></a> <a href="https://github.com/naver/egjs-imready/tree/main/packages/react-imready" target="_blank"><img alt="React" src="https://img.shields.io/static/v1.svg?label=&message=React&style=flat-square&color=61daeb"></a>
+<a href="https://github.com/naver/egjs-imready/blob/main/LICENSE" target="_blank"><img src="https://img.shields.io/static/v1?style=flat-square&label=license&message=MIT&color=08CE5D"/></a> <a href="https://github.com/naver/egjs-imready/tree/main/packages/svelte-imready" target="_blank"><img alt="Svelte" src="https://img.shields.io/static/v1.svg?label=&message=Svelte&style=flat-square&color=61daeb"></a>
 </p>
-<p align="middle">I'm React Ready to check if the images or videos are loaded!</p>
+<p align="middle">I'm Svelte Ready to check if the images or videos are loaded!</p>
 <p align="middle">
     <a href="https://naver.github.io/egjs-imready" target="_blank"><strong>Demo</strong></a> /
     <a href="https://naver.github.io/egjs-imready/release/latest/doc/" target="_blank"><strong>API</strong></a>
@@ -28,7 +28,7 @@
 Download dist files from repo directly or install it via npm.
 
 ```bash
-$ npm install @egjs/react-imready
+$ npm install @egjs/svelte-imready
 ```
 
 ## How to use
@@ -39,107 +39,97 @@ import {
     useReadyElement,
     usePreReady,
     usePreReadyElement,
-} from "@egjs/react-imready";
-
+} from "@egjs/svelte-imready";
 ```
 
 * Use readyElement (useReadyElement: true, useReady: true, useError: true)
 ```tsx
-import { useReadyElement } from "@egjs/react-imready";
+import { useReadyElement } from "@egjs/svelte-imready";
 
-function App() {
-    const { register, readyCount, totalCount, isReady } = useReadyElement({
-        selector: "img",
-    });
-    return <div ref={register()}>
-        <h2>{isReady ? "I'm Ready" : "Loading..."}</h2>
-        <h2>{readyCount}/{totalCount}</h2>
-        <img src=".." />
-        <img src=".." />
-        <img src=".." />
-    </div>;
-}
+const { register, readyCount, totalCount, isReady } = useReadyElement({
+    selector: "img",
+});
+
+<div use:register>
+    <h2>{$isReady ? "I'm Ready" : "Loading..."}</h2>
+    <h2>{$readyCount}/{$totalCount}</h2>
+    <img src=".." />
+    <img src=".." />
+    <img src=".." />
+</div>
 ```
 
 * Use ready (useReady: true)
 ```tsx
-import { useReady } from "@egjs/react-imready";
+import { useReady } from "@egjs/svelte-imready";
 
-function App() {
-    const { register, isReady } = useReadyElement({
-        selector: "img",
-    });
-    return <div ref={register()}>
-        <h2>{isReady ? "I'm Ready" : "Loading..."}</h2>
-        <img src=".." />
-        <img src=".." />
-        <img src=".." />
-    </div>;
-}
+const { register, isReady } = useReadyElement({
+    selector: "img",
+});
+<div use:register>
+    <h2>{$isReady ? "I'm Ready" : "Loading..."}</h2>
+    <img src=".." />
+    <img src=".." />
+    <img src=".." />
+</div>
 ```
 
 * Use preReadyElement (usePreReadyElement: true, usePreReady: true)
 ```tsx
-import { usePreReadyElement } from "@egjs/react-imready";
+import { usePreReadyElement } from "@egjs/svelte-imready";
 
-function App() {
-    const { register, isPreReady, preReadyCount, totalCount } = usePreReadyElement({
-        selector: "img",
-    });
-    return <div ref={register()}>
-        <h2>{isPreReady ? "I'm Ready" : "Loading..."}</h2>
-        <h2>{preReadyCount} / {totalCount}</h2>
-        <img src=".." />
-        <img src=".." />
-        <img src=".." />
-    </div>;
-}
+const { register, isPreReady, preReadyCount, totalCount } = usePreReadyElement({
+    selector: "img",
+});
+<div use:register>
+    <h2>{$isPreReady ? "I'm Ready" : "Loading..."}</h2>
+    <h2>{$preReadyCount} / {$totalCount}</h2>
+    <img src=".." />
+    <img src=".." />
+    <img src=".." />
+</div>
 ```
 
 
 * Use preReady (usePreReady: true)
 ```tsx
-import { usePreReady } from "@egjs/react-imready";
+import { usePreReady } from "@egjs/svelte-imready";
 
-function App() {
-    const { register, isPreReady } = usePreReady({
-        selector: "img",
-    });
-    return <div ref={register()}>
-        <h2>{isPreReady ? "I'm Ready" : "Loading..."}</h2>
-        <img src=".." />
-        <img src=".." />
-        <img src=".." />
-    </div>;
-}
+const { register, isPreReady } = usePreReady({
+    selector: "img",
+});
+<div use:register>
+    <h2>{$isPreReady ? "I'm Ready" : "Loading..."}</h2>
+    <img src=".." />
+    <img src=".." />
+    <img src=".." />
+</div>
 ```
 
 
 * Use useImReady (*: true)
 ```tsx
-import { useImReady } from "@egjs/react-imready";
+import { useImReady } from "@egjs/svelte-imready";
 
-function App() {
-    const {
-        register,
-        isReady,
-        isPreReady,
-        preReadyCount,
-        readyCount,
-        totalCount,
-    } = useImReady({
-        selector: "img",
-    });
-    return <div ref={register()}>
-        <h2>{isReady ? "I'm Ready" : "Loading..."}</h2>
-        <h2>{readyCount}/{totalCount}</h2>
-        <h2>{isPreReady ? "I'm Pre-Ready" : "Pre Loading..."}</h2>
-        <h2>{preReadyCount}/{totalCount}</h2>
-        <img src=".." />
-        <img src=".." />
-        <img src=".." />
-    </div>;
-}
+const {
+    register,
+    isReady,
+    isPreReady,
+    preReadyCount,
+    readyCount,
+    totalCount,
+} = useImReady({
+    selector: "img",
+});
+<div use:register>
+    <h2>{$isReady ? "I'm Ready" : "Loading..."}</h2>
+    <h2>{$readyCount}/{$totalCount}</h2>
+    <h2>{$isPreReady ? "I'm Pre-Ready" : "Pre Loading..."}</h2>
+    <h2>{$preReadyCount}/{$totalCount}</h2>
+    <img src=".." />
+    <img src=".." />
+    <img src=".." />
+</div>
 ```
 
 * When the `loading="lazy"` attribute is used, the `preReadyElement`(hasLoading=true) event occurs and the size is 0. When loading is complete, the `readyElement`(hasLoading=true) event occurs and you can get the size.
@@ -197,7 +187,7 @@ Clone the egjs-imready repository and install the dependency modules.
 ```bash
 # Clone the repository.
 $ git clone https://github.com/naver/egjs-imready.git
-$ cd egjs-imready/packages/react-imready
+$ cd egjs-imready/packages/svelte-imready
 ```
 
 #### 2. Install dependencies
@@ -207,10 +197,10 @@ $ cd egjs-imready/packages/react-imready
 $ npm install
 ```
 
-### `npm start`
+### `npm run dev`
 
 Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Open [http://localhost:5000](http://localhost:5000) to view it in the browser.
 
 The page will reload if you make edits.\
 You will also see any lint errors in the console.
@@ -257,13 +247,13 @@ THE SOFTWARE.
 ```
 
 <!-- badges -->
-[badge-version]: https://img.shields.io/npm/v/@egjs/react-imready.svg?style=flat
+[badge-version]: https://img.shields.io/npm/v/@egjs/svelte-imready.svg?style=flat
 [badge-build-status]: https://travis-ci.org/naver/egjs-imready.svg?branch=main
 [badge-coverage]: https://coveralls.io/repos/github/naver/egjs-imready/badge.svg?branch=main
 [badge-gk]: https://badges.greenkeeper.io/naver/egjs-imready.svg
 
 <!-- links -->
-[link-version]: https://www.npmjs.com/package/@egjs/react-imready
+[link-version]: https://www.npmjs.com/package/@egjs/svelte-imready
 [link-build-status]: https://travis-ci.org/naver/egjs-imready
 [link-coverage]: https://coveralls.io/github/naver/egjs-imready?branch=main
 [link-gk]: https://greenkeeper.io/
