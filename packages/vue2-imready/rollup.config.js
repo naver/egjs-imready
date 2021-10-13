@@ -1,25 +1,25 @@
 const buildHelper = require("@egjs/build-helper");
-const vuePlugin = require("rollup-plugin-vue");
 
 const defaultOptions = {
-    sourcemap: true,
-    input: "./src/index.ts",
-    exports: "named",
-    plugins: [
-        vuePlugin(),
-    ]
+  sourcemap: true,
+  input: "./src/index.ts",
+  exports: "named",
+  commonjs: true,
+  external: {
+    "vue": "vue",
+    "@vue/composition-api": "@vue/composition-api",
+    "@egjs/imready": "@egjs/imready",
+  }
 };
 export default buildHelper([
     {
         ...defaultOptions,
         format: "es",
-        output: "./dist/infinitegrid.esm.js",
+        output: "./dist/imready.esm.js",
     },
     {
         ...defaultOptions,
         format: "cjs",
-        input: "./src/index.umd.ts",
-        exports: "default",
-        output: "./dist/infinitegrid.cjs.js",
+        output: "./dist/imready.cjs.js",
     },
 ]);

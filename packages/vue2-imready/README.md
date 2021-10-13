@@ -1,122 +1,290 @@
-<h1 align="center">
-  <img width="256" alt="InfiniteGrid Logo" src="https://naver.github.io/egjs-infinitegrid/img/infinitegrid_logo.png"><br/>
-  @egjs/vue-infinitegrid
-</h1>
-
-<p align="center">
-  <a href="https://www.npmjs.com/package/@egjs/vue-infinitegrid" target="_blank">
-    <img src="https://img.shields.io/npm/v/@egjs/vue-infinitegrid.svg?style=flat-square&color=42b883&label=version&logo=NPM">
-  </a>
-  <a href="https://www.npmjs.com/package/@egjs/vue-infinitegrid" target="_blank">
-    <img alt="npm bundle size (scoped)" src="https://img.shields.io/bundlephobia/minzip/@egjs/vue-infinitegrid.svg?style=flat-square&label=%F0%9F%92%BE%20gzipped&color=007acc">
-  </a>
-  <a href="https://github.com/naver/egjs-infinitegrid/graphs/commit-activity">
-    <img alt="GitHub commit activity" src="https://img.shields.io/github/commit-activity/m/naver/egjs-infinitegrid.svg?style=flat-square&label=%E2%AC%86%20commits&color=08CE5D">
-  </a>
-  <a href="https://www.npmjs.com/package/@egjs/vue-infinitegrid" target="_blank">
-    <img src="https://img.shields.io/npm/dm/@egjs/vue-infinitegrid.svg?style=flat-square&label=%E2%AC%87%20downloads&color=08CE5D" alt="npm downloads per month">
-  </a>
-  <a href="https://github.com/naver/egjs-infinitegrid/graphs/contributors" target="_blank">
-    <img alt="GitHub contributors" src="https://img.shields.io/github/contributors/naver/egjs-infinitegrid.svg?label=%F0%9F%91%A5%20contributors&style=flat-square&color=08CE5D"></a>
-  <a href="https://github.com/naver/egjs-infinitegrid/blob/master/LICENSE" target="_blank">
-    <img alt="GitHub" src="https://img.shields.io/github/license/naver/egjs-infinitegrid.svg?style=flat-square&label=%F0%9F%93%9C%20license&color=08CE5D">
-  </a>
+<p align="middle" ><img src="https://github.com/naver/egjs-imready/raw/main/demo/images/logo.png"/></p>
+<h2 align="middle">I'm Vue2 Ready</h2>
+<p align="middle">
+<a href="https://www.npmjs.com/package/@egjs/vue2-imready" target="_blank"><img src="https://img.shields.io/npm/v/@egjs/vue2-imready.svg?style=flat-square&color=007acc&label=version" alt="npm version" /></a>
+<img src="https://img.shields.io/badge/language-typescript-blue.svg?style=flat-square"/>
+<a href="https://travis-ci.org/naver/egjs-imready" target="_blank"><img alt="Travis (.org)" src="https://img.shields.io/travis/naver/egjs-imready.svg?style=flat-square&label=build" /></a>
+<a href="https://github.com/naver/egjs-imready/blob/main/LICENSE" target="_blank"><img src="https://img.shields.io/github/license/naver/egjs-imready.svg?style=flat-square&label=license&color=08CE5D"/></a>
+<a href="https://github.com/naver/egjs-imready/tree/main/packages/vue2-imready" target="_blank"><img alt="Vue2" src="https://img.shields.io/static/v1.svg?label=&message=Vue2&style=flat-square&color=61daeb"></a>
+</p>
+<p align="middle">I'm Vue2 Ready to check if the images or videos are loaded!</p>
+<p align="middle">
+    <a href="https://naver.github.io/egjs-imready" target="_blank"><strong>Demo</strong></a> /
+    <a href="https://naver.github.io/egjs-imready/release/latest/doc/" target="_blank"><strong>API</strong></a>
 </p>
 
-<p align="center">
-  A Vue component that can arrange items infinitely according to the type of grids
-</p>
 
-<p align="center">
-  <a href="https://naver.github.io/egjs-infinitegrid/">Demo</a> / <a href="https://naver.github.io/egjs-infinitegrid/docs/api/InfiniteGrid">Documentation</a> / <a href="https://naver.github.io/egjs/">Other components</a>
-</p>
 
-<p align=center>
-  ⚠️ If you're looking for InfiniteGrid for Vue 3, check out <a href="https://github.com/naver/egjs-infinitegrid/blob/master/packages/vue3-infinitegrid/README.md">@egjs/vue3-infinitegrid</a>
-</p>
+## Features
+* Check that all images and videos in the container are loaded.
+* If you know the size of the image or video in advance, you can skip loading and adjust the width and height automatically until the actual loading is completed.
+* Support Native Lazy Loading.
 
-## ⚙️ Installation
-```sh
-npm install --save @egjs/vue-infinitegrid
+## Documents
+- [Get Started and Demos](https://naver.github.io/egjs-imready/)
+- [API documentation](https://naver.github.io/egjs-imready/release/latest/doc/)
+
+## Download and Installation
+
+Download dist files from repo directly or install it via npm.
+
+```bash
+$ npm install @egjs/vue2-imready
 ```
 
-## ❗ Changes from [@egjs/infinitegrid](https://github.com/naver/egjs-infinitegrid)
-- All `camelCased` event names became **`kebab-case`**
-  - e.g., `requestAppend` => **`request-append`**
-- You can't use methods that manipulates DOM directly
-  - e.g., `append()`, `prepend()`, `insert()`, `remove()`
+## How to use
 
-## 🏃 Quick Start
+```js
+import Vue from "vue";
+import VueCompositionAPI from '@vue/composition-api';
 
-```vue
+// @vue/composition-api is required to use vue2-imready.
+Vue.use(VueCompositionAPI);
+```
+
+```tsx
+import {
+    useImReady,
+    useReady,
+    useReadyElement,
+    usePreReady,
+    usePreReadyElement,
+} from "@egjs/vue2-imready";
+
+```
+
+* Use readyElement (useReadyElement: true, useReady: true, useError: true)
+```html
 <template>
-  <masonry-infinite-grid
-    class="container"
-    v-bind:gap="5"
-    v-on:request-append="onRequestAppend"
-  >
-    <div
-      class="item"
-      v-for="item in items"
-      :key="item.key"
-      :data-grid-groupkey="item.groupKey"
-    >
-      ...
+    <div v-bind:ref="container">
+        <h2>{{im.isReady ? "I'm Ready" : "Loading..."}}</h2>
+        <h2>{{im.readyCount}}/{{im.totalCount}}</h2>
+        <img src=".." />
+        <img src=".." />
+        <img src=".." />
     </div>
-  </masonry-infinite-grid>
 </template>
-<script lang="ts">
-import { MasonryInfiniteGrid } from "@egjs/vue-infinitegrid";
+<script>
+import { useReadyElement } from "@egjs/vue2-imready";
 
 export default {
-  components: {
-    MasonryInfiniteGrid,
-  },
-  data() {
-    return {
-      items: this.getItems(0, 10),
-    };
-  },
-  methods: {
-    getItems(nextGroupKey: number, count: number) {
-      const nextItems: any[] = [];
-
-      for (let i = 0; i < count; ++i) {
-        const nextKey = nextGroupKey * count + i;
-
-        nextItems.push({ groupKey: nextGroupKey, key: nextKey });
-      }
-      return nextItems;
-    },
-    onRequestAppend(e) {
-      const nextGroupKey = (+e.groupKey! || 0) + 1;
-
-      this.items = [...this.items, ...this.getItems(nextGroupKey, 10)];
-    },
-  },
-};
+    setup() {
+        const im = useReadyElement({
+            selector: "img",
+        });
+        return {
+            im,
+            // same ref name
+            container: im.register(),
+        };
+    }
+}
 </script>
 ```
 
-## 🙌 Contributing
-See [CONTRIBUTING.md](https://github.com/naver/egjs-infinitegrid/blob/master/CONTRIBUTING.md).
+* Use ready (useReady: true)
+```html
+<template>
+    <div v-bind:ref="container">
+        <h2>{{im.isReady ? "I'm Ready" : "Loading..."}}</h2>
+        <img src=".." />
+        <img src=".." />
+        <img src=".." />
+    </div>
+</template>
+<script>
+import { useReady } from "@egjs/vue2-imready";
 
-## 📝 Feedback
-Please file an [Issue](https://github.com/naver/egjs-infinitegrid/issues) with label "Vue".
+export default {
+    setup() {
+        const im = useReady({
+            selector: "img",
+        });
+        return {
+            im,
+            // same ref name
+            container: im.register(),
+        };
+    }
+}
+</script>
+```
+* Use preReadyElement (usePreReadyElement: true, usePreReady: true)
+```html
+<template>
+    <div v-bind:ref="container">
+        <h2>{{im.isPreReady ? "I'm PreReady" : "Loading..."}}</h2>
+        <h2>{{im.preReadyCount}}/{{im.totalCount}}</h2>
+        <img src=".." />
+        <img src=".." />
+        <img src=".." />
+    </div>
+</template>
+<script>
+import { usePreReadyElement } from "@egjs/vue2-imready";
 
-## 📜 License
-egjs-infinitegrid is released under the [MIT license](http://naver.github.io/egjs/license.txt).
+export default {
+    setup() {
+        const im = usePreReadyElement({
+            selector: "img",
+        });
+        return {
+            // same ref name
+            container: im.register(),
+        }
+    }
+}
+</script>
+```
+
+
+* Use preReady (usePreReady: true)
+```html
+<template>
+    <div v-bind:ref="container">
+        <h2>{{im.isPreReady ? "I'm PreReady" : "Loading..."}}</h2>
+        <img src=".." />
+        <img src=".." />
+        <img src=".." />
+    </div>
+</template>
+<script>
+import { usePreReady } from "@egjs/vue2-imready";
+
+export default {
+    setup() {
+        const im = usePreReady({
+            selector: "img",
+        });
+        return {
+            im,
+        }
+    }
+}
+</script>
+```
+
+
+
+* Use useImReady (*: true)
+```html
+<template>
+    <div v-bind:ref="container">
+        <h2>{{im.isReady ? "I'm Ready" : "Loading..."}}</h2>
+        <h2>{{im.readyCount}}/{{im.totalCount}}</h2>
+        <h2>{{im.isPreReady ? "I'm PreReady" : "Loading..."}}</h2>
+        <h2>{{im.preReadyCount}}/{{im.totalCount}}</h2>
+        <img src=".." />
+        <img src=".." />
+        <img src=".." />
+    </div>
+</template>
+<script>
+import { useImReady } from "@egjs/vue2-imready";
+
+export default {
+    setup() {
+        const im = useImReady({
+            selector: "img",
+        });
+        return {
+            // same ref name
+            container: im.register(),
+        };
+    }
+}
+</script>
+```
+
+* If you use `data-width` and `data-height` attributes, the size of self, child image, and video elements is automatically adjusted until loading is complete.
+```html
+<div data-width="100" data-height="100">
+   <img src="..." />
+   <img src="..." />
+   <img src="..." />
+</div>
+```
+
+* If you use `data-skip="ture"` attribute, you can omit it even if there are images in itself and child image, and video elements.
+```html
+<div data-skip="true">
+   <img src="..." />
+   <img src="..." />
+   <img src="..." />
+</div>
+```
+
+### Events
+* **preReadyElement**: An event occurs when the element is pre-ready (when the size is known)
+* **preReady**: An event occurs when all element are pre-ready (when the size is known)
+* **readyElement**: An event occurs when all element are ready
+* **ready**: An event occurs when all element are ready
+
+
+### Sequence of events
+* If there is no data size attribute or loading attribute
+
+(preReadyElement => readyElement) x N => **preReady** => **ready**
+* If there is a data size attribute or a loading attribute
+
+preReadyElement * N => (preReadyElement => readyElement) x M => **preReady** =>
+readyElement(isPreReadyOver: true) x N => **ready**
+
+
+## How to start developing egjs-imready?
+
+For anyone interested to develop egjs-imready, follow the instructions below.
+
+### Development Environment
+
+#### 1. Clone the repository
+
+Clone the egjs-imready repository and install the dependency modules.
+
+```bash
+# Clone the repository.
+$ git clone https://github.com/naver/egjs-imready.git
+$ cd egjs-imready/packages/vue2-imready
+```
+
+
+## Project setup
+```
+npm install
+```
+
+### Compiles and hot-reloads for development
+```
+npm run serve
+```
+
+### Compiles and minifies for production
+```
+npm run build
+```
+
+
+## Bug Report
+
+If you find a bug, please report to us opening a new [Issues](https://github.com/naver/egjs-imready/issues) on GitHub.
+
+
+## License
+egjs-imready is released under the [MIT license](http://naver.github.io/egjs/license.txt).
 
 ```
-Copyright (c) 2015-present NAVER Corp.
+Copyright (c) 2020-present NAVER Corp.
+
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
 in the Software without restriction, including without limitation the rights
 to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 copies of the Software, and to permit persons to whom the Software is
 furnished to do so, subject to the following conditions:
+
 The above copyright notice and this permission notice shall be included in
 all copies or substantial portions of the Software.
+
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL THE
@@ -126,6 +294,14 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ```
 
-<p align="center">
-  <a href="https://naver.github.io/egjs/"><img height="50" src="https://naver.github.io/egjs/img/logotype1_black.svg" ></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://github.com/naver"><img height="50" src="https://naver.github.io/OpenSourceGuide/book/assets/naver_logo.png" /></a>
-</p>
+<!-- badges -->
+[badge-version]: https://img.shields.io/npm/v/@egjs/vue2-imready.svg?style=flat
+[badge-build-status]: https://travis-ci.org/naver/egjs-imready.svg?branch=main
+[badge-coverage]: https://coveralls.io/repos/github/naver/egjs-imready/badge.svg?branch=main
+[badge-gk]: https://badges.greenkeeper.io/naver/egjs-imready.svg
+
+<!-- links -->
+[link-version]: https://www.npmjs.com/package/@egjs/vue2-imready
+[link-build-status]: https://travis-ci.org/naver/egjs-imready
+[link-coverage]: https://coveralls.io/github/naver/egjs-imready?branch=main
+[link-gk]: https://greenkeeper.io/

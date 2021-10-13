@@ -6,11 +6,11 @@ import { ImReadyProps, ImReadyValue } from "./types";
 /**
  * Vue hook to check if the images or videos are loaded.
  * @ko 이미지와 비디오들이 로드가 됐는지 체크하는 Vue hook.
- * @memberof VueImReady
+ * @memberof Vue2ImReady
  * @param - Vue ImReady's props <ko> Vue ImReady의 props.</ko>
  * @example
  * ```js
- * import { useImReady } from "@egjs/vue-imready";
+ * import { useImReady } from "@egjs/vue2-imready";
  *
  * setup() {
  *   const im = useImReady({
@@ -19,10 +19,11 @@ import { ImReadyProps, ImReadyValue } from "./types";
  *
  *   return {
  *      im,
+ *      container: im.register(),
  *   }
  * }
  * // {{im.readyCount}}
- * // &lt;div v-bind:ref="im.register()"&gt;&lt;/div&gt;
+ * // &lt;div v-bind:ref="container"&gt;&lt;/div&gt;
  * ```
  */
 export function useImReady(props: Partial<ImReadyProps> = {}): ImReadyValue {

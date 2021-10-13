@@ -10,11 +10,11 @@
       <p class="progress">{{ im.totalCount ? Math.floor(100 * im.readyCount / im.totalCount) : 100 }}%</p>
       <p class="badges">
         <a
-          href="https://www.npmjs.com/package/@egjs/vue-imready"
+          href="https://www.npmjs.com/package/@egjs/vue2-imready"
           target="_blank"
         >
           <img
-            src="https://img.shields.io/npm/v/@egjs/vue-imready.svg?style=flat-square&color=007acc&label=version"
+            src="https://img.shields.io/npm/v/@egjs/vue2-imready.svg?style=flat-square&color=007acc&label=version"
             alt="npm version"
         /></a>
         <a href="https://github.com/naver/egjs-imready" target="_blank">
