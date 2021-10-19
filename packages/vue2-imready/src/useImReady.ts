@@ -63,7 +63,6 @@ export function useImReady(props: Partial<ImReadyProps> = {}): ImReadyValue {
 
     let checkedElements = refs.map((childRef) => childRef.value!);
 
-    console.log(checkedElements);
     if (selector) {
       checkedElements = checkedElements.reduce((prev, cur) => {
         return [...prev, ...cur.querySelectorAll<HTMLElement>(selector)];
