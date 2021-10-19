@@ -6,6 +6,7 @@ import { NgxImReadyEvents } from './types';
 
 // TODO: CFC
 const EVENTS = ['preReadyElement', 'readyElement', 'error', 'preReady', 'ready'] as const;
+const PROPS = ['prefix', 'loaders'];
 
 @Directive({
   selector: '[NgxImReady]',
@@ -36,11 +37,11 @@ export class NgxImReadyDirective implements ImReadyOptions, NgxImReadyEvents, Af
   ngAfterViewInit(): void {
     const options: Partial<ImReadyOptions> = {};
 
-    for (const name in ['prefix', 'loaders']) {
-      if (name in this && typeof (this as any)[name] !== "undefined") {
+    PROPS.forEach((name) => {
+      if (name in this && typeof (this as any)[name] !== 'undefined') {
         (options as any)[name] = (this as any)[name];
       }
-    }
+    });
     const im = new ImReady(options);
 
     this.im = im;
