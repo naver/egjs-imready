@@ -13,7 +13,9 @@
     <a href="https://naver.github.io/egjs-imready/release/latest/doc/" target="_blank"><strong>API</strong></a>
 </p>
 
-
+<p align=center>
+  ⚠️ If you're looking for ImReady for Vue 2, check out <a href="https://github.com/naver/egjs-imready/blob/master/packages/vue2-imready/README.md">@egjs/vue2-imready</a>
+</p>
 
 ## Features
 * Check that all images and videos in the container are loaded.
