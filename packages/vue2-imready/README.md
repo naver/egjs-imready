@@ -14,6 +14,10 @@
 </p>
 
 
+<p align=center>
+  ⚠️ If you're looking for ImReady for Vue 3, check out <a href="https://github.com/naver/egjs-imready/blob/master/packages/vue-imready/README.md">@egjs/vue-imready</a>
+</p>
+
 
 ## Features
 * Check that all images and videos in the container are loaded.
