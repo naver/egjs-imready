@@ -5,9 +5,13 @@
   },
   "source": {
       "include": [
+        "node_modules/@egjs/component/src",
         "src", "README.md",
         "packages/react-imready/src/react-imready",
-        "node_modules/@egjs/component/src"
+        "packages/ngx-imready/projects/ngx-imready/src/lib/",
+        "packages/vue-imready/src/vue-imready",
+        "packages/svelte-imready/src/svelte-imready",
+        "packages/vue2-imready/src/"
       ],
       "includePattern": ".+\\.(j|t)s(doc|x)?$",
       "excludePattern": "(^|\\/|\\\\)_"

@@ -23,9 +23,10 @@
 		"demo:deploy": "npm run build && npm run jsdoc && npm run demo:prebuild-version && npm run demo:prebuild-latest && gh-pages -d demo/ --add --remote upstream",
 		"release": "release-helper upstream",
 		"packages": "npm run packages:update && npm run packages:build && npm run packages:publish",
-		"packages:update": "pvu --update=react-imready,vue-imready",
-		"packages:build": "pvu --build=react-imready,vue-imready",
-		"packages:publish": "pvu --publish=react-imready,vue-imready"
+		"packages:update-dist": "pvu --distUpdate=react-imready,vue-imready,vue2-imready,ngx-imready/projects/ngx-imready,svelte-imready --distPaths=declaration,dist",
+		"packages:update": "pvu --update=react-imready,vue-imready,vue2-imready,ngx-imready/projects/ngx-imready,svelte-imready",
+		"packages:build": "pvu --build=react-imready,vue-imready,vue2-imready,ngx-imready,svelte-imready",
+		"packages:publish": "pvu --publish=react-imready,vue-imready,vue2-imready,ngx-imready/dist/ngx-imready,svelte-imready"
 	},
 	"repository": {
 		"type": "git",
@@ -73,7 +74,7 @@
 		"mocha": "^6.0.2",
 		"print-coveralls": "^1.2.2",
 		"print-sizes": "^0.1.0",
-		"pvu": "^0.5.1",
+		"pvu": "^0.6.0",
 		"rollup": "^1.7.3",
 		"rollup-plugin-node-resolve": "^4.0.1",
 		"rollup-plugin-prototype-minify": "^1.0.5",
@@ -85,6 +86,6 @@
 		"typescript": "^3.9.7"
 	},
 	"dependencies": {
-		"@egjs/component": "^2.2.2"
+		"@egjs/component": "^3.0.1"
 	}
 }

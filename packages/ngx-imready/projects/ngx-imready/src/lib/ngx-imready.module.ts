@@ -6,7 +6,7 @@ import { NgxImReadyDirective } from './ngx-imready.directive';
 /**
  * Angular directive to check if the images or videos are loaded.
  * @ko 이미지와 비디오들이 로드가 됐는지 체크하는 Angular directive.
- * @alias Framework.AngularImReady
+ * @alias NgxImReady
  * @example
 ```html
 <div NgxImReady

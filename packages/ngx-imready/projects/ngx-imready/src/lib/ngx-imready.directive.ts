@@ -1,12 +1,8 @@
 import { AfterViewInit, ContentChildren, Directive, EventEmitter, Input, OnDestroy, Output, QueryList } from '@angular/core';
-import ImReady, { ImReadyOptions } from '@egjs/imready';
+import ImReady, { EVENTS, ImReadyOptions, PROPS } from '@egjs/imready';
 import { NgxImReadyRegisterDirective } from './ngx-imready-register.directive';
 import { NgxImReadyEvents } from './types';
 
-
-// TODO: CFC
-const EVENTS = ['preReadyElement', 'readyElement', 'error', 'preReady', 'ready'] as const;
-const PROPS = ['prefix', 'loaders'];
 
 @Directive({
   selector: '[NgxImReady]',
