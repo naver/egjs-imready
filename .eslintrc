@@ -16,6 +16,7 @@
         "@typescript-eslint/no-empty-interface": "off",
         "@typescript-eslint/ban-types": "off",
         "no-empty-interface": "off",
+        "quotes":"error",
         "comma-dangle": [
             "error",
             "always-multiline"

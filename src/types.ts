@@ -71,7 +71,6 @@ export interface ArrayFormat<T> {
 /**
  * @typedef
  * @memberof eg.ImReady
- * @property - Ref function that can register the element to be checked <ko>체크할 엘리먼트를 등록할 수 있는 ref 함수</ko>
  * @property - Whether there is an error in the element <ko>해당 엘리먼트에 에러가 있는지 여부</ko>
  * @property - The number of elements with errors <ko>에러가 있는 엘리먼트들의 개수</ko>
  * @property - The total number of targets with errors <ko>에러가 있는 타겟들의 총 개수</ko>

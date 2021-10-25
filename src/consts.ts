@@ -12,14 +12,14 @@ export const WIDTH = "width";
 export const HEIGHT = "height";
 
 export const PROPS = [
-  'prefix',
-  'loaders',
+  "prefix",
+  "loaders",
 ] as const;
 
 export const EVENTS = [
-  'preReadyElement',
-  'readyElement',
-  'error',
-  'preReady',
-  'ready',
+  "preReadyElement",
+  "readyElement",
+  "error",
+  "preReady",
+  "ready",
 ] as const;
