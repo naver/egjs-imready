@@ -8,6 +8,9 @@
 <a href="https://github.com/naver/egjs-imready/blob/main/LICENSE" target="_blank"><img src="https://img.shields.io/static/v1?style=flat-square&label=license&message=MIT&color=08CE5D"/></a>
 <a href="https://github.com/naver/egjs-imready/tree/main/packages/react-imready" target="_blank"><img alt="React" src="https://img.shields.io/static/v1.svg?label=&message=React&style=flat-square&color=61daeb"></a>
 <a href="https://github.com/naver/egjs-imready/tree/main/packages/vue-imready" target="_blank"><img alt="Vue" src="https://img.shields.io/static/v1.svg?label=&message=Vue&style=flat-square&color=42b883"></a>
+<a href="https://github.com/naver/egjs-imready/tree/main/packages/vue2-imready" target="_blank"><img alt="Vue 2" src="https://img.shields.io/static/v1.svg?label=&message=Vue2&style=flat-square&color=42b883"></a>
+<a href="https://github.com/naver/egjs-imready/tree/main/packages/ngx-imready" target="_blank"><img alt="Angular" src="https://img.shields.io/static/v1.svg?label=&message=Angular&style=flat-square&color=dd0031"></a>
+<a href="https://github.com/naver/egjs-imready/tree/main/packages/svelte-imready" target="_blank"><img alt="Svelte" src="https://img.shields.io/static/v1.svg?label=&message=Svelte&style=flat-square&color=FF3E00"></a>
 </p>
 <p align="middle">I'm Ready to check if the images or videos are loaded!</p>
 <p align="middle">
