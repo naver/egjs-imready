@@ -16,4 +16,8 @@ export {
   ImageLoader,
   Loader,
 };
+export {
+  EVENTS,
+  PROPS,
+} from "./consts";
 export * from "./types";
