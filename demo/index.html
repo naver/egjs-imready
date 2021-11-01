@@ -303,6 +303,106 @@ export default {
 }
 &lt;/script>
     </code></pre>
+    <h3>Vue2</h3>
+    <pre><code class="language-jsx">
+import Vue from "vue";
+import VueCompositionAPI from '@vue/composition-api';
+
+// @vue/composition-api is required to use vue2-imready.
+Vue.use(VueCompositionAPI);
+</code></pre>
+        <pre><code class="language-html">
+&lt;template>
+    &lt;div class="page">
+        &lt;div class="background" ref="container">
+            &lt;img src="..." />
+            &lt;img src="..." />
+            &lt;img src="..." />
+            &lt;img src="..." />
+            &lt;img src="..." />
+            &lt;img src="..." />
+        &lt;/div>
+        &lt;div class="container">
+            &lt;h1>{{im.isReady ? "Are you Ready?" : "I'm Ready"}}&lt;/h1>
+            &lt;p class="progress">{{im.totalCount ? Math.floor(im.readyCount / im.totalCount * 100) : 0}}%&lt;/p>
+        &lt;/div>
+    &lt;/div>
+&lt;/template>
+&lt;script>
+import { useImReady, useReadyElement } from "@egjs/vue2-imready";
+
+export default {
+    setup() {
+        const im = useReadyElement({
+            selector: "img",
+        });
+        return {
+            im,
+            container: im.register(),
+        };
+    },
+}
+&lt;/script>
+    </code></pre>
+    <h3>Angular</h3>
+    <pre><code class="language-html">
+&lt;div class="page" NgxImReady selector="img" (ready)="onReady($event)" (readyElement)="onReadyElement($event)">
+    &lt;div class="background" NgxImReadyRegister>
+        &lt;img src="..." />
+        &lt;img src="..." />
+        &lt;img src="..." />
+        &lt;img src="..." />
+        &lt;img src="..." />
+        &lt;img src="..." />
+    &lt;/div>
+    &lt;div class="container">
+        &lt;h1>{{isReady ? "Are you Ready?" : "I'm Ready"}}&lt;/h1>
+        &lt;p class="progress">{{totalCount ? Math.floor(readyCount / totalCount * 100) : 0}}%&lt;/p>
+    &lt;/div>
+&lt;/div>
+</code></pre>
+<pre><code class="language-js">
+import { Component } from '@angular/core';
+
+@Component({
+    selector: 'app-root',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.css'],
+})
+export class AppComponent {
+    title = 'ngx-imready';
+    public isReady = false;
+    public totalCount = 0;
+    public readyCount = 0;
+    onReadyElement(e) {
+        this.readyCount = e.readyCount;
+        this.totalCount = e.totalCount;
+    }
+    onReady(e) {
+        this.isReady = e.isReady;
+    }
+}
+</code></pre>
+<h3>Svelte</h3>
+    <pre><code class="language-html">
+&lt;script&gt;
+import { useReadyElement } from "@egjs/svelte-imready";
+
+const { register, readyCount, totalCount, isReady } = useReadyElement({
+    selector: "img",
+});
+&lt;/script&gt;
+&lt;div class="page">
+    &lt;div class="background" use:register>
+        &lt;img src="..." />
+        &lt;img src="..." />
+    &lt;/div>
+    &lt;div class="container">
+        &lt;h1>{{$isReady ? "Are you Ready?" : "I'm Ready"}}&lt;/h1>
+        &lt;p class="progress">{{$totalCount ? Math.floor($readyCount / $totalCount * 100) : 0}}%&lt;/p>
+    &lt;/div>
+&lt;/div>
+</code></pre>
     </div>
     <div class="page footer">
         <p>
