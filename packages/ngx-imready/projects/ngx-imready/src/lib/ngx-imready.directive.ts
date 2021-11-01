@@ -1,4 +1,4 @@
-import { AfterViewInit, ContentChildren, Directive, EventEmitter, Input, OnDestroy, Output, QueryList } from '@angular/core';
+import { AfterViewInit, ContentChildren, Directive, ElementRef, EventEmitter, Input, OnDestroy, Output, QueryList } from '@angular/core';
 import ImReady, { EVENTS, ImReadyOptions, PROPS } from '@egjs/imready';
 import { NgxImReadyRegisterDirective } from './ngx-imready-register.directive';
 import { NgxImReadyEvents } from './types';
@@ -25,7 +25,7 @@ export class NgxImReadyDirective implements ImReadyOptions, NgxImReadyEvents, Af
   private im: ImReady;
 
 
-  constructor() {
+  constructor(private elRef: ElementRef<HTMLElement>) {
     EVENTS.forEach((name) => {
       (this as any)[name] = new EventEmitter();
     });
@@ -46,6 +46,9 @@ export class NgxImReadyDirective implements ImReadyOptions, NgxImReadyEvents, Af
 
     let checkedElements = this.children.map(child => child.getElement());
 
+    if (!checkedElements.length) {
+      checkedElements = [].slice.call(this.elRef.nativeElement.children);
+    }
     const selector = this.selector;
     if (selector) {
       checkedElements = checkedElements.reduce((prev, cur) => {

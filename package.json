@@ -1,6 +1,6 @@
 {
 	"name": "@egjs/imready",
-	"version": "1.1.4-snapshot",
+	"version": "1.2.0",
 	"description": "This module is used to wait for the image or video to be ready.",
 	"main": "dist/imready.cjs.js",
 	"module": "dist/imready.esm.js",
@@ -74,7 +74,7 @@
 		"mocha": "^6.0.2",
 		"print-coveralls": "^1.2.2",
 		"print-sizes": "^0.1.0",
-		"pvu": "^0.6.0",
+		"pvu": "^0.6.1",
 		"rollup": "^1.7.3",
 		"rollup-plugin-node-resolve": "^4.0.1",
 		"rollup-plugin-prototype-minify": "^1.0.5",

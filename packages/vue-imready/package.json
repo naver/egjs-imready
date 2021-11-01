@@ -1,6 +1,6 @@
 {
   "name": "@egjs/vue-imready",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "description": "This vue module is used to wait for the image or video to be ready.",
   "main": "dist/imready.cjs.js",
   "module": "dist/imready.esm.js",
@@ -31,7 +31,7 @@
     "egjs"
   ],
   "dependencies": {
-    "@egjs/imready": "~1.1.4"
+    "@egjs/imready": "~1.2.0"
   },
   "devDependencies": {
     "@egjs/build-helper": "^0.1.2",
