@@ -1,4 +1,4 @@
-<p align="middle" ><img src="../../demo/images/logo.png"/></p>
+<p align="middle" ><img src="https://github.com/naver/egjs-imready/raw/main/demo/images/logo.png"/></p>
 <h2 align="middle">I'm Angular Ready</h2>
 <p align="middle">
 <a href="https://www.npmjs.com/package/@egjs/ngx-imready" target="_blank"><img src="https://img.shields.io/npm/v/@egjs/ngx-imready.svg?style=flat-square&color=007acc&label=version" alt="npm version" /></a>
