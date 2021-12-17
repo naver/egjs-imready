@@ -3,7 +3,7 @@ egjs-imready
 Copyright (c) 2020-present NAVER Corp.
 MIT license
 */
-import Component from "@egjs/component";
+import Component, { ComponentEvent } from "@egjs/component";
 import { ElementLoader } from "./loaders/ElementLoader";
 import { ArrayFormat, ElementInfo, ImReadyEvents, ImReadyLoaderOptions, ImReadyOptions } from "./types";
 import { toArray, getContentElements, hasLoadingAttribute } from "./utils";
@@ -172,6 +172,7 @@ class ImReadyManager extends Component<ImReadyEvents> {
   private getLoader(element: HTMLElement, options: ImReadyLoaderOptions) {
     const tagName = element.tagName.toLowerCase();
     const loaders = this.options.loaders;
+    const prefix = options.prefix;
     const tags = Object.keys(loaders);
 
     if (loaders[tagName]) {
@@ -180,7 +181,7 @@ class ImReadyManager extends Component<ImReadyEvents> {
     const loader = new ElementLoader(element, options);
     const children = toArray(element.querySelectorAll<HTMLElement>(tags.join(", ")));
 
-    loader.setHasLoading(children.some(el => hasLoadingAttribute(el)));
+    loader.setHasLoading(children.some(el => hasLoadingAttribute(el, prefix)));
     let withPreReady = false;
 
     const childrenImReady = this.clone().on("error", e => {
@@ -264,13 +265,13 @@ class ImReadyManager extends Component<ImReadyEvents> {
      * });
      * ```
      */
-    this.trigger("error", {
+    this.trigger(new ComponentEvent("error", {
       element: info.element,
       index,
       target,
       errorCount: this.getErrorCount(),
       totalErrorCount: ++this.totalErrorCount,
-    });
+    }));
   }
   private onPreReadyElement(index: number) {
     const info = this.elementInfos[index];
@@ -302,7 +303,7 @@ class ImReadyManager extends Component<ImReadyEvents> {
      * });
      * ```
      */
-    this.trigger("preReadyElement", {
+    this.trigger(new ComponentEvent("preReadyElement", {
       element: info.element,
       index,
 
@@ -314,7 +315,7 @@ class ImReadyManager extends Component<ImReadyEvents> {
       isReady: this.isReady(),
       hasLoading: info.hasLoading,
       isSkip: info.isSkip,
-    });
+    }));
   }
   private onPreReady() {
     this.isPreReadyOver = true;
@@ -344,12 +345,12 @@ class ImReadyManager extends Component<ImReadyEvents> {
      * });
      * ```
      */
-    this.trigger("preReady", {
+    this.trigger(new ComponentEvent("preReady", {
       readyCount: this.readyCount,
       totalCount: this.totalCount,
       isReady: this.isReady(),
       hasLoading: this.hasLoading(),
-    });
+    }));
   }
   private onReadyElement(index: number) {
     const info = this.elementInfos[index];
@@ -381,7 +382,7 @@ class ImReadyManager extends Component<ImReadyEvents> {
      * });
      * ```
      */
-    this.trigger("readyElement", {
+    this.trigger(new ComponentEvent("readyElement", {
       index,
       element: info.element,
 
@@ -399,7 +400,7 @@ class ImReadyManager extends Component<ImReadyEvents> {
       hasLoading: info.hasLoading,
       isPreReadyOver: this.isPreReadyOver,
       isSkip: info.isSkip,
-    });
+    }));
   }
   private onReady() {
     /**
@@ -432,11 +433,11 @@ class ImReadyManager extends Component<ImReadyEvents> {
      * });
      * ```
      */
-    this.trigger("ready", {
+    this.trigger(new ComponentEvent("ready", {
       errorCount: this.getErrorCount(),
       totalErrorCount: this.totalErrorCount,
       totalCount: this.totalCount,
-    });
+    }));
   }
   private getErrorCount() {
     return this.elementInfos.filter(info => info.hasError).length;

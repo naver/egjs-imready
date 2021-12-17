@@ -31,7 +31,7 @@ export default abstract class Loader<T extends HTMLElement = any> extends Compon
 
     this.hasDataSize = hasSizeAttribute(element, prefix);
     this.isSkip = hasSkipAttribute(element, prefix);
-    this.hasLoading = hasLoadingAttribute(element);
+    this.hasLoading = hasLoadingAttribute(element, prefix);
   }
   public check() {
     if (this.isSkip || !this.checkElement()) {
@@ -81,6 +81,10 @@ export default abstract class Loader<T extends HTMLElement = any> extends Compon
 
     if (e && e.type === "error") {
       this.onError(this.element);
+    }
+    if (this.hasLoading && this.checkElement()) {
+      // I'm not ready
+      return;
     }
     // I'm pre-ready and ready!
     const withPreReady = !this.hasDataSize && !this.hasLoading;

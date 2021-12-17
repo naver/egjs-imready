@@ -17,8 +17,9 @@ export function toArray<T>(arr: ArrayFormat<T>): T[] {
 export function hasSizeAttribute(target: HTMLElement, prefix = "data-"): boolean {
   return !!target.getAttribute(`${prefix}width`);
 }
-export function hasLoadingAttribute(target: HTMLElement): target is HTMLImageElement {
-  return ("loading" in target) && (target as HTMLImageElement).getAttribute("loading") === "lazy";
+export function hasLoadingAttribute(target: HTMLElement, prefix = "data-"): target is HTMLImageElement {
+  return (("loading" in target) && (target as HTMLImageElement).getAttribute("loading") === "lazy")
+    || !!target.getAttribute(`${prefix}lazy`);
 }
 export function hasSkipAttribute(target: HTMLElement, prefix = "data-"): boolean {
   return !!target.getAttribute(`${prefix}skip`);
