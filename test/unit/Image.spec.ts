@@ -369,6 +369,36 @@ describe("Test image", () => {
       "preReadyElement", "preReady", "readyElement", "ready",
     ]);
   });
+  it("should check that call preReady if include the data-layzy='true' img.", async () => {
+    // Given
+    el.innerHTML = "<img src=\"\" data-lazy=\"true\"/>";
+
+    const img = el.querySelector("img");
+    const events = checkEventOrders(im);
+
+    // When
+    im.check([el]);
+
+
+    await waitEvent(im, "preReady");
+    const loadingSize = getSize(img);
+
+
+    // load for lazy loading
+    img.src = getImageURL();
+    await waitEvent(im, "ready");
+
+
+    // Then
+    expect(loadingSize).to.be.deep.equals([0, 0]);
+    // preReadyElement
+    expect(events[0].hasLoading).to.be.equals(true);
+    // preReady
+    expect(events[1].hasLoading).to.be.equals(true);
+    expectOrders(events, [
+      "preReadyElement", "preReady", "readyElement", "ready",
+    ]);
+  });
   it("should check that call preReady if include the loading img and not loading img.", async () => {
     // Given
     el.innerHTML = `
@@ -429,6 +459,7 @@ describe("Test image", () => {
     expect(events[0].hasLoading).to.be.equals(true);
     // preReady
     expect(events[1].hasLoading).to.be.equals(true);
+
     expectOrders(events, [
       "preReadyElement", "preReady", "readyElement", "ready",
     ]);
@@ -550,7 +581,7 @@ describe("Test image", () => {
   });
   it("should check whether the image of empty src is checked even if it is complete", async () => {
     // Given
-    el.innerHTML = `<img />`;
+    el.innerHTML = "<img />";
 
     const img = el.querySelector("img");
 

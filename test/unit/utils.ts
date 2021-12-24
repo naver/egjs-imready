@@ -44,7 +44,7 @@ export function waitFor(delay: number): Promise<void> {
     setTimeout(resolve, delay);
   });
 }
-export function waitEvent(component: Component, eventName: string) {
+export function waitEvent(component: Component<{ [key: string]: any }>, eventName: string) {
   return new Promise(resolve => {
     component.once(eventName, e => {
       resolve(e);

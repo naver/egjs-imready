@@ -3,7 +3,7 @@ egjs-imready
 Copyright (c) 2020-present NAVER Corp.
 MIT license
 */
-import Component from "@egjs/component";
+import Component, { ComponentEvent } from "@egjs/component";
 import Loader from "./loaders/Loader";
 
 /**
@@ -103,7 +103,7 @@ export interface ArrayFormat<T> {
  * @property - The number of elements with errors. <ko>에러가 있는 엘리먼트들의 개수.</ko>
  * @property - The total number of targets with errors. <ko>에러가 있는 타겟들의 총 개수.</ko>
  */
-export interface OnError {
+export interface OnError extends ComponentEvent {
   element: HTMLElement;
   index: number;
   target: HTMLElement;
@@ -124,7 +124,7 @@ export interface OnError {
  * @property - Whether the loading attribute has been applied. <ko>loading 속성이 적용되었는지 여부.</ko>
  * @property - Whether the check is omitted due to skip attribute. <ko>skip 속성으로 인하여 체크가 생략됐는지 여부.</ko>
  */
-export interface OnPreReadyElement {
+export interface OnPreReadyElement extends ComponentEvent {
   element: HTMLElement;
   index: number;
 
@@ -156,7 +156,7 @@ export interface OnPreReadyElement {
  * @property - Whether pre-ready is over <ko>사전 준비가 끝났는지 여부</ko>
  * @property - Whether the check is omitted due to skip attribute <ko>skip 속성으로 인하여 체크가 생략됐는지 여부</ko>
  */
-export interface OnReadyElement {
+export interface OnReadyElement extends ComponentEvent {
   element: HTMLElement;
   index: number;
 
@@ -183,7 +183,7 @@ export interface OnReadyElement {
  * @property - Whether all elements are ready <ko>모든 엘리먼트가 준비가 끝났는지 여부</ko>
  * @property - Whether the loading attribute has been applied <ko>loading 속성이 적용되었는지 여부</ko>
  */
-export interface OnPreReady {
+export interface OnPreReady extends ComponentEvent {
   readyCount: number;
   totalCount: number;
   isReady: boolean;
@@ -197,7 +197,7 @@ export interface OnPreReady {
  * @property - The total number of targets with errors <ko>에러가 있는 타겟들의 총 개수</ko>
  * @property - Total number of elements <ko>엘리먼트들의 총 개수</ko>
  */
-export interface OnReady {
+export interface OnReady extends ComponentEvent {
   errorCount: number;
   totalErrorCount: number;
   totalCount: number;
