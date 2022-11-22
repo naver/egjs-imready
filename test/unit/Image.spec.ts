@@ -1,6 +1,6 @@
 import { sandbox, cleanup, waitEvent, getSize, checkEventOrders, expectOrders, waitFor, getImageURL } from "./utils";
 import ImReady from "../../src/index";
-import { spy, stub } from "sinon";
+import { spy } from "sinon";
 import { toArray, innerWidth, innerHeight } from "../../src/utils";
 
 describe("Test image", () => {
