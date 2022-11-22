@@ -1,6 +1,6 @@
 import { sandbox, cleanup, waitEvent, getSize, checkEventOrders, expectOrders, waitFor, getImageURL } from "./utils";
 import ImReady from "../../src/index";
-import { spy } from "sinon";
+import { spy, stub } from "sinon";
 import { toArray, innerWidth, innerHeight } from "../../src/utils";
 
 describe("Test image", () => {
@@ -632,5 +632,32 @@ describe("Test image", () => {
     // Then
     expect(readySpy.callCount).to.be.equal(0);
     expect(preReadySpy.callCount).to.be.equal(0);
+  });
+  it("should check invalid error event does not occur if you destroy while check is running.", async () => {
+    // Given
+    el.innerHTML = `
+      <div>
+        <img src="https://ERR"/ loading="lazy">
+      </div>
+    `;
+
+    const img = el.querySelector("img");
+
+    // inject loading attribute for not supported browser
+    img.setAttribute("loading", "lazy");
+    Object.defineProperty(img, "loading", {
+      value: "lazy",
+    });
+
+    const errorStub = stub(im, <any>"onError");
+
+    // When
+    im.check([el]);
+    await waitEvent(im, "ready");
+    im.destroy();
+    await waitFor(100);
+
+    // Then
+    expect(errorStub.calledOnce).to.be.true;
   });
 });

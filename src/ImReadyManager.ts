@@ -66,7 +66,7 @@ class ImReadyManager extends Component<ImReadyEvents> {
 
       loader.check();
       loader.on("error", e => {
-        this.onError(index, e.target);
+        this.elementInfos[index] && this.onError(index, e.target);
       }).on("preReady", e => {
         const info = this.elementInfos[index];
 
