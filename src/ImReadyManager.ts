@@ -66,7 +66,7 @@ class ImReadyManager extends Component<ImReadyEvents> {
 
       loader.check();
       loader.on("error", e => {
-        this.elementInfos[index] && this.onError(index, e.target);
+        this.onError(index, e.target);
       }).on("preReady", e => {
         const info = this.elementInfos[index];
 
@@ -237,6 +237,10 @@ class ImReadyManager extends Component<ImReadyEvents> {
 
   private onError(index: number, target: HTMLElement) {
     const info = this.elementInfos[index];
+
+    if (!info) {
+      return;
+    }
 
     info.hasError = true;
     /**

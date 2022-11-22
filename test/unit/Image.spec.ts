@@ -640,6 +640,9 @@ describe("Test image", () => {
         <img src="https://ERR"/ loading="lazy">
       </div>
     `;
+    const errorSpy = spy();
+
+    im.on("error", errorSpy);
 
     const img = el.querySelector("img");
 
@@ -649,8 +652,6 @@ describe("Test image", () => {
       value: "lazy",
     });
 
-    const errorStub = stub(im, <any>"onError");
-
     // When
     im.check([el]);
     await waitEvent(im, "ready");
@@ -658,6 +659,6 @@ describe("Test image", () => {
     await waitFor(100);
 
     // Then
-    expect(errorStub.calledOnce).to.be.true;
+    expect(errorSpy.calledOnce).to.be.true;
   });
 });
