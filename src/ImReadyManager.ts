@@ -155,7 +155,7 @@ class ImReadyManager extends Component<ImReadyEvents> {
     this.readyCount = 0;
     this.totalErrorCount = 0;
     this.elementInfos.forEach(info => {
-      if (!info.isReady && info.loader) {
+      if (info.loader) {
         info.loader.destroy();
       }
     });
@@ -237,10 +237,6 @@ class ImReadyManager extends Component<ImReadyEvents> {
 
   private onError(index: number, target: HTMLElement) {
     const info = this.elementInfos[index];
-
-    if (!info) {
-      return;
-    }
 
     info.hasError = true;
     /**
