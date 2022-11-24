@@ -633,7 +633,7 @@ describe("Test image", () => {
     expect(readySpy.callCount).to.be.equal(0);
     expect(preReadySpy.callCount).to.be.equal(0);
   });
-  it("should check invalid error event does not occur if you destroy while check is running.", async () => {
+  it("should check that the error event does not occur twice if you destroy after ready.", async () => {
     // Given
     el.innerHTML = `
       <div>
