@@ -633,4 +633,32 @@ describe("Test image", () => {
     expect(readySpy.callCount).to.be.equal(0);
     expect(preReadySpy.callCount).to.be.equal(0);
   });
+  it("should check that the error event does not occur twice if you destroy after ready.", async () => {
+    // Given
+    el.innerHTML = `
+      <div>
+        <img src="https://ERR"/ loading="lazy">
+      </div>
+    `;
+    const errorSpy = spy();
+
+    im.on("error", errorSpy);
+
+    const img = el.querySelector("img");
+
+    // inject loading attribute for not supported browser
+    img.setAttribute("loading", "lazy");
+    Object.defineProperty(img, "loading", {
+      value: "lazy",
+    });
+
+    // When
+    im.check([el]);
+    await waitEvent(im, "ready");
+    im.destroy();
+    await waitFor(100);
+
+    // Then
+    expect(errorSpy.calledOnce).to.be.true;
+  });
 });
