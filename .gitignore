@@ -211,3 +211,4 @@ demo/release
 declaration/
 
 packages/*/dist/
+dist/
