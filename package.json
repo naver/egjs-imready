@@ -1,14 +1,14 @@
 {
 	"name": "imready-root",
 	"description": "This module is used to wait for the image or video to be ready.",
-  "private": true,
+	"private": true,
 	"scripts": {
 		"jsdoc": "rm -rf ./doc && jsdoc -c jsdoc.json",
 		"release": "release-helper upstream",
-    "packages": "npm run packages:update && npm run packages:build && npm run packages:publish",
-    "packages:update": "lerna-helper version && npm run update-angular-consts",
-    "packages:build": "npm run build --prefix packages/imready && lerna run build --ignore @egjs/imready --ignore @egjs/ngx-imready --ignore docs --stream",
-    "packages:publish": "lerna-helper publish --ignore @egjs/ngx-imready --commit 'chore: update packages versions'"
+		"packages": "npm run packages:update && npm run packages:build && npm run packages:publish",
+		"packages:update": "lerna-helper version && npm run update-angular-consts",
+		"packages:build": "npm run build --prefix packages/imready && lerna run build --ignore @egjs/imready --ignore @egjs/ngx-imready --ignore docs --stream",
+		"packages:publish": "lerna-helper publish --ignore @egjs/ngx-imready --commit 'chore: update packages versions'"
 	},
 	"repository": {
 		"type": "git",
@@ -34,25 +34,25 @@
 		"lerna": "^6.3.0",
 		"typescript": "^3.9.7"
 	},
-  "workspaces": {
-    "packages": [
-      "packages/*",
-      "packages/ngx-imready/projects/ngx-imready"
-    ],
-    "nohoist": [
-      "**/@egjs/build-helper",
-      "**/@egjs/build-helper/**",
-      "**/rollup-plugin-vue",
-      "**/rollup-plugin-vue/**",
-      "**/karma",
-      "**/karma/**",
-      "**/karma-*",
-      "**/karma-*/**",
-      "**/@types/**",
-      "**/@vue/*",
-      "**/@vue/*/**",
-      "**/vue",
-      "**/vue/**"
-    ]
-  }
+	"workspaces": {
+		"packages": [
+			"packages/*",
+			"packages/ngx-imready/projects/ngx-imready"
+		],
+		"nohoist": [
+			"**/@egjs/build-helper",
+			"**/@egjs/build-helper/**",
+			"**/rollup-plugin-vue",
+			"**/rollup-plugin-vue/**",
+			"**/karma",
+			"**/karma/**",
+			"**/karma-*",
+			"**/karma-*/**",
+			"**/@types/**",
+			"**/@vue/*",
+			"**/@vue/*/**",
+			"**/vue",
+			"**/vue/**"
+		]
+	}
 }
