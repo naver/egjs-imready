@@ -9,7 +9,16 @@
   "lernaHelperOptions": {
     "deployFileMap": [
       {
-        "basePath": "packages/imready/dist"
+        "basePath": "packages/imready/dist",
+        "dists": [
+          "demo/release/latest/dist"
+        ]
+      },
+      {
+        "basePath": "doc",
+        "dists": [
+          "demo/release/latest/doc"
+        ]
       }
     ],
     "beforeReleaseScripts": [

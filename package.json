@@ -4,11 +4,6 @@
   "private": true,
 	"scripts": {
 		"jsdoc": "rm -rf ./doc && jsdoc -c jsdoc.json",
-		"demo:build": "npm run build --prefix packages/imready && cpx 'packages/imready/dist/**/*' demo/release/latest/dist --clean",
-		"demo:prebuild-version": "cpx 'packages/imready/dist/**/*' demo/release/$npm_package_version/dist --clean && cpx 'doc/**/*' demo/release/$npm_package_version/doc --clean",
-		"demo:prebuild-latest": "cpx 'packages/imready/dist/**/*' demo/release/latest/dist --clean && cpx 'doc/**/*' demo/release/latest/doc --clean",
-		"demo:deploy": "npm run build --prefix packages/imready && npm run jsdoc && npm run demo:prebuild-version && npm run demo:prebuild-latest && gh-pages -d demo/ --add --remote upstream",
-		"demo:deploy-origin": "npm run build --prefix packages/imready && npm run jsdoc && npm run demo:prebuild-version && npm run demo:prebuild-latest && gh-pages -d demo/ --add --remote origin",
 		"release": "release-helper upstream",
     "packages": "npm run packages:update && npm run packages:build && npm run packages:publish",
     "packages:update": "lerna-helper version && npm run update-angular-consts",
@@ -34,7 +29,6 @@
 	"devDependencies": {
 		"@daybrush/jsdoc": "^0.3.8",
 		"@egjs/release-helper": "0.0.3",
-		"cpx": "^1.5.0",
 		"egjs-jsdoc-template": "^1.4.4",
 		"gh-pages": "^2.0.1",
 		"lerna": "^6.3.0",
