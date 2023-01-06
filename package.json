@@ -3,12 +3,13 @@
 	"description": "This module is used to wait for the image or video to be ready.",
 	"private": true,
 	"scripts": {
-		"jsdoc": "rm -rf ./doc && jsdoc -c jsdoc.json",
-		"release": "release-helper upstream",
 		"packages": "npm run packages:update && npm run packages:build && npm run packages:publish",
 		"packages:update": "lerna-helper version && npm run update-angular-consts",
 		"packages:build": "npm run build --prefix packages/imready && lerna run build --ignore @egjs/imready --ignore @egjs/ngx-imready --ignore docs --stream",
-		"packages:publish": "lerna-helper publish --ignore @egjs/ngx-imready --commit 'chore: update packages versions'"
+		"packages:publish": "lerna-helper publish --ignore @egjs/ngx-imready --commit 'chore: update packages versions'",
+		"docs:build": "rm -rf ./doc && jsdoc -c jsdoc.json",
+		"demo:deploy": "lerna-helper deploy --base @egjs/imready --remote origin",
+		"release": "release-helper upstream"
 	},
 	"repository": {
 		"type": "git",
@@ -28,7 +29,7 @@
 	"license": "MIT",
 	"devDependencies": {
 		"@daybrush/jsdoc": "^0.3.8",
-		"@egjs/release-helper": "0.0.3",
+		"@egjs/release-helper": "^0.2.3",
 		"egjs-jsdoc-template": "^1.4.4",
 		"gh-pages": "^2.0.1",
 		"lerna": "^6.3.0",

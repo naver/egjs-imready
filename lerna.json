@@ -17,13 +17,14 @@
       {
         "basePath": "doc",
         "dists": [
+          "demo/release/{{version}}/dist",
           "demo/release/latest/doc"
         ]
       }
     ],
     "beforeReleaseScripts": [
       "npm run packages:build",
-      "npm run demo:build",
+      "npm run docs:build",
       "npm run demo:deploy"
     ]
   }
