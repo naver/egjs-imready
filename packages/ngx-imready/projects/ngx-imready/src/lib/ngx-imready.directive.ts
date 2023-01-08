@@ -1,16 +1,28 @@
-import { AfterViewInit, ContentChildren, Directive, ElementRef, EventEmitter, Input, OnDestroy, Output, QueryList } from '@angular/core';
+import { isPlatformServer } from '@angular/common';
+import {
+  AfterViewInit,
+  ContentChildren,
+  Directive,
+  ElementRef,
+  EventEmitter,
+  Inject,
+  Input,
+  NgZone,
+  OnDestroy,
+  Output,
+  PLATFORM_ID,
+  QueryList,
+} from '@angular/core';
 import ImReady, { EVENTS, ImReadyOptions, PROPS } from '@egjs/imready';
+import { fromEvent, Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+
 import { NgxImReadyRegisterDirective } from './ngx-imready-register.directive';
 import { NgxImReadyEvents } from './types';
-
 
 @Directive({
   selector: '[NgxImReady]',
 })
-
-/**
- * Angular
- */
 export class NgxImReadyDirective implements ImReadyOptions, NgxImReadyEvents, AfterViewInit, OnDestroy {
   @Input() prefix: ImReadyOptions['prefix'];
   @Input() loaders: ImReadyOptions['loaders'];
@@ -22,15 +34,24 @@ export class NgxImReadyDirective implements ImReadyOptions, NgxImReadyEvents, Af
   @Output() ready: NgxImReadyEvents['ready'];
   @ContentChildren(NgxImReadyRegisterDirective) children!: QueryList<NgxImReadyRegisterDirective>;
 
-  private im: ImReady;
+  private _imReady: ImReady | null = null;
+  private _destroy$ = new Subject<void>();
 
-
-  constructor(private elRef: ElementRef<HTMLElement>) {
+  constructor(
+    private _ngZone: NgZone,
+    @Inject(PLATFORM_ID) private _platformId: string,
+    private _host: ElementRef<HTMLElement>
+  ) {
     EVENTS.forEach((name) => {
       (this as any)[name] = new EventEmitter();
     });
   }
+
   ngAfterViewInit(): void {
+    if (isPlatformServer(this._platformId)) {
+      return;
+    }
+
     const options: Partial<ImReadyOptions> = {};
 
     PROPS.forEach((name) => {
@@ -38,16 +59,15 @@ export class NgxImReadyDirective implements ImReadyOptions, NgxImReadyEvents, Af
         (options as any)[name] = (this as any)[name];
       }
     });
-    const im = new ImReady(options);
-
-    this.im = im;
-
-
+  
+    this._ngZone.runOutsideAngular(() => {
+      this._imReady = new ImReady(options);
+    });
 
     let checkedElements = this.children.map(child => child.getElement());
 
     if (!checkedElements.length) {
-      checkedElements = [].slice.call(this.elRef.nativeElement.children);
+      checkedElements = [].slice.call(this._host.nativeElement.children);
     }
     const selector = this.selector;
     if (selector) {
@@ -57,14 +77,29 @@ export class NgxImReadyDirective implements ImReadyOptions, NgxImReadyEvents, Af
     }
 
     EVENTS.forEach((name) => {
-      im.on(name, e => {
-        this[name].emit(e as any);
-      });
+      fromEvent(this._imReady, name)
+        .pipe(takeUntil(this._destroy$))
+        .subscribe((event: any) => {
+          const emitter = this[name];
+
+          if (emitter && hasObservers(emitter)) {
+            this._ngZone.run(() => emitter.emit(event));
+          }
+        });
     });
 
-    im.check(checkedElements);
+    this._ngZone.runOutsideAngular(() => this._imReady.check(checkedElements));
   }
+
   ngOnDestroy() {
-    this.im?.destroy();
+    this._imReady?.destroy();
+    this._imReady = null;
+    this._destroy$.next();
   }
+}
+
+function hasObservers(emitter: EventEmitter<unknown>): boolean {
+  // Note: The `observed` property is available only in RxJS@7.2.0, which means it's
+  // not available for users running the lower version.
+  return emitter['observed'] ?? emitter['observers'].length > 0;
 }
