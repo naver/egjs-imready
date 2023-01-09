@@ -1,0 +1,31 @@
+{
+  "npmClient": "yarn",
+  "useWorkspaces": true,
+  "packages": [
+    "packages/*",
+    "packages/ngx-imready/projects/ngx-imready"
+  ],
+  "version": "independent",
+  "lernaHelperOptions": {
+    "deployFileMap": [
+      {
+        "basePath": "packages/imready/dist",
+        "dists": [
+          "demo/release/latest/dist"
+        ]
+      },
+      {
+        "basePath": "doc",
+        "dists": [
+          "demo/release/{{version}}/dist",
+          "demo/release/latest/doc"
+        ]
+      }
+    ],
+    "beforeReleaseScripts": [
+      "npm run packages:build",
+      "npm run docs:build",
+      "npm run demo:deploy"
+    ]
+  }
+}

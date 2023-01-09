@@ -6,7 +6,7 @@
   "source": {
       "include": [
         "node_modules/@egjs/component/src",
-        "src", "README.md",
+        "packages/imready/src", "README.md",
         "packages/react-imready/src/react-imready",
         "packages/ngx-imready/projects/ngx-imready/src/lib/",
         "packages/vue-imready/src/vue-imready",
