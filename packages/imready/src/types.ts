@@ -215,6 +215,18 @@ export interface ImReadyEvents {
   ready: OnReady;
 }
 
+export interface ImReadyReactiveState {
+  readonly preReadyCount: number;
+  readonly readyCount: number;
+  readonly errorCount: number;
+  readonly totalErrorCount: number;
+  readonly totalCount: number;
+  readonly isPreReady: boolean;
+  readonly isReady: boolean;
+  readonly hasError: boolean;
+  readonly isPreReadyOver: boolean;
+}
+
 /**
  * @memberof eg.ImReady
  * @typedef
