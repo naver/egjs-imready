@@ -6,25 +6,37 @@ import {
   ImReadyHooksProps,
   ImReadyReactiveState,
 } from "./types";
+import { toArray } from "./utils";
 
 export interface ImReadyData {
   props: Partial<ImReadyHooksProps>;
 }
 
 export type ReactiveImReady = ReactiveObject<{
-  instance: ImReady;
-  register<T extends HTMLElement>(ref?: any): any;
+  imReady: ImReady;
+  preReadyCount: number;
+  readyCount: number;
+  errorCount: number;
+  totalErrorCount: number;
+  totalCount: number;
+  isPreReady: boolean;
+  isReady: boolean;
+  hasError: boolean;
+  isPreReadyOver: boolean;
+  register(ref?: any): any;
 }>;
 
 const children: HTMLElement[] = [];
+const totalCount = observe(0);
 
 export const REACTIVE_IMREADY: ReactiveAdapter<
   ReactiveImReady,
   ImReadyReactiveState,
-  never,
+  "register",
   ImReadyData,
   ImReadyEvents
 > = {
+  methods: ["register"],
   events: EVENTS,
   state: {
     preReadyCount: 0,
@@ -37,7 +49,7 @@ export const REACTIVE_IMREADY: ReactiveAdapter<
     hasError: false,
     isPreReadyOver: false,
   },
-  mounted(data) {
+  created(data) {
     const imReady = new ImReady(data.props);
     const {
       useError,
@@ -50,14 +62,12 @@ export const REACTIVE_IMREADY: ReactiveAdapter<
     const readyCount = observe(0);
     const errorCount = observe(0);
     const totalErrorCount = observe(0);
-    const totalCount = observe(imReady.getTotalCount());
     const isPreReady = observe(false);
     const isReady = observe(false);
     const hasError = observe(false);
     const isPreReadyOver = observe(false);
 
     imReady
-      .check(children)
       .on("error", (e) => {
         if (useError) {
           hasError.current = true;
@@ -87,7 +97,7 @@ export const REACTIVE_IMREADY: ReactiveAdapter<
         }
       });
     return reactive({
-      instance: imReady,
+      imReady: imReady,
       preReadyCount,
       readyCount,
       errorCount,
@@ -97,19 +107,41 @@ export const REACTIVE_IMREADY: ReactiveAdapter<
       isReady,
       hasError,
       isPreReadyOver,
-      register: () => {
-        // register elements to children
-        return;
+      register: (element?: HTMLElement) => {
+        if (element) {
+          children.push(element);
+        }
+        return (instance) => {
+          if (instance) {
+            children.push(instance);
+          }
+        };
       },
     });
   },
-  destroy({ instance }) {
-    instance.destroy();
+  mounted(data, instance) {
+    const { selector } = data.props;
+    let checkedElements = children;
+    if (selector) {
+      checkedElements = checkedElements.reduce((prev, cur) => {
+        return [
+          ...prev,
+          ...toArray(
+            cur.querySelectorAll<HTMLElement>(selector)
+          ),
+        ];
+      }, [] as HTMLElement[]);
+    }
+    totalCount.current = checkedElements.length;
+    instance?.imReady.check(checkedElements);
   },
-  on({ instance }, name, callback) {
-    instance.on(name, callback);
+  destroy({ imReady }) {
+    imReady.destroy();
   },
-  off({ instance }, name, callback) {
-    instance.off(name, callback);
+  on({ imReady }, name, callback) {
+    imReady.on(name, callback);
+  },
+  off({ imReady }, name, callback) {
+    imReady.off(name, callback);
   },
 };
