@@ -1,4 +1,5 @@
-import { ImReadyProps } from "./types";
+import { VueReactiveAdapterResult } from "@cfcs/vue3";
+import { ImReadyHooksProps, REACTIVE_IMREADY } from "@egjs/imready";
 import { useImReady } from "./useImReady";
 
 /**
@@ -23,10 +24,12 @@ import { useImReady } from "./useImReady";
  * // &lt;div v-bind:ref="im.register()"&gt;&lt;/div&gt;
  * ```
  */
-export function useReadyElement(props: Partial<ImReadyProps> = {}) {
-    return useImReady({
-        usePreReadyElement: false,
-        usePreReady: false,
-        ...props,
-    });
+export function useReadyElement(
+  props: Partial<ImReadyHooksProps> = {}
+): VueReactiveAdapterResult<typeof REACTIVE_IMREADY> {
+  return useImReady({
+    usePreReadyElement: false,
+    usePreReady: false,
+    ...props,
+  });
 }

@@ -1,6 +1,6 @@
-import { ImReadyProps, ImReadyValue } from "./types";
+import { VueReactiveAdapterResult } from "@cfcs/vue3";
+import { ImReadyHooksProps, REACTIVE_IMREADY } from "@egjs/imready";
 import { useImReady } from "./useImReady";
-
 
 /**
  * Vue hook to check if the images or videos are loaded. (only usePreReady and useError are true)
@@ -24,11 +24,13 @@ import { useImReady } from "./useImReady";
  * // &lt;div v-bind:ref="im.register()"&gt;&lt;/div&gt;
  * ```
  */
-export function usePreReady(props: Partial<ImReadyProps> = {}): ImReadyValue {
-    return useImReady({
-        usePreReadyElement: false,
-        useReadyElement: false,
-        useReady: false,
-        ...props,
-    });
+export function usePreReady(
+  props: Partial<ImReadyHooksProps> = {}
+): VueReactiveAdapterResult<typeof REACTIVE_IMREADY> {
+  return useImReady({
+    usePreReadyElement: false,
+    useReadyElement: false,
+    useReady: false,
+    ...props,
+  });
 }
