@@ -1,6 +1,5 @@
-import { ImReadyProps } from "./types";
-import { useImReady } from "./useImReady";
-
+import { ImReadyHooksProps } from "@egjs/imready";
+import { ReactImReadyResult, useImReady } from "./useImReady";
 
 /**
  * React hook to check if the images or videos are loaded. (only `usePreReadyElement`, `usePreReady` and `useError` are true)
@@ -24,10 +23,12 @@ import { useImReady } from "./useImReady";
  * }
  * ```
  */
-export function usePreReadyElement(props: Partial<ImReadyProps> = {}) {
-    return useImReady({
-        useReady: false,
-        useReadyElement: false,
-        ...props,
-    });
+export function usePreReadyElement(
+  props: Partial<ImReadyHooksProps> = {}
+): ReactImReadyResult {
+  return useImReady({
+    useReady: false,
+    useReadyElement: false,
+    ...props,
+  });
 }
