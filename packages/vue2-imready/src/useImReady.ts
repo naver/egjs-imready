@@ -30,7 +30,15 @@ export function useImReady(props: Partial<ImReadyHooksProps> = {}): VueImReadyRe
   return useReactive({
     data() {
       return {
-        props,
+        props: {
+          usePreReady: true,
+          usePreReadyElement: true,
+          useReady: true,
+          useReadyElement: true,
+          useError: true,
+          selector: "",
+          ...props,
+        },
       };
     },
     ...REACTIVE_IMREADY,

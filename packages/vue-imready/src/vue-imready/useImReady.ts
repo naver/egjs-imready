@@ -1,6 +1,9 @@
 import { useReactive, VueReactiveAdapterResult } from "@cfcs/vue3";
 import { ImReadyHooksProps, REACTIVE_IMREADY } from "@egjs/imready";
 
+export interface VueImReadyResult
+  extends VueReactiveAdapterResult<typeof REACTIVE_IMREADY> {}
+
 /**
  * Vue hook to check if the images or videos are loaded.
  * @ko 이미지와 비디오들이 로드가 됐는지 체크하는 Vue hook.
@@ -25,7 +28,7 @@ import { ImReadyHooksProps, REACTIVE_IMREADY } from "@egjs/imready";
  */
 export function useImReady(
   props: Partial<ImReadyHooksProps>
-): VueReactiveAdapterResult<typeof REACTIVE_IMREADY> {
+): VueImReadyResult {
   return useReactive({
     data() {
       return {
