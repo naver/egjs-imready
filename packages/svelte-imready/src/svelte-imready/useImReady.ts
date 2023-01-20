@@ -1,7 +1,8 @@
-import { writable } from "svelte/store";
-import ImReady from "@egjs/imready";
-import type { ImReadyProps, ImReadyValue } from "./types";
-import { onDestroy, onMount } from "svelte/internal";
+import { useReactive, SvelteReactiveAdapterResult } from "@cfcs/svelte";
+import { ImReadyHooksProps, REACTIVE_IMREADY } from "@egjs/imready";
+
+export interface SvelteImReadyResult
+  extends SvelteReactiveAdapterResult<typeof REACTIVE_IMREADY> {}
 
 /**
  * Svelte hook to check if the images or videos are loaded.
@@ -25,93 +26,15 @@ import { onDestroy, onMount } from "svelte/internal";
  * // &lt;div use:register &gt;&lt;/div&gt;
  * ```
  */
-export function useImReady(props: Partial<ImReadyProps> = {}): ImReadyValue {
-  const {
-    usePreReady = true,
-    usePreReadyElement = true,
-    useReady = true,
-    useReadyElement = true,
-    useError = true,
-    selector = "",
-    ...options
-  } = props;
-
-
-  const children: Array<HTMLElement> = [];
-  const preReadyCount = writable(0);
-  const readyCount = writable(0);
-  const errorCount = writable(0);
-  const totalErrorCount = writable(0);
-  const totalCount = writable(0);
-  const isPreReady = writable(false);
-  const isReady = writable(false);
-  const hasError = writable(false);
-  const isPreReadyOver = writable(false);
-  let im: ImReady;
-
-  function register(element: HTMLElement) {
-    children.push(element);
-
-    return {
-      destroy() {
-        return;
-      },
-    };
-  }
-
-  onMount(() => {
-    im = new ImReady(options);
-
-    let checkedElements = children;
-
-    if (selector) {
-      checkedElements = children.reduce((prev, cur) => {
-        const nextElements = [].slice.call(cur.querySelectorAll<HTMLElement>(selector));
-        return [...prev, ...nextElements];
-      }, [] as HTMLElement[]);
-    }
-    im.check(checkedElements).on("error", e => {
-      if (useError) {
-        hasError.set(true);
-        errorCount.set(e.errorCount);
-        totalErrorCount.set(e.totalErrorCount);
-      }
-    }).on("preReadyElement", e => {
-      if (usePreReadyElement) {
-        preReadyCount.set(e.preReadyCount);
-      }
-    }).on("readyElement", e => {
-      if (useReadyElement) {
-        readyCount.set(e.readyCount);
-        isPreReady.set(e.isPreReadyOver);
-      }
-    }).on("preReady", () => {
-      if (usePreReady) {
-        isPreReady.set(true);
-      }
-    }).on("ready", () => {
-      if (useReady) {
-        isReady.set(true);
-      }
-    });
-
-    totalCount.set(im.getTotalCount());
+export function useImReady(
+  props: Partial<ImReadyHooksProps>
+): SvelteImReadyResult {
+  return useReactive({
+    data() {
+      return {
+        props,
+      };
+    },
+    ...REACTIVE_IMREADY,
   });
-
-  onDestroy(() => {
-    im && im.destroy();
-  });
-
-  return {
-    preReadyCount,
-    readyCount,
-    totalCount,
-    errorCount,
-    totalErrorCount,
-    isPreReady,
-    isReady,
-    hasError,
-    isPreReadyOver,
-    register,
-  };
 }

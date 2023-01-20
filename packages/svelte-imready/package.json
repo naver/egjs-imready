@@ -59,9 +59,10 @@
     "svelte-preprocess": "^4.6.1",
     "ts-jest": "^26.4.4",
     "tslib": "^1.10.0",
-    "typescript": "^3.9.7"
+    "typescript": "~4.1"
   },
   "dependencies": {
+    "@cfcs/svelte": "^0.0.13",
     "@egjs/imready": "~1.3.1"
   }
 }

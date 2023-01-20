@@ -1,5 +1,5 @@
-import { ImReadyProps } from "./types";
-import { useImReady } from "./useImReady";
+import { ImReadyHooksProps } from "@egjs/imready";
+import { SvelteImReadyResult, useImReady } from "./useImReady";
 
 /**
  * Svelte hook to check if the images or videos are loaded. (only `useReadyElement`, `useReady` and `useError` are true)
@@ -22,10 +22,12 @@ import { useImReady } from "./useImReady";
  * // &lt;div use:register&gt;&lt;/div&gt;
  * ```
  */
-export function useReadyElement(props: Partial<ImReadyProps> = {}) {
-    return useImReady({
-        usePreReadyElement: false,
-        usePreReady: false,
-        ...props,
-    });
+export function useReadyElement(
+  props: Partial<ImReadyHooksProps> = {}
+): SvelteImReadyResult {
+  return useImReady({
+    usePreReadyElement: false,
+    usePreReady: false,
+    ...props,
+  });
 }
