@@ -1,6 +1,5 @@
-import { ImReadyProps } from "./types";
-import { useImReady } from "./useImReady";
-
+import { ImReadyHooksProps } from "@egjs/imready";
+import { useImReady, VueImReadyResult } from "./useImReady";
 
 /**
  * Vue hook to check if the images or videos are loaded. (only `usePreReadyElement`, `usePreReady` and `useError` are true)
@@ -25,10 +24,10 @@ import { useImReady } from "./useImReady";
  * // &lt;div v-bind:ref="container"&gt;&lt;/div&gt;
  * ```
  */
-export function usePreReadyElement(props: Partial<ImReadyProps> = {}) {
-    return useImReady({
-        useReady: false,
-        useReadyElement: false,
-        ...props,
-    });
+export function usePreReadyElement(props: Partial<ImReadyHooksProps> = {}): VueImReadyResult {
+  return useImReady({
+    useReady: false,
+    useReadyElement: false,
+    ...props,
+  });
 }

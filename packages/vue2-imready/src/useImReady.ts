@@ -1,7 +1,7 @@
-import ImReady from "@egjs/imready";
-import { onBeforeUnmount, onMounted, reactive, Ref, ref } from "@vue/composition-api";
-import { ImReadyProps, ImReadyValue } from "./types";
+import { useReactive, VueReactiveAdapterResult } from "@cfcs/vue2";
+import { ImReadyHooksProps, REACTIVE_IMREADY } from "@egjs/imready";
 
+export interface VueImReadyResult extends VueReactiveAdapterResult<typeof REACTIVE_IMREADY> {}
 
 /**
  * Vue hook to check if the images or videos are loaded.
@@ -26,94 +26,13 @@ import { ImReadyProps, ImReadyValue } from "./types";
  * // &lt;div v-bind:ref="container"&gt;&lt;/div&gt;
  * ```
  */
-export function useImReady(props: Partial<ImReadyProps> = {}): ImReadyValue {
-  const {
-    usePreReady = true,
-    usePreReadyElement = true,
-    useReady = true,
-    useReadyElement = true,
-    useError = true,
-    selector = "",
-    ...options
-  } = props;
-
-  const refs: Array<Ref<HTMLElement | null | undefined>> = [];
-  const state = reactive({
-    preReadyCount: 0,
-    readyCount: 0,
-    errorCount: 0,
-    totalErrorCount: 0,
-    totalCount: 0,
-    isPreReady: false,
-    isReady: false,
-    isPreReadyOver: false,
-    hasError: false,
-    register<T extends HTMLElement>(refOption: Ref<T | null | undefined> = ref()): Ref<T | null | undefined> {
-      refs.push(refOption);
-
-      return refOption;
+export function useImReady(props: Partial<ImReadyHooksProps> = {}): VueImReadyResult {
+  return useReactive({
+    data() {
+      return {
+        props,
+      };
     },
+    ...REACTIVE_IMREADY,
   });
-  const imRef = ref<ImReady>();
-
-  onMounted(() => {
-    const im = new ImReady(options);
-
-    imRef.value = im;
-
-    let checkedElements = refs.map((childRef) => childRef.value!);
-
-    if (selector) {
-      checkedElements = checkedElements.reduce((prev, cur) => {
-        return [...prev, ...cur.querySelectorAll<HTMLElement>(selector)];
-      }, [] as HTMLElement[]);
-    }
-
-
-    im.check(checkedElements)
-      .on("error", e => {
-        if (useError) {
-          state.hasError = true;
-          state.errorCount = e.errorCount;
-          state.totalErrorCount = e.totalErrorCount;
-        }
-      })
-      .on("preReadyElement", e => {
-        if (usePreReadyElement) {
-          state.preReadyCount = e.preReadyCount;
-        }
-      })
-      .on("readyElement", e => {
-        if (useReadyElement) {
-          state.readyCount = e.readyCount;
-          state.isPreReadyOver = e.isPreReadyOver;
-        }
-      })
-      .on("preReady", () => {
-        if (usePreReady) {
-          state.isPreReady = true;
-        }
-      })
-      .on("ready", () => {
-        if (useReady) {
-          state.isReady = true;
-        }
-      });
-
-    console.log(im.getTotalCount());
-    state.preReadyCount = 0;
-    state.readyCount = 0;
-    state.errorCount = 0;
-    state.totalErrorCount = 0;
-    state.totalCount = im.getTotalCount();
-    state.isReady = false;
-    state.isPreReady = false;
-    state.hasError = false;
-    state.isPreReadyOver = false;
-  });
-  onBeforeUnmount(() => {
-    imRef.value?.destroy();
-  });
-
-  return state;
 }
