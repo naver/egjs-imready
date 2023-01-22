@@ -14,6 +14,7 @@ export interface ImReadyData {
 
 export type ReactiveImReady = ReactiveObject<{
   imReady: ImReady;
+  children: HTMLElement[];
   preReadyCount: number;
   readyCount: number;
   errorCount: number;
@@ -26,8 +27,6 @@ export type ReactiveImReady = ReactiveObject<{
   register(ref?: any): any;
 }>;
 
-const children: HTMLElement[] = [];
-const totalCount = observe(0);
 
 export const REACTIVE_IMREADY: ReactiveAdapter<
   ReactiveImReady,
@@ -58,9 +57,11 @@ export const REACTIVE_IMREADY: ReactiveAdapter<
       usePreReady,
       useReady,
     } = data.props;
+    const children = [];
     const preReadyCount = observe(0);
     const readyCount = observe(0);
     const errorCount = observe(0);
+    const totalCount = observe(0);
     const totalErrorCount = observe(0);
     const isPreReady = observe(false);
     const isReady = observe(false);
@@ -98,6 +99,7 @@ export const REACTIVE_IMREADY: ReactiveAdapter<
       });
     return reactive({
       imReady: imReady,
+      children,
       preReadyCount,
       readyCount,
       errorCount,
@@ -109,31 +111,34 @@ export const REACTIVE_IMREADY: ReactiveAdapter<
       isPreReadyOver,
       register: (element?: HTMLElement) => {
         if (element) {
-          children.push(element);
+          this.children.push(element);
         }
         return (instance) => {
           if (instance) {
-            children.push(instance);
+            this.children.push(instance);
           }
         };
       },
     });
   },
   mounted(data, instance) {
-    const { selector } = data.props;
-    let checkedElements = children;
-    if (selector) {
-      checkedElements = checkedElements.reduce((prev, cur) => {
-        return [
-          ...prev,
-          ...toArray(
-            cur.querySelectorAll<HTMLElement>(selector)
-          ),
-        ];
-      }, [] as HTMLElement[]);
+    if (instance) {
+      const { selector } = data.props;
+      let checkedElements = instance.children;
+      if (selector) {
+        checkedElements = checkedElements.reduce((prev, cur) => {
+          return [
+            ...prev,
+            ...toArray(
+              cur.querySelectorAll<HTMLElement>(selector)
+            ),
+          ];
+        }, [] as HTMLElement[]);
+      }
+      instance.totalCount = checkedElements.length;
+      instance.imReady.check(checkedElements);
+      return instance;
     }
-    totalCount.current = checkedElements.length;
-    instance?.imReady.check(checkedElements);
   },
   destroy({ imReady }) {
     imReady.destroy();
