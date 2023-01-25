@@ -38,6 +38,7 @@ export const REACTIVE_IMREADY: ReactiveAdapter<
   methods: ["register"],
   events: EVENTS,
   state: {
+    children: [],
     preReadyCount: 0,
     readyCount: 0,
     errorCount: 0,

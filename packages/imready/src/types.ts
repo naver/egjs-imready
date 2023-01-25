@@ -216,6 +216,7 @@ export interface ImReadyEvents {
 }
 
 export interface ImReadyReactiveState {
+  readonly children: HTMLElement[];
   readonly preReadyCount: number;
   readonly readyCount: number;
   readonly errorCount: number;
