@@ -1,4 +1,4 @@
-import { observe, reactive, ReactiveAdapter, ReactiveObject } from "@cfcs/core";
+import { Observer, observe, reactive, ReactiveAdapter, ReactiveObject } from "@cfcs/core";
 import { EVENTS } from "./consts";
 import ImReady from "./ImReady";
 import {
@@ -57,7 +57,7 @@ export const REACTIVE_IMREADY: ReactiveAdapter<
       usePreReady,
       useReady,
     } = data.props;
-    const children = [];
+    const children: Observer<HTMLElement[]> = observe([]);
     const preReadyCount = observe(0);
     const readyCount = observe(0);
     const errorCount = observe(0);
@@ -111,11 +111,11 @@ export const REACTIVE_IMREADY: ReactiveAdapter<
       isPreReadyOver,
       register: (element?: HTMLElement) => {
         if (element) {
-          this.children.push(element);
+          children.current.push(element);
         }
         return (instance) => {
           if (instance) {
-            this.children.push(instance);
+            children.current.push(instance);
           }
         };
       },
