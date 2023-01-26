@@ -122,7 +122,7 @@ export const REACTIVE_IMREADY: ReactiveAdapter<
       },
     });
   },
-  mounted(data, instance) {
+  init(instance, data) {
     if (instance) {
       const { selector } = data.props;
       let checkedElements = instance.children;
