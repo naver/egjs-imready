@@ -1,8 +1,8 @@
-import { useReactive, SvelteReactiveAdapterResult } from "@cfcs/svelte";
+import { useReactive, ReactiveAdapterResult } from "@cfcs/svelte";
 import { ImReadyHooksProps, REACTIVE_IMREADY } from "@egjs/imready";
 
 export interface SvelteImReadyResult
-  extends SvelteReactiveAdapterResult<typeof REACTIVE_IMREADY> {}
+  extends ReactiveAdapterResult<typeof REACTIVE_IMREADY> {}
 
 /**
  * Svelte hook to check if the images or videos are loaded.

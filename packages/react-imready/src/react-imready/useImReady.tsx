@@ -1,8 +1,8 @@
 import { ImReadyHooksProps, REACTIVE_IMREADY } from "@egjs/imready";
-import { useReactive, ReactReactiveAdapterResult } from "@cfcs/react";
+import { useReactive, ReactiveAdapterResult } from "@cfcs/react";
 
 export interface ReactImReadyResult
-  extends ReactReactiveAdapterResult<typeof REACTIVE_IMREADY> {}
+  extends ReactiveAdapterResult<typeof REACTIVE_IMREADY> {}
 
 /**
  * React hook to check if the images or videos are loaded.
