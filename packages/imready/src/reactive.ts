@@ -1,4 +1,4 @@
-import { Observer, observe, reactive, ReactiveAdapter, ReactiveObject } from "@cfcs/core";
+import { Observer, observe, reactive, ReactiveAdapter, ReactiveObject, Ref } from "@cfcs/core";
 import { EVENTS } from "./consts";
 import ImReady from "./ImReady";
 import {
@@ -24,7 +24,7 @@ export type ReactiveImReady = ReactiveObject<{
   isReady: boolean;
   hasError: boolean;
   isPreReadyOver: boolean;
-  register(ref?: any): any;
+  register(ref?: HTMLElement | Ref<HTMLElement>);
 }>;
 
 
@@ -110,9 +110,15 @@ export const REACTIVE_IMREADY: ReactiveAdapter<
       isReady,
       hasError,
       isPreReadyOver,
-      register: (element?: HTMLElement) => {
-        if (element) {
-          children.current.push(element);
+      register: (ref?: HTMLElement | Ref<HTMLElement>) => {
+        if (ref) {
+          let el!: HTMLElement;
+          if (ref instanceof Element) {
+            el = ref;
+          } else if ("value" in ref || "current" in ref) {
+            el = ref.value! || ref.current!;
+          }
+          children.current.push(el);
         }
         return (instance) => {
           if (instance) {
