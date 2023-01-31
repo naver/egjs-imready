@@ -62,7 +62,7 @@
     "typescript": "~4.1"
   },
   "dependencies": {
-    "@cfcs/svelte": "^0.0.13",
+    "@cfcs/svelte": "^0.0.14",
     "@egjs/imready": "~1.3.1"
   }
 }

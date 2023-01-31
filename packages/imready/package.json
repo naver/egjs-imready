@@ -70,7 +70,7 @@
 		"typescript": "~4.1"
 	},
 	"dependencies": {
-		"@cfcs/core": "^0.0.13",
+		"@cfcs/core": "^0.0.14",
 		"@egjs/component": "^3.0.1"
 	}
 }
