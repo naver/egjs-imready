@@ -1,7 +1,7 @@
-import { useReactive, ReactiveAdapterResult } from "@cfcs/vue2";
+import { useLegacyReactive, ReactiveLegacyResult } from "@cfcs/vue2";
 import { ImReadyHooksProps, REACTIVE_IMREADY } from "@egjs/imready";
 
-export interface VueImReadyResult extends ReactiveAdapterResult<typeof REACTIVE_IMREADY> {}
+export interface VueImReadyResult extends ReactiveLegacyResult<typeof REACTIVE_IMREADY> {}
 
 /**
  * Vue hook to check if the images or videos are loaded.
@@ -27,7 +27,7 @@ export interface VueImReadyResult extends ReactiveAdapterResult<typeof REACTIVE_
  * ```
  */
 export function useImReady(props: Partial<ImReadyHooksProps> = {}): VueImReadyResult {
-  return useReactive({
+  return useLegacyReactive({
     data() {
       return {
         props: {
