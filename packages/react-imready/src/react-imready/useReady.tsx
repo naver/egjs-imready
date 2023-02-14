@@ -1,4 +1,4 @@
-import { ImReadyHooksProps } from "@egjs/imready";
+import { ImReadyReactiveProps } from "@egjs/imready";
 import { ReactImReadyResult, useImReady } from "./useImReady";
 
 /**
@@ -23,7 +23,7 @@ import { ReactImReadyResult, useImReady } from "./useImReady";
  * ```
  */
 export function useReady(
-  props: Partial<ImReadyHooksProps> = {}
+  props: Partial<ImReadyReactiveProps> = {}
 ): ReactImReadyResult {
   return useImReady({
     usePreReadyElement: false,

@@ -1,4 +1,4 @@
-import { ImReadyHooksProps } from "@egjs/imready";
+import { ImReadyReactiveProps } from "@egjs/imready";
 import { useImReady, VueImReadyResult } from "./useImReady";
 
 /**
@@ -24,7 +24,7 @@ import { useImReady, VueImReadyResult } from "./useImReady";
  * // &lt;div v-bind:ref="container"&gt;&lt;/div&gt;
  * ```
  */
-export function useReady(props: Partial<ImReadyHooksProps> = {}): VueImReadyResult {
+export function useReady(props: Partial<ImReadyReactiveProps> = {}): VueImReadyResult {
   return useImReady({
     usePreReadyElement: false,
     usePreReady: false,

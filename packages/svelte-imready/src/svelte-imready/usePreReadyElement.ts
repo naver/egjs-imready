@@ -1,4 +1,4 @@
-import { ImReadyHooksProps } from "@egjs/imready";
+import { ImReadyReactiveProps } from "@egjs/imready";
 import { SvelteImReadyResult, useImReady } from "./useImReady";
 
 /**
@@ -22,7 +22,7 @@ import { SvelteImReadyResult, useImReady } from "./useImReady";
  * ```
  */
 export function usePreReadyElement(
-  props: Partial<ImReadyHooksProps> = {}
+  props: Partial<ImReadyReactiveProps> = {}
 ): SvelteImReadyResult {
   return useImReady({
     useReady: false,

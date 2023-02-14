@@ -1,4 +1,4 @@
-import { ImReadyHooksProps, REACTIVE_IMREADY } from "@egjs/imready";
+import { ImReadyReactiveProps, REACTIVE_IMREADY } from "@egjs/imready";
 import { useReactive, ReactiveAdapterResult } from "@cfcs/react";
 
 export interface ReactImReadyResult
@@ -29,7 +29,7 @@ export interface ReactImReadyResult
  * ```
  */
 export function useImReady(
-  props: Partial<ImReadyHooksProps>
+  props: Partial<ImReadyReactiveProps>
 ): ReactImReadyResult {
   return useReactive({
     data() {

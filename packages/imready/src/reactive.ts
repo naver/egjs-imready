@@ -3,13 +3,13 @@ import { EVENTS } from "./consts";
 import ImReady from "./ImReady";
 import {
   ImReadyEvents,
-  ImReadyHooksProps,
+  ImReadyReactiveProps,
   ImReadyReactiveState,
 } from "./types";
 import { toArray } from "./utils";
 
 export interface ImReadyData {
-  props: Partial<ImReadyHooksProps>;
+  props: Partial<ImReadyReactiveProps>;
 }
 
 export type ReactiveImReady = ReactiveObject<{

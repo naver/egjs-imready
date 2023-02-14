@@ -1,5 +1,5 @@
 import { useLegacyReactive, ReactiveLegacyResult } from "@cfcs/vue2";
-import { ImReadyHooksProps, REACTIVE_IMREADY } from "@egjs/imready";
+import { ImReadyReactiveProps, REACTIVE_IMREADY } from "@egjs/imready";
 
 export interface VueImReadyResult extends ReactiveLegacyResult<typeof REACTIVE_IMREADY> {}
 
@@ -26,7 +26,7 @@ export interface VueImReadyResult extends ReactiveLegacyResult<typeof REACTIVE_I
  * // &lt;div v-bind:ref="container"&gt;&lt;/div&gt;
  * ```
  */
-export function useImReady(props: Partial<ImReadyHooksProps> = {}): VueImReadyResult {
+export function useImReady(props: Partial<ImReadyReactiveProps> = {}): VueImReadyResult {
   return useLegacyReactive({
     data() {
       return {

@@ -1,5 +1,5 @@
 import { Ref, RefCallback } from "react";
-import { ImReadyHooksProps, ImReadyHooksValue } from "@egjs/imready";
+import { ImReadyReactiveProps, ImReadyHooksValue } from "@egjs/imready";
 
 /**
  * @typedef
@@ -13,7 +13,7 @@ export interface ImReadyValue extends ImReadyHooksValue {
 /**
  * @typedef
  * @memberof ReactImReady
- * @extends eg.ImReady.ImReadyHooksProps
+ * @extends eg.ImReady.ImReadyReactiveProps
  */
-export interface ImReadyProps extends ImReadyHooksProps {
+export interface ImReadyProps extends ImReadyReactiveProps {
 }

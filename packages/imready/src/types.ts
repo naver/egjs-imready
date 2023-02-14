@@ -52,6 +52,7 @@ export interface ArrayFormat<T> {
  * @typedef
  * @memberof eg.ImReady
  * @extends eg.ImReady.ImReadyOptions
+ * @deprecated
  * @property - Find the children of the element registered with the `register` function through the selector. (default: "") <ko>selector를 통해 `register` 함수로 등록한 엘리먼트의 children을를 찾는다. (default: "")</ko>
  * @property - Whether to use the `readyElement` event. You can use the `readyCount`, `isPreReadyOver` value. (default: true) <ko>`readyElement` 이벤트를 사용할지 여부. `readyCount`, `isPreReadyOver` 값을 사용할 수 있다. (default: true)</ko>
  * @property - Whether to use the `preReadyElement` event. You can use the `preReadyCount` value. (default: true) <ko>`preReadyElement` 이벤트를 사용할지 여부. `preReadyCount` 값을 사용할 수 있다. (default: true)</ko>
@@ -60,6 +61,26 @@ export interface ArrayFormat<T> {
  * @property - Whether to use the `error` event. You can use the `hasError`, `errorCount`, `totalErrorCount` value. (default: true) <ko>`error` 이벤트를 사용할지 여부. `hasError`, `errorCount`, `totalErrorCount` 값을 사용할 수 있다. (default: true)</ko>
  */
  export interface ImReadyHooksProps extends ImReadyOptions {
+  selector: string;
+  useReadyElement: boolean;
+  useReady: boolean;
+  usePreReadyElement: boolean;
+  usePreReady: boolean;
+  useError: boolean;
+}
+
+/**
+ * @typedef
+ * @memberof eg.ImReady
+ * @extends eg.ImReady.ImReadyOptions
+ * @property - Find the children of the element registered with the `register` function through the selector. (default: "") <ko>selector를 통해 `register` 함수로 등록한 엘리먼트의 children을를 찾는다. (default: "")</ko>
+ * @property - Whether to use the `readyElement` event. You can use the `readyCount`, `isPreReadyOver` value. (default: true) <ko>`readyElement` 이벤트를 사용할지 여부. `readyCount`, `isPreReadyOver` 값을 사용할 수 있다. (default: true)</ko>
+ * @property - Whether to use the `preReadyElement` event. You can use the `preReadyCount` value. (default: true) <ko>`preReadyElement` 이벤트를 사용할지 여부. `preReadyCount` 값을 사용할 수 있다. (default: true)</ko>
+ * @property - Whether to use the `ready` event. You can use the `isReady` value. (default: true) <ko>`ready` 이벤트를 사용할지 여부. `isReady` 값을 사용할 수 있다. (default: true)</ko>
+ * @property - Whether to use the `preReady` event. You can use the `isPreReady` value. (default: true) <ko>`preReady` 이벤트를 사용할지 여부. `isPreReady` 값을 사용할 수 있다. (default: true)</ko>
+ * @property - Whether to use the `error` event. You can use the `hasError`, `errorCount`, `totalErrorCount` value. (default: true) <ko>`error` 이벤트를 사용할지 여부. `hasError`, `errorCount`, `totalErrorCount` 값을 사용할 수 있다. (default: true)</ko>
+ */
+ export interface ImReadyReactiveProps extends ImReadyOptions {
   selector: string;
   useReadyElement: boolean;
   useReady: boolean;

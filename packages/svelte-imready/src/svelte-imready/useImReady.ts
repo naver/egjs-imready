@@ -1,5 +1,5 @@
 import { useReactive, ReactiveAdapterResult } from "@cfcs/svelte";
-import { ImReadyHooksProps, REACTIVE_IMREADY } from "@egjs/imready";
+import { ImReadyReactiveProps, REACTIVE_IMREADY } from "@egjs/imready";
 
 export interface SvelteImReadyResult
   extends ReactiveAdapterResult<typeof REACTIVE_IMREADY> {}
@@ -27,7 +27,7 @@ export interface SvelteImReadyResult
  * ```
  */
 export function useImReady(
-  props: Partial<ImReadyHooksProps>
+  props: Partial<ImReadyReactiveProps>
 ): SvelteImReadyResult {
   return useReactive({
     data() {
