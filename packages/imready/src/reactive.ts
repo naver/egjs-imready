@@ -1,8 +1,10 @@
 import { Observer, observe, reactive, ReactiveAdapter, ReactiveObject, Ref } from "@cfcs/core";
-import { EVENTS } from "./consts";
+import { EVENTS, METHODS } from "./consts";
 import ImReady from "./ImReady";
 import {
+  ArrayFormat,
   ImReadyEvents,
+  ImReadyMethods,
   ImReadyReactiveProps,
   ImReadyReactiveState,
 } from "./types";
@@ -24,18 +26,21 @@ export type ReactiveImReady = ReactiveObject<{
   isReady: boolean;
   hasError: boolean;
   isPreReadyOver: boolean;
-  register(ref?: HTMLElement | Ref<HTMLElement>);
+  add(ref?: string | HTMLElement | Ref<HTMLElement>);
+  check(elements: ArrayFormat<HTMLElement>);
+  getTotalCount();
+  clear();
 }>;
 
 
 export const REACTIVE_IMREADY: ReactiveAdapter<
   ReactiveImReady,
   ImReadyReactiveState,
-  "register",
+  keyof ImReadyMethods,
   ImReadyData,
   ImReadyEvents
 > = {
-  methods: ["register"],
+  methods: METHODS,
   events: EVENTS,
   state: {
     children: [],
@@ -110,10 +115,12 @@ export const REACTIVE_IMREADY: ReactiveAdapter<
       isReady,
       hasError,
       isPreReadyOver,
-      register: (ref?: HTMLElement | Ref<HTMLElement>) => {
+      add: (ref?: string | HTMLElement | Ref<HTMLElement>) => {
         if (ref) {
           let el!: HTMLElement;
-          if (ref instanceof Element) {
+          if (typeof ref === "string") {
+            el = document.querySelector<HTMLElement>(ref)!;
+          } else if (ref instanceof Element) {
             el = ref;
           } else if ("value" in ref || "current" in ref) {
             el = ref.value! || ref.current!;
@@ -126,6 +133,9 @@ export const REACTIVE_IMREADY: ReactiveAdapter<
           }
         };
       },
+      check: imReady.check,
+      getTotalCount: imReady.getTotalCount,
+      clear: imReady.clear,
     });
   },
   init(instance, data) {

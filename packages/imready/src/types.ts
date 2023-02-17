@@ -4,6 +4,7 @@ Copyright (c) 2020-present NAVER Corp.
 MIT license
 */
 import Component, { ComponentEvent } from "@egjs/component";
+import { METHODS } from "./consts";
 import Loader from "./loaders/Loader";
 
 /**
@@ -113,7 +114,6 @@ export interface ArrayFormat<T> {
   isReady: boolean;
   isPreReadyOver: boolean;
 }
-
 
 /**
  * @memberof eg.ImReady
@@ -285,4 +285,8 @@ export interface ImReadyLoaderEvents {
   ready: OnLoaderReady;
   preReady: OnLoaderPreReady;
   [key: string]: any;
+}
+
+export type ImReadyMethods = {
+  [key in typeof METHODS[number]];
 }

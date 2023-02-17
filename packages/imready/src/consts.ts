@@ -23,3 +23,10 @@ export const EVENTS = [
   "preReady",
   "ready",
 ] as const;
+
+export const METHODS = [
+  "add",
+  "check",
+  "getTotalCount",
+  "clear",
+] as const;
