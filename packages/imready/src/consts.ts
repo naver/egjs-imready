@@ -25,7 +25,6 @@ export const EVENTS = [
 ] as const;
 
 export const METHODS = [
-  "add",
   "check",
   "getTotalCount",
   "clear",

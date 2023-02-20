@@ -1,4 +1,4 @@
-import { Observer, observe, reactive, ReactiveAdapter, ReactiveObject, Ref } from "@cfcs/core";
+import { observe, reactive, ReactiveAdapter, ReactiveObject, Ref } from "@cfcs/core";
 import { EVENTS, METHODS } from "./consts";
 import ImReady from "./ImReady";
 import {
@@ -8,15 +8,14 @@ import {
   ImReadyReactiveProps,
   ImReadyReactiveState,
 } from "./types";
-import { toArray } from "./utils";
 
 export interface ImReadyData {
+  children: HTMLElement[];
   props: Partial<ImReadyReactiveProps>;
 }
 
 export type ReactiveImReady = ReactiveObject<{
   imReady: ImReady;
-  children: HTMLElement[];
   preReadyCount: number;
   readyCount: number;
   errorCount: number;
@@ -26,7 +25,6 @@ export type ReactiveImReady = ReactiveObject<{
   isReady: boolean;
   hasError: boolean;
   isPreReadyOver: boolean;
-  add(ref?: string | HTMLElement | Ref<HTMLElement>);
   check(elements: ArrayFormat<HTMLElement>);
   getTotalCount();
   clear();
@@ -43,7 +41,6 @@ export const REACTIVE_IMREADY: ReactiveAdapter<
   methods: METHODS,
   events: EVENTS,
   state: {
-    children: [],
     preReadyCount: 0,
     readyCount: 0,
     errorCount: 0,
@@ -63,7 +60,6 @@ export const REACTIVE_IMREADY: ReactiveAdapter<
       usePreReady,
       useReady,
     } = data.props;
-    const children: Observer<HTMLElement[]> = observe([]);
     const preReadyCount = observe(0);
     const readyCount = observe(0);
     const errorCount = observe(0);
@@ -105,7 +101,6 @@ export const REACTIVE_IMREADY: ReactiveAdapter<
       });
     return reactive({
       imReady: imReady,
-      children,
       preReadyCount,
       readyCount,
       errorCount,
@@ -115,24 +110,6 @@ export const REACTIVE_IMREADY: ReactiveAdapter<
       isReady,
       hasError,
       isPreReadyOver,
-      add: (ref?: string | HTMLElement | Ref<HTMLElement>) => {
-        if (ref) {
-          let el!: HTMLElement;
-          if (typeof ref === "string") {
-            el = document.querySelector<HTMLElement>(ref)!;
-          } else if (ref instanceof Element) {
-            el = ref;
-          } else if ("value" in ref || "current" in ref) {
-            el = ref.value! || ref.current!;
-          }
-          children.current.push(el);
-        }
-        return (instance) => {
-          if (instance) {
-            children.current.push(instance);
-          }
-        };
-      },
       check: imReady.check,
       getTotalCount: imReady.getTotalCount,
       clear: imReady.clear,
@@ -141,14 +118,12 @@ export const REACTIVE_IMREADY: ReactiveAdapter<
   init(instance, data) {
     if (instance) {
       const { selector } = data.props;
-      let checkedElements = instance.children;
+      let checkedElements = data.children.map((childRef) => childRef.value!);
       if (selector) {
         checkedElements = checkedElements.reduce((prev, cur) => {
           return [
             ...prev,
-            ...toArray(
-              cur.querySelectorAll<HTMLElement>(selector)
-            ),
+            cur.querySelectorAll(selector),
           ];
         }, [] as HTMLElement[]);
       }

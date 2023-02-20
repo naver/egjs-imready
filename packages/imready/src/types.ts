@@ -5,6 +5,7 @@ MIT license
 */
 import Component, { ComponentEvent } from "@egjs/component";
 import { METHODS } from "./consts";
+import ImReady from "./ImReady";
 import Loader from "./loaders/Loader";
 
 /**
@@ -237,7 +238,6 @@ export interface ImReadyEvents {
 }
 
 export interface ImReadyReactiveState {
-  readonly children: HTMLElement[];
   readonly preReadyCount: number;
   readonly readyCount: number;
   readonly errorCount: number;
@@ -288,5 +288,5 @@ export interface ImReadyLoaderEvents {
 }
 
 export type ImReadyMethods = {
-  [key in typeof METHODS[number]];
+  [key in typeof METHODS[number]]: ImReady[key];
 }
