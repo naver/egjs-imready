@@ -1,4 +1,9 @@
-import { observe, reactive, ReactiveAdapter, ReactiveObject, Ref } from "@cfcs/core";
+import {
+  observe,
+  reactive,
+  ReactiveAdapter,
+  ReactiveObject,
+} from "@cfcs/core";
 import { EVENTS, METHODS } from "./consts";
 import ImReady from "./ImReady";
 import {
@@ -8,6 +13,7 @@ import {
   ImReadyReactiveProps,
   ImReadyReactiveState,
 } from "./types";
+import { toArray } from "./utils";
 
 export interface ImReadyData {
   children: HTMLElement[];
@@ -29,7 +35,6 @@ export type ReactiveImReady = ReactiveObject<{
   getTotalCount();
   clear();
 }>;
-
 
 export const REACTIVE_IMREADY: ReactiveAdapter<
   ReactiveImReady,
@@ -118,17 +123,14 @@ export const REACTIVE_IMREADY: ReactiveAdapter<
   init(instance, data) {
     if (instance) {
       const { selector } = data.props;
-      let checkedElements = data.children.map((childRef) => childRef.value!);
       if (selector) {
-        checkedElements = checkedElements.reduce((prev, cur) => {
-          return [
-            ...prev,
-            cur.querySelectorAll(selector),
-          ];
-        }, [] as HTMLElement[]);
+        let checkedElements: HTMLElement[] = [];
+        data.children.forEach((element) => {
+          checkedElements = [...checkedElements, ...toArray(element.querySelectorAll<HTMLElement>(selector))];
+        });
+        instance.totalCount = checkedElements.length;
+        instance.imReady.check(checkedElements);
       }
-      instance.totalCount = checkedElements.length;
-      instance.imReady.check(checkedElements);
       return instance;
     }
   },
