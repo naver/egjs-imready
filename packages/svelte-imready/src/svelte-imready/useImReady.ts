@@ -1,8 +1,9 @@
 import { useReactive, ReactiveAdapterResult } from "@cfcs/svelte";
 import { ImReadyReactiveProps, REACTIVE_IMREADY } from "@egjs/imready";
 
-export interface SvelteImReadyResult
-  extends ReactiveAdapterResult<typeof REACTIVE_IMREADY> {}
+export interface SvelteImReadyResult extends ReactiveAdapterResult<typeof REACTIVE_IMREADY> {
+  register(element: HTMLElement): any;
+}
 
 /**
  * Svelte hook to check if the images or videos are loaded.
@@ -29,20 +30,34 @@ export interface SvelteImReadyResult
 export function useImReady(
   props: Partial<ImReadyReactiveProps>
 ): SvelteImReadyResult {
-  return useReactive({
-    data() {
+  const children: HTMLElement[] = [];
+
+  return {
+    ...useReactive({
+      data() {
+        return {
+          children,
+          props: {
+            usePreReady: true,
+            usePreReadyElement: true,
+            useReady: true,
+            useReadyElement: true,
+            useError: true,
+            selector: "",
+            ...props,
+          },
+        };
+      },
+      ...REACTIVE_IMREADY,
+    }),
+    register(element: HTMLElement) {
+      children.push(element);
+
       return {
-        props: {
-          usePreReady: true,
-          usePreReadyElement: true,
-          useReady: true,
-          useReadyElement: true,
-          useError: true,
-          selector: "",
-          ...props,
+        destroy() {
+          return;
         },
       };
     },
-    ...REACTIVE_IMREADY,
-  });
+  };
 }

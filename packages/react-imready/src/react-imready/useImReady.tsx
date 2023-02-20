@@ -1,8 +1,10 @@
+import { MutableRefObject, Ref, RefCallback } from "react";
 import { ImReadyReactiveProps, REACTIVE_IMREADY } from "@egjs/imready";
 import { useReactive, ReactiveAdapterResult } from "@cfcs/react";
 
-export interface ReactImReadyResult
-  extends ReactiveAdapterResult<typeof REACTIVE_IMREADY> {}
+export interface ReactImReadyResult extends ReactiveAdapterResult<typeof REACTIVE_IMREADY> {
+  register<T extends HTMLElement>(ref?: Ref<T>): RefCallback<T>;
+}
 
 /**
  * React hook to check if the images or videos are loaded.
@@ -31,20 +33,42 @@ export interface ReactImReadyResult
 export function useImReady(
   props: Partial<ImReadyReactiveProps>
 ): ReactImReadyResult {
-  return useReactive({
-    data() {
-      return {
-        props: {
-          usePreReady: true,
-          usePreReadyElement: true,
-          useReady: true,
-          useReadyElement: true,
-          useError: true,
-          selector: "",
-          ...props,
-        },
+  const children: HTMLElement[] = [];
+
+  return {
+    ...useReactive({
+      data() {
+        return {
+          children,
+          props: {
+            usePreReady: true,
+            usePreReadyElement: true,
+            useReady: true,
+            useReadyElement: true,
+            useError: true,
+            selector: "",
+            ...props,
+          },
+        };
+      },
+      ...REACTIVE_IMREADY,
+    }),
+    register<T extends HTMLElement>(ref?: Ref<T>) {
+      return (instance: T | null) => {
+          if (instance) {
+              children.push(instance);
+          }
+          if (!ref) {
+              return;
+          }
+          const refType = typeof ref;
+
+          if (refType === "function") {
+              (ref as RefCallback<T>)(instance);
+          } else {
+              (ref as MutableRefObject<T | null>).current = instance;
+          }
       };
     },
-    ...REACTIVE_IMREADY,
-  });
+  };
 }
