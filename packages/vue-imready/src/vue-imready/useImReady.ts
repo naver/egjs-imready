@@ -1,8 +1,10 @@
 import { useLegacyReactive, ReactiveLegacyResult } from "@cfcs/vue3";
 import { ImReadyReactiveProps, REACTIVE_IMREADY } from "@egjs/imready";
+import { Ref } from 'vue';
 
-export interface VueImReadyResult
-  extends ReactiveLegacyResult<typeof REACTIVE_IMREADY> {}
+export interface VueImReadyResult extends ReactiveLegacyResult<typeof REACTIVE_IMREADY> {
+  register<T extends HTMLElement>(ref?: Ref<T | null> | ((el: T | null) => any)): (el: T | null) => any;
+}
 
 /**
  * Vue hook to check if the images or videos are loaded.
@@ -29,20 +31,42 @@ export interface VueImReadyResult
 export function useImReady(
   props: Partial<ImReadyReactiveProps>
 ): VueImReadyResult {
-  return useLegacyReactive({
-    data() {
-      return {
-        props: {
-          usePreReady: true,
-          usePreReadyElement: true,
-          useReady: true,
-          useReadyElement: true,
-          useError: true,
-          selector: "",
-          ...props,
-        },
+  const children: HTMLElement[] = [];
+
+  return {
+    ...useLegacyReactive({
+      data() {
+        return {
+          children,
+          props: {
+            usePreReady: true,
+            usePreReadyElement: true,
+            useReady: true,
+            useReadyElement: true,
+            useError: true,
+            selector: "",
+            ...props,
+          },
+        };
+      },
+      ...REACTIVE_IMREADY,
+    }),
+    register<T extends HTMLElement>(
+      ref?: Ref<T | null> | ((el: T | null) => any)
+    ): (el: any) => any {
+      return (instance: T | null) => {
+        if (instance) {
+          children.push(instance);
+        }
+        if (!ref) {
+          return;
+        }
+        if (typeof ref === "function") {
+          ref(instance);
+        } else {
+          ref.value = instance;
+        }
       };
     },
-    ...REACTIVE_IMREADY,
-  });
+  };
 }
