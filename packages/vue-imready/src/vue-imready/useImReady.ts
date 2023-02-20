@@ -33,24 +33,23 @@ export function useImReady(
 ): VueImReadyResult {
   const children: HTMLElement[] = [];
 
-  return {
-    ...useLegacyReactive({
-      data() {
-        return {
-          children,
-          props: {
-            usePreReady: true,
-            usePreReadyElement: true,
-            useReady: true,
-            useReadyElement: true,
-            useError: true,
-            selector: "",
-            ...props,
-          },
-        };
-      },
-      ...REACTIVE_IMREADY,
-    }),
+  return Object.assign(useLegacyReactive({
+    data() {
+      return {
+        children,
+        props: {
+          usePreReady: true,
+          usePreReadyElement: true,
+          useReady: true,
+          useReadyElement: true,
+          useError: true,
+          selector: "",
+          ...props,
+        },
+      };
+    },
+    ...REACTIVE_IMREADY,
+  }), {
     register<T extends HTMLElement>(
       ref?: Ref<T | null> | ((el: T | null) => any)
     ): (el: any) => any {
@@ -68,5 +67,5 @@ export function useImReady(
         }
       };
     },
-  };
+  });
 }
