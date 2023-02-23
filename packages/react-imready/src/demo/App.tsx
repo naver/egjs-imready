@@ -4,7 +4,7 @@ import { PrintInfo } from './PrintInfo';
 
 function App() {
   const im = useImReady({
-    selector: "img",
+    selector: "video",
   });
   const { register, readyCount, totalCount, errorCount, isReady } = im;
   return (

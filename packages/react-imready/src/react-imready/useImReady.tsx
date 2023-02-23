@@ -30,28 +30,14 @@ export interface ReactImReadyResult extends ReactiveAdapterResult<typeof REACTIV
  * }
  * ```
  */
-export function useImReady(
-  props: Partial<ImReadyReactiveProps>
-): ReactImReadyResult {
-  const children: HTMLElement[] = [];
+export function useImReady(props: Partial<ImReadyReactiveProps> = {}): ReactImReadyResult {
+  const result = useReactive(REACTIVE_IMREADY, () => props);
 
-  return {
-    ...useReactive({
-      data() {
-        return {
-          children,
-          props: {
-            selector: "",
-            ...props,
-          },
-        };
-      },
-      ...REACTIVE_IMREADY,
-    }),
+  return Object.assign(result, {
     register<T extends HTMLElement>(ref?: Ref<T>) {
       return (instance: T | null) => {
           if (instance) {
-              children.push(instance);
+              result.add(instance);
           }
           if (!ref) {
               return;
@@ -65,5 +51,5 @@ export function useImReady(
           }
       };
     },
-  };
+  });
 }

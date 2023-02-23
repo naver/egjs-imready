@@ -27,31 +27,12 @@ export interface SvelteImReadyResult extends ReactiveAdapterResult<typeof REACTI
  * // &lt;div use:register &gt;&lt;/div&gt;
  * ```
  */
-export function useImReady(
-  props: Partial<ImReadyReactiveProps>
-): SvelteImReadyResult {
-  const children: HTMLElement[] = [];
+export function useImReady(props: Partial<ImReadyReactiveProps> = {}): SvelteImReadyResult {
+  const result = useReactive(REACTIVE_IMREADY, () => props);
 
-  return {
-    ...useReactive({
-      data() {
-        return {
-          children,
-          props: {
-            usePreReady: true,
-            usePreReadyElement: true,
-            useReady: true,
-            useReadyElement: true,
-            useError: true,
-            selector: "",
-            ...props,
-          },
-        };
-      },
-      ...REACTIVE_IMREADY,
-    }),
+  return Object.assign(result, {
     register(element: HTMLElement) {
-      children.push(element);
+      result.add(element);
 
       return {
         destroy() {
@@ -59,5 +40,5 @@ export function useImReady(
         },
       };
     },
-  };
+  });
 }

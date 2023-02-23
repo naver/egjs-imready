@@ -1,27 +1,21 @@
 import {
-  observe,
   reactive,
-  ReactiveAdapter,
+  ReactiveSetupAdapter,
   ReactiveObject,
+  Ref,
+  isString,
 } from "@cfcs/core";
-import { EVENTS, METHODS } from "./consts";
+import { EVENTS } from "./consts";
 import ImReady from "./ImReady";
 import {
-  ArrayFormat,
   ImReadyEvents,
-  ImReadyMethods,
   ImReadyReactiveProps,
   ImReadyReactiveState,
 } from "./types";
 import { toArray } from "./utils";
 
-export interface ImReadyData {
-  children: HTMLElement[];
-  props: Partial<ImReadyReactiveProps>;
-}
 
 export type ReactiveImReady = ReactiveObject<{
-  imReady: ImReady;
   preReadyCount: number;
   readyCount: number;
   errorCount: number;
@@ -31,21 +25,20 @@ export type ReactiveImReady = ReactiveObject<{
   isReady: boolean;
   hasError: boolean;
   isPreReadyOver: boolean;
-  check(elements: ArrayFormat<HTMLElement>);
-  getTotalCount();
-  clear();
+  add(element: HTMLElement): void;
 }>;
 
-export const REACTIVE_IMREADY: ReactiveAdapter<
+export const REACTIVE_IMREADY: ReactiveSetupAdapter<
   ReactiveImReady,
   ImReadyReactiveState,
-  keyof ImReadyMethods,
-  ImReadyData,
+  "add",
+  Partial<ImReadyReactiveProps>,
   ImReadyEvents
-> = {
-  methods: METHODS,
-  events: EVENTS,
-  state: {
+> = ({ setEvents, setMethods, on, onInit, onDestroy, getProps }) => {
+  setEvents(EVENTS);
+  setMethods(["add"]);
+  const children: Array<HTMLElement | Ref<HTMLElement> | string> = [];
+  const reactiveImReady = reactive({
     preReadyCount: 0,
     readyCount: 0,
     errorCount: 0,
@@ -55,72 +48,79 @@ export const REACTIVE_IMREADY: ReactiveAdapter<
     isReady: false,
     hasError: false,
     isPreReadyOver: false,
-  },
-  created(data) {
-    const imReady = new ImReady(data.props);
-    const preReadyCount = observe(0);
-    const readyCount = observe(0);
-    const errorCount = observe(0);
-    const totalCount = observe(0);
-    const totalErrorCount = observe(0);
-    const isPreReady = observe(false);
-    const isReady = observe(false);
-    const hasError = observe(false);
-    const isPreReadyOver = observe(false);
+    add(element: HTMLElement | Ref<HTMLElement> | string) {
+      children.push(element);
+    },
+  });
+  const props = getProps() || {};
+  const imReady = new ImReady(props);
 
-    imReady
-      .on("error", (e) => {
-        hasError.current = true;
-        errorCount.current = e.errorCount;
-        totalErrorCount.current = e.totalErrorCount;
-      })
-      .on("preReadyElement", (e) => {
-        preReadyCount.current = e.preReadyCount;
-      })
-      .on("readyElement", (e) => {
-        readyCount.current = e.readyCount;
-        isPreReadyOver.current = e.isPreReadyOver;
-      })
-      .on("preReady", () => {
-        isPreReady.current = true;
-      })
-      .on("ready", () => {
-        isReady.current = true;
-      });
-    return reactive({
-      imReady: imReady,
-      preReadyCount,
-      readyCount,
-      errorCount,
-      totalErrorCount,
-      totalCount,
-      isPreReady,
-      isReady,
-      hasError,
-      isPreReadyOver,
+  imReady
+    .on("error", (e) => {
+      reactiveImReady.hasError = true;
+      reactiveImReady.errorCount = e.errorCount;
+      reactiveImReady.totalErrorCount = e.totalErrorCount;
+    })
+    .on("preReadyElement", (e) => {
+      reactiveImReady.preReadyCount = e.preReadyCount;
+    })
+    .on("readyElement", (e) => {
+      reactiveImReady.readyCount = e.readyCount;
+      reactiveImReady.isPreReadyOver = e.isPreReadyOver;
+    })
+    .on("preReady", () => {
+      reactiveImReady.isPreReady = true;
+    })
+    .on("ready", () => {
+      reactiveImReady.isReady = true;
     });
-  },
-  init(instance, data) {
-    if (instance) {
-      const { selector } = data.props;
-      if (selector) {
-        let checkedElements: HTMLElement[] = [];
-        data.children.forEach((element) => {
-          checkedElements = [...checkedElements, ...toArray(element.querySelectorAll<HTMLElement>(selector))];
-        });
-        instance.totalCount = checkedElements.length;
-        instance.imReady.check(checkedElements);
-      }
-      return instance;
-    }
-  },
-  destroy({ imReady }) {
-    imReady.destroy();
-  },
-  on({ imReady }, name, callback) {
+
+  on((_, name, callback) => {
     imReady.on(name, callback);
-  },
-  off({ imReady }, name, callback) {
-    imReady.off(name, callback);
-  },
+
+    return () => {
+      imReady.off(name, callback);
+    };
+  });
+  onInit(() => {
+    const selector = props?.selector;
+    let checkedElements: HTMLElement[] = [];
+
+    children.forEach((child) => {
+      if (!child) {
+        return;
+      }
+      if (isString(child)) {
+        checkedElements = [
+          ...checkedElements,
+          ...toArray(document.querySelectorAll<HTMLElement>(child)),
+        ];
+      } else if (child instanceof Element) {
+        checkedElements.push(child);
+      } else if ("value" in child || "current" in child) {
+        const element = child.value || child.current;
+
+        if (element) {
+          checkedElements.push(element);
+        }
+      }
+    });
+
+    if (selector) {
+      checkedElements = checkedElements.reduce((prev, cur) => {
+        return [
+          ...prev,
+          ...[].slice.call(cur.querySelectorAll<HTMLElement>(selector)),
+        ];
+      }, [] as HTMLElement[]);
+    }
+
+    reactiveImReady.totalCount = checkedElements.length;
+    imReady.check(checkedElements);
+  });
+  onDestroy(() => {
+    imReady.destroy();
+  });
+
+  return reactiveImReady;
 };

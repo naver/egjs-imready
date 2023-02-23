@@ -1480,40 +1480,48 @@
   resolved "https://registry.yarnpkg.com/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz#75a2e8b51cb758a7553d6804a5932d7aace75c39"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
-"@cfcs/core@^0.0.14", "@cfcs/core@~0.0.14":
-  version "0.0.14"
-  resolved "https://registry.yarnpkg.com/@cfcs/core/-/core-0.0.14.tgz#821def464bf4a0d73a7af4701cb40d1bc4c80db0"
-  integrity sha512-h4NHYizoDC4etPxDXYmYLsCXNrNNlV/IHAwfYnZS4eSuh5VJX0uKkU4zlcIYGS3jXL9TpWbt6oqrJdQfg3iyhQ==
+"@cfcs/cli@^0.0.3":
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/@cfcs/cli/-/cli-0.0.3.tgz#97e1c2ad7fba194c1a93d0623a29cde673415719"
+  integrity sha512-IM6bynnDzyz0oCirX6K/NB0k6O8Nb+wzXfyTB9BcKmJbftP3W3pP5MRYkXTzNXt05bIDDy3cfY/sr+5yIVZBmQ==
   dependencies:
-    "@egjs/component" "^3.0.3"
+    commander "^9.4.1"
+    sync-exec "^0.6.2"
 
-"@cfcs/react@^0.0.14":
-  version "0.0.14"
-  resolved "https://registry.yarnpkg.com/@cfcs/react/-/react-0.0.14.tgz#ca3e30c4e39c2f8920bfc516060d733a64445135"
-  integrity sha512-aiyo9z8I5DVLu42jRjrX0tnqTnaSnQSmw3ErMdjmkWCLUk1fWG2tP2bpNt7gaXjkhYI7apWdKxU3YE4rUTZ7mw==
+"@cfcs/core@^0.0.24", "@cfcs/core@~0.0.24":
+  version "0.0.24"
+  resolved "https://registry.yarnpkg.com/@cfcs/core/-/core-0.0.24.tgz#2ab40d1fe5cf64f50acc31983a5b589521268dde"
+  integrity sha512-feB38qu+eDk0Pggh/yR7gjaNmvUYA2uCxHP3Pz2MLE4LZ/9jPdtu8bzCSI47yTEhWyZCF5Pk698hdz8IN2mTjA==
   dependencies:
-    "@cfcs/core" "~0.0.14"
+    "@egjs/component" "^3.0.4"
 
-"@cfcs/svelte@^0.0.14":
-  version "0.0.14"
-  resolved "https://registry.yarnpkg.com/@cfcs/svelte/-/svelte-0.0.14.tgz#648df298977d156e3beb73b6fea3ad74f8ed2832"
-  integrity sha512-aCy/xNtlpnmFutu1iqFCNj2zTo8pCO0/QCwTNtU7XMU3sVi8C3UoZSY9Q7bIy98M9gJW6NUhb1TZMsJdOSdT7w==
+"@cfcs/react@^0.0.24":
+  version "0.0.24"
+  resolved "https://registry.yarnpkg.com/@cfcs/react/-/react-0.0.24.tgz#2aeffa026ae5862eed9a308b80659d789aba510f"
+  integrity sha512-bI0uCgEB2CqF4Ec7QV4a0tCZUaenLZveohIb9Drj+BLmaQq0Tc/p2031lTt4Hz4QvfrvR556ybx2Qar8MnQ2Pw==
   dependencies:
-    "@cfcs/core" "~0.0.14"
+    "@cfcs/core" "~0.0.24"
 
-"@cfcs/vue2@^0.0.15":
-  version "0.0.15"
-  resolved "https://registry.yarnpkg.com/@cfcs/vue2/-/vue2-0.0.15.tgz#6ed27c27cfdba04e70a3b5c2e0f45c5b2ec289ae"
-  integrity sha512-DVQ/+AcI2yhjUozhTsoJYHwd71nVLGcgO7HDYNS/5DpsRYpbBo/CyQbFaqU8kFojCGDBW5q+RekoccaUoVJv7w==
+"@cfcs/svelte@^0.0.24":
+  version "0.0.24"
+  resolved "https://registry.yarnpkg.com/@cfcs/svelte/-/svelte-0.0.24.tgz#964df816439c0ca967de5f1ebafc734d74558bc6"
+  integrity sha512-eSl6AgE70FJysDnVqF1hyy/yvBIvif/9h/vSZvg4vTN00vRatfu8XOfpU1+H0aeQOviJqCJuZ62zDcM5QKk5ng==
   dependencies:
-    "@cfcs/core" "~0.0.14"
+    "@cfcs/core" "~0.0.24"
 
-"@cfcs/vue3@^0.0.15":
-  version "0.0.15"
-  resolved "https://registry.yarnpkg.com/@cfcs/vue3/-/vue3-0.0.15.tgz#c252975fd23171ca24b5f9f81d0be447d999d591"
-  integrity sha512-/e26+W7+EP5+ctPLhJo4ucOdsgojyHCE5aePWtRF6wuYaxpITu9fNLgMyLhzPqUmQPUSXf0R9KRl5zAelYMusg==
+"@cfcs/vue2@^0.0.24":
+  version "0.0.24"
+  resolved "https://registry.yarnpkg.com/@cfcs/vue2/-/vue2-0.0.24.tgz#d3fb0e20a77fc3331e7dea575f29fbf427f53d13"
+  integrity sha512-BayMsZV2hJe4HeoM19BAJLC7W5k0taGuwuNzNIkxHA+Y9Kb/QMH42SHGmDAODA9CuNL5kndnvc0WI3WQP/l8dA==
   dependencies:
-    "@cfcs/core" "~0.0.14"
+    "@cfcs/core" "~0.0.24"
+
+"@cfcs/vue3@^0.0.24":
+  version "0.0.24"
+  resolved "https://registry.yarnpkg.com/@cfcs/vue3/-/vue3-0.0.24.tgz#7a80ce250bb19af206d903878852dad19fdb01e1"
+  integrity sha512-q5sjoJSzFYrLJ1yFZApGNXGXRzS3rKZISaaXDk2f3ofNYBLuje68Uu2FjSZS47Udupu/apnWy4zF4FuVANroMA==
+  dependencies:
+    "@cfcs/core" "~0.0.24"
 
 "@cnakazawa/watch@^1.0.3":
   version "1.0.4"
@@ -1604,7 +1612,7 @@
     rollup-plugin-uglify "^6.0.2"
     rollup-plugin-visualizer "^1.1.0"
 
-"@egjs/component@^3.0.1", "@egjs/component@^3.0.3":
+"@egjs/component@^3.0.1", "@egjs/component@^3.0.4":
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/@egjs/component/-/component-3.0.4.tgz#ad7b53794b2a612806179a188ad828acb9525f61"
   integrity sha512-sXA7bGbIeLF2OAw/vpka66c6QBBUPcA4UUhR4WGJfnp2XWdiI8QrnJGJMr/UxpE/xnevX9tN3jvNPlW8WkHl3g==
@@ -6820,7 +6828,7 @@ commander@^7.0.0, commander@^7.2.0:
   resolved "https://registry.yarnpkg.com/commander/-/commander-7.2.0.tgz#a36cb57d0b501ce108e4d20559a150a391d97ab7"
   integrity sha512-QrWXB+ZQSVPmIWIhtEO9H+gwHaMGYiF5ChvoJ+K9ZGHG/sVsa6yiesAD1GC/x46sET00Xlwo1u49RVVVzvcSkw==
 
-commander@^9.2.0:
+commander@^9.2.0, commander@^9.4.1:
   version "9.5.0"
   resolved "https://registry.yarnpkg.com/commander/-/commander-9.5.0.tgz#bc08d1eb5cedf7ccb797a96199d41c7bc3e60d30"
   integrity sha512-KRs7WVDKg86PWiuAqhDrAQnTXZKraVcCc6vFdL14qrZ/DcWwuRo7VoiYXalXO7S5GKpqYiVEwCbgFDfxNHKJBQ==

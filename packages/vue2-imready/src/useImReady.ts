@@ -1,7 +1,10 @@
-import { useLegacyReactive, ReactiveLegacyResult } from "@cfcs/vue2";
+import { useLegacyReactive, ReactiveLegacyAdapterResult } from "@cfcs/vue2";
 import { ImReadyReactiveProps, REACTIVE_IMREADY } from "@egjs/imready";
+import { ref, Ref } from "@vue/composition-api";
 
-export interface VueImReadyResult extends ReactiveLegacyResult<typeof REACTIVE_IMREADY> {}
+export interface VueImReadyResult extends ReactiveLegacyAdapterResult<typeof REACTIVE_IMREADY> {
+  register<T extends HTMLElement>(ref?: Ref<T | null | undefined>): Ref<T | null | undefined>;
+}
 
 /**
  * Vue hook to check if the images or videos are loaded.
@@ -27,20 +30,13 @@ export interface VueImReadyResult extends ReactiveLegacyResult<typeof REACTIVE_I
  * ```
  */
 export function useImReady(props: Partial<ImReadyReactiveProps> = {}): VueImReadyResult {
-  return useLegacyReactive({
-    data() {
-      return {
-        props: {
-          usePreReady: true,
-          usePreReadyElement: true,
-          useReady: true,
-          useReadyElement: true,
-          useError: true,
-          selector: "",
-          ...props,
-        },
-      };
+  const result = useLegacyReactive(REACTIVE_IMREADY, () => props);
+
+  return Object.assign(result, {
+    register<T extends HTMLElement>(refOption: Ref<T | null | undefined> = ref()): Ref<T | null | undefined> {
+      result.add(refOption as any);
+
+      return refOption;
     },
-    ...REACTIVE_IMREADY,
   });
 }

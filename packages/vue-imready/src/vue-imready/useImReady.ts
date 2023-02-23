@@ -1,8 +1,8 @@
-import { useLegacyReactive, ReactiveLegacyResult } from "@cfcs/vue3";
+import { useLegacyReactive, ReactiveLegacyAdapterResult } from "@cfcs/vue3";
 import { ImReadyReactiveProps, REACTIVE_IMREADY } from "@egjs/imready";
 import { Ref } from 'vue';
 
-export interface VueImReadyResult extends ReactiveLegacyResult<typeof REACTIVE_IMREADY> {
+export interface VueImReadyResult extends ReactiveLegacyAdapterResult<typeof REACTIVE_IMREADY> {
   register<T extends HTMLElement>(ref?: Ref<T | null> | ((el: T | null) => any)): (el: T | null) => any;
 }
 
@@ -28,34 +28,16 @@ export interface VueImReadyResult extends ReactiveLegacyResult<typeof REACTIVE_I
  * // &lt;div v-bind:ref="im.register()"&gt;&lt;/div&gt;
  * ```
  */
-export function useImReady(
-  props: Partial<ImReadyReactiveProps>
-): VueImReadyResult {
-  const children: HTMLElement[] = [];
+export function useImReady(props: Partial<ImReadyReactiveProps> = {}): VueImReadyResult {
+  const result = useLegacyReactive(REACTIVE_IMREADY, () => props);
 
-  return Object.assign(useLegacyReactive({
-    data() {
-      return {
-        children,
-        props: {
-          usePreReady: true,
-          usePreReadyElement: true,
-          useReady: true,
-          useReadyElement: true,
-          useError: true,
-          selector: "",
-          ...props,
-        },
-      };
-    },
-    ...REACTIVE_IMREADY,
-  }), {
+  return Object.assign(result, {
     register<T extends HTMLElement>(
       ref?: Ref<T | null> | ((el: T | null) => any)
     ): (el: any) => any {
       return (instance: T | null) => {
         if (instance) {
-          children.push(instance);
+          result.add(instance);
         }
         if (!ref) {
           return;
