@@ -58,13 +58,6 @@ export const REACTIVE_IMREADY: ReactiveAdapter<
   },
   created(data) {
     const imReady = new ImReady(data.props);
-    const {
-      useError,
-      usePreReadyElement,
-      useReadyElement,
-      usePreReady,
-      useReady,
-    } = data.props;
     const preReadyCount = observe(0);
     const readyCount = observe(0);
     const errorCount = observe(0);
@@ -77,32 +70,22 @@ export const REACTIVE_IMREADY: ReactiveAdapter<
 
     imReady
       .on("error", (e) => {
-        if (useError) {
-          hasError.current = true;
-          errorCount.current = e.errorCount;
-          totalErrorCount.current = e.totalErrorCount;
-        }
+        hasError.current = true;
+        errorCount.current = e.errorCount;
+        totalErrorCount.current = e.totalErrorCount;
       })
       .on("preReadyElement", (e) => {
-        if (usePreReadyElement) {
-          preReadyCount.current = e.preReadyCount;
-        }
+        preReadyCount.current = e.preReadyCount;
       })
       .on("readyElement", (e) => {
-        if (useReadyElement) {
-          readyCount.current = e.readyCount;
-          isPreReadyOver.current = e.isPreReadyOver;
-        }
+        readyCount.current = e.readyCount;
+        isPreReadyOver.current = e.isPreReadyOver;
       })
       .on("preReady", () => {
-        if (usePreReady) {
-          isPreReady.current = true;
-        }
+        isPreReady.current = true;
       })
       .on("ready", () => {
-        if (useReady) {
-          isReady.current = true;
-        }
+        isReady.current = true;
       });
     return reactive({
       imReady: imReady,
@@ -115,9 +98,6 @@ export const REACTIVE_IMREADY: ReactiveAdapter<
       isReady,
       hasError,
       isPreReadyOver,
-      check: imReady.check,
-      getTotalCount: imReady.getTotalCount,
-      clear: imReady.clear,
     });
   },
   init(instance, data) {

@@ -41,11 +41,6 @@ export function useImReady(
         return {
           children,
           props: {
-            usePreReady: true,
-            usePreReadyElement: true,
-            useReady: true,
-            useReadyElement: true,
-            useError: true,
             selector: "",
             ...props,
           },

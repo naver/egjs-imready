@@ -26,9 +26,5 @@ import { ReactImReadyResult, useImReady } from "./useImReady";
 export function usePreReadyElement(
   props: Partial<ImReadyReactiveProps> = {}
 ): ReactImReadyResult {
-  return useImReady({
-    useReady: false,
-    useReadyElement: false,
-    ...props,
-  });
+  return useImReady(props);
 }
