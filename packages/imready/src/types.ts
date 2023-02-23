@@ -77,7 +77,7 @@ export interface ArrayFormat<T> {
  export interface ImReadyReactiveProps extends ImReadyOptions {
   /**
    * Find the children of the element registered with the `register` function through the selector.
-   * @ko selector를 통해 `register` 함수로 등록한 엘리먼트의 children을를 찾는다.</ko>
+   * @ko selector를 통해 `register` 함수로 등록한 엘리먼트의 children을 찾는다.</ko>
    * @default ""
    */
   selector: string;
