@@ -52,6 +52,7 @@ export interface ArrayFormat<T> {
  * @typedef
  * @memberof eg.ImReady
  * @extends eg.ImReady.ImReadyOptions
+ * @deprecated
  * @property - Find the children of the element registered with the `register` function through the selector. (default: "") <ko>selector를 통해 `register` 함수로 등록한 엘리먼트의 children을를 찾는다. (default: "")</ko>
  * @property - Whether to use the `readyElement` event. You can use the `readyCount`, `isPreReadyOver` value. (default: true) <ko>`readyElement` 이벤트를 사용할지 여부. `readyCount`, `isPreReadyOver` 값을 사용할 수 있다. (default: true)</ko>
  * @property - Whether to use the `preReadyElement` event. You can use the `preReadyCount` value. (default: true) <ko>`preReadyElement` 이벤트를 사용할지 여부. `preReadyCount` 값을 사용할 수 있다. (default: true)</ko>
@@ -65,6 +66,40 @@ export interface ArrayFormat<T> {
   useReady: boolean;
   usePreReadyElement: boolean;
   usePreReady: boolean;
+  useError: boolean;
+}
+
+/**
+ * @typedef
+ * @memberof eg.ImReady
+ * @extends eg.ImReady.ImReadyOptions
+ */
+ export interface ImReadyReactiveProps extends ImReadyOptions {
+  /**
+   * Find the children of the element registered with the `register` function through the selector.
+   * @ko selector를 통해 `register` 함수로 등록한 엘리먼트의 children을 찾는다.</ko>
+   * @default ""
+   */
+  selector: string;
+  /**
+   * @deprecated
+   */
+  useReadyElement: boolean;
+  /**
+   * @deprecated
+   */
+  useReady: boolean;
+  /**
+   * @deprecated
+   */
+  usePreReadyElement: boolean;
+  /**
+   * @deprecated
+   */
+  usePreReady: boolean;
+  /**
+   * @deprecated
+   */
   useError: boolean;
 }
 
@@ -92,7 +127,6 @@ export interface ArrayFormat<T> {
   isReady: boolean;
   isPreReadyOver: boolean;
 }
-
 
 /**
  * @memberof eg.ImReady
@@ -213,6 +247,18 @@ export interface ImReadyEvents {
   error: OnError;
   preReady: OnPreReady;
   ready: OnReady;
+}
+
+export interface ImReadyReactiveState {
+  readonly preReadyCount: number;
+  readonly readyCount: number;
+  readonly errorCount: number;
+  readonly totalErrorCount: number;
+  readonly totalCount: number;
+  readonly isPreReady: boolean;
+  readonly isReady: boolean;
+  readonly hasError: boolean;
+  readonly isPreReadyOver: boolean;
 }
 
 /**

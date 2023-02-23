@@ -8,7 +8,7 @@
     errorCount,
     isReady,
   } = useImReady({
-    selector: "img",
+    selector: "video",
   });
 </script>
 

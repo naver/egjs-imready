@@ -52,7 +52,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { useImReady } from "./components/useImReady";
+import { useImReady } from "./vue-imready/useImReady";
 
 export default defineComponent({
   name: "App",

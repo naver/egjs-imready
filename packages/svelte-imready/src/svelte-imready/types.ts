@@ -1,4 +1,4 @@
-import type { ImReadyHooksProps } from "@egjs/imready";
+import type { ImReadyReactiveProps } from "@egjs/imready";
 import type { Writable } from "svelte/store";
 
 /**
@@ -30,7 +30,7 @@ export interface ImReadyValue {
 /**
  * @typedef
  * @memberof SvelteImReady
- * @extends eg.ImReady.ImReadyHooksProps
+ * @extends eg.ImReady.ImReadyReactiveProps
  */
-export interface ImReadyProps extends ImReadyHooksProps {
+export interface ImReadyProps extends ImReadyReactiveProps {
 }
