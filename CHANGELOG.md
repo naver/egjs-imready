@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.4.1](https://github.com/naver/egjs-imready/compare/1.4.0...1.4.1) (2023-02-24)
+### :sparkles: Packages
+* `@egjs/imready` 1.4.1
+* `@egjs/react-imready` 1.4.0
+* `@egjs/svelte-imready` 1.2.0
+* `@egjs/vue-imready` 1.3.0
+* `@egjs/vue2-imready` 1.2.0
+* `@egjs/ngx-imready` 1.2.0
+
+
+### :mega: Other
+
+* `@egjs/imready`
+    * add missing readme to ImReady ([97120ff](https://github.com/naver/egjs-imready/commit/97120ff8fe64b7132242d28a1b02730ddd8a0306))
+
+
+
 ## [1.4.0](https://github.com/naver/egjs-imready/compare/1.3.1...1.4.0) (2023-02-24)
 ### :sparkles: Packages
 * `@egjs/imready` 1.4.0

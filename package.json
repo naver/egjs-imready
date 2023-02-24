@@ -7,8 +7,8 @@
 		"packages:update": "lerna-helper version && npm run update-angular-consts",
 		"packages:build": "npm run build --prefix packages/imready && lerna run build --ignore @egjs/imready --ignore @egjs/ngx-imready --ignore docs --stream",
 		"packages:publish": "lerna-helper publish --ignore @egjs/ngx-imready --commit 'chore: update packages versions'",
-		"docs:build": "",
-		"demo:deploy": "",
+		"docs:build": "rm -rf ./doc && jsdoc -c jsdoc.json",
+		"demo:deploy": "lerna-helper deploy --base @egjs/imready --remote origin",
     "release": "lerna-helper release --base @egjs/imready --remote upstream --branch main"
 	},
 	"repository": {

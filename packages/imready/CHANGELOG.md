@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.4.1](https://github.com/naver/egjs-imready/compare/@egjs/imready@1.4.0...@egjs/imready@1.4.1) (2023-02-24)
+
+
+### :mega: Other
+
+* add missing readme to ImReady ([97120ff](https://github.com/naver/egjs-imready/commit/97120ff8fe64b7132242d28a1b02730ddd8a0306))
+
+
+
 ## 1.4.0 (2023-02-24)
 
 
