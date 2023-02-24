@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Source: imready/src/ImReadyManager.ts | egjs::ImReady - API</title>
+    
+    <meta name="description" content="This module is used to wait for the image or video to be ready." />
+    
+        <meta name="keywords" content="Lazy loading, egjs, imready, infinitegrid, view360, image, video, ready" />
+        <meta name="keyword" content="Lazy loading, egjs, imready, infinitegrid, view360, image, video, ready" />
+    
+    
+    
+    <meta property="og:title" content=""/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:image" content=""/>
+    
+    <meta property="og:url" content=""/>
+    
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <script src="scripts/jquery.min.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    
+    <link rel="canonical" href="https://naver.github.io/egjs-imready/release/latest/doc/"/>
+    
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/jaguar.css">
+    
+    
+    <script>
+    var config = {"monospaceLinks":true,"cleverLinks":true,"default":{"outputSourceFiles":true},"applicationName":"eg.ImReady","disqus":"egjs","googleAnalytics":"G-4139M7LXY0","openGraph":{"title":"","type":"website","image":"","site_name":"","url":""},"meta":{"title":"egjs::ImReady - API","description":"This module is used to wait for the image or video to be ready.","keyword":"Lazy loading, egjs, imready, infinitegrid, view360, image, video, ready"},"linenums":true,"link":{"canonical":"https://naver.github.io/egjs-imready/release/latest/doc/"}};
+    </script>
+    
+
+    
+    <script type="text/javascript">
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', config.googleAnalytics]);
+      _gaq.push(['_trackPageview']);
+    
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+    
+</head>
+<body>
+<div id="wrap" class="clearfix">
+    
+<div class="navigation">
+    <h3 class="applicationName">
+        <a href="//naver.github.io/egjs/"><img style="width:40px; height:20px;" src="img/type_white.svg"/></a>
+
+        <!-- Homepage link (prefer link.home than applicationName) -->
+        
+        <a href="//naver.github.io/egjs-imready/">ImReady</a>
+        
+    </h3>
+
+    <div class="search">
+        <input id="search" type="text" class="form-control input-sm" placeholder="Search Documentations">
+    </div>
+    <ul class="list">
+        <li class="item">
+            <span class="title">
+                <a href="index.html">README</a>
+            </span>
+        </li>
+    
+        <!-- Non Grouping Version -->
+        
+            
+
+<li class="item" data-name="VueImReady">
+    <span class="title">
+        <a href="VueImReady.html">VueImReady</a>
+        
+        <span class="static">static</span>
+        
+    </span>
+    <ul class="members itemMembers expends">
+    
+    </ul>
+    <ul class="typedefs itemMembers expends">
+    
+    <span class="subtitle">Typedefs</span>
+    
+        <li data-name="VueImReady.ImReadyProps"><a href="VueImReady.html#.ImReadyProps">ImReadyProps</a></li>
+    
+        <li data-name="VueImReady.ImReadyValue"><a href="VueImReady.html#.ImReadyValue">ImReadyValue</a></li>
+    
+    </ul>
+    <ul class="methods itemMembers expends">
+    
+    <span class="subtitle">Methods</span>
+    
+        <li data-name="VueImReady.useImReady"><a href="VueImReady.html#.useImReady">useImReady</a></li>
+    
+        <li data-name="VueImReady.usePreReady"><a href="VueImReady.html#.usePreReady">usePreReady</a></li>
+    
+        <li data-name="VueImReady.usePreReadyElement"><a href="VueImReady.html#.usePreReadyElement">usePreReadyElement</a></li>
+    
+        <li data-name="VueImReady.useReady"><a href="VueImReady.html#.useReady">useReady</a></li>
+    
+        <li data-name="VueImReady.useReadyElement"><a href="VueImReady.html#.useReadyElement">useReadyElement</a></li>
+    
+    </ul>
+    <ul class="events itemMembers expends">
+    
+    </ul>
+
+    
+</li>
+
+        
+            
+
+<li class="item" data-name="Vue2ImReady">
+    <span class="title">
+        <a href="Vue2ImReady.html">Vue2ImReady</a>
+        
+        <span class="static">static</span>
+        
+    </span>
+    <ul class="members itemMembers expends">
+    
+    </ul>
+    <ul class="typedefs itemMembers expends">
+    
+    <span class="subtitle">Typedefs</span>
+    
+        <li data-name="Vue2ImReady.ImReadyProps"><a href="Vue2ImReady.html#.ImReadyProps">ImReadyProps</a></li>
+    
+        <li data-name="Vue2ImReady.ImReadyValue"><a href="Vue2ImReady.html#.ImReadyValue">ImReadyValue</a></li>
+    
+    </ul>
+    <ul class="methods itemMembers expends">
+    
+    <span class="subtitle">Methods</span>
+    
+        <li data-name="Vue2ImReady.useImReady"><a href="Vue2ImReady.html#.useImReady">useImReady</a></li>
+    
+        <li data-name="Vue2ImReady.usePreReady"><a href="Vue2ImReady.html#.usePreReady">usePreReady</a></li>
+    
+        <li data-name="Vue2ImReady.usePreReadyElement"><a href="Vue2ImReady.html#.usePreReadyElement">usePreReadyElement</a></li>
+    
+        <li data-name="Vue2ImReady.useReady"><a href="Vue2ImReady.html#.useReady">useReady</a></li>
+    
+        <li data-name="Vue2ImReady.useReadyElement"><a href="Vue2ImReady.html#.useReadyElement">useReadyElement</a></li>
+    
+    </ul>
+    <ul class="events itemMembers expends">
+    
+    </ul>
+
+    
+</li>
+
+        
+            
+
+<li class="item" data-name="SvelteImReady">
+    <span class="title">
+        <a href="SvelteImReady.html">SvelteImReady</a>
+        
+        <span class="static">static</span>
+        
+    </span>
+    <ul class="members itemMembers expends">
+    
+    </ul>
+    <ul class="typedefs itemMembers expends">
+    
+    <span class="subtitle">Typedefs</span>
+    
+        <li data-name="SvelteImReady.ImReadyProps"><a href="SvelteImReady.html#.ImReadyProps">ImReadyProps</a></li>
+    
+        <li data-name="SvelteImReady.ImReadyValue"><a href="SvelteImReady.html#.ImReadyValue">ImReadyValue</a></li>
+    
+    </ul>
+    <ul class="methods itemMembers expends">
+    
+    <span class="subtitle">Methods</span>
+    
+        <li data-name="SvelteImReady.useImReady"><a href="SvelteImReady.html#.useImReady">useImReady</a></li>
+    
+        <li data-name="SvelteImReady.usePreReady"><a href="SvelteImReady.html#.usePreReady">usePreReady</a></li>
+    
+        <li data-name="SvelteImReady.usePreReadyElement"><a href="SvelteImReady.html#.usePreReadyElement">usePreReadyElement</a></li>
+    
+        <li data-name="SvelteImReady.useReady"><a href="SvelteImReady.html#.useReady">useReady</a></li>
+    
+        <li data-name="SvelteImReady.useReadyElement"><a href="SvelteImReady.html#.useReadyElement">useReadyElement</a></li>
+    
+    </ul>
+    <ul class="events itemMembers expends">
+    
+    </ul>
+
+    
+</li>
+
+        
+            
+
+<li class="item" data-name="ReactImReady">
+    <span class="title">
+        <a href="ReactImReady.html">ReactImReady</a>
+        
+        <span class="static">static</span>
+        
+    </span>
+    <ul class="members itemMembers expends">
+    
+    </ul>
+    <ul class="typedefs itemMembers expends">
+    
+    <span class="subtitle">Typedefs</span>
+    
+        <li data-name="ReactImReady.ImReadyProps"><a href="ReactImReady.html#.ImReadyProps">ImReadyProps</a></li>
+    
+        <li data-name="ReactImReady.ImReadyValue"><a href="ReactImReady.html#.ImReadyValue">ImReadyValue</a></li>
+    
+    </ul>
+    <ul class="methods itemMembers expends">
+    
+    <span class="subtitle">Methods</span>
+    
+        <li data-name="ReactImReady.useImReady"><a href="ReactImReady.html#.useImReady">useImReady</a></li>
+    
+        <li data-name="ReactImReady.usePreReady"><a href="ReactImReady.html#.usePreReady">usePreReady</a></li>
+    
+        <li data-name="ReactImReady.usePreReadyElement"><a href="ReactImReady.html#.usePreReadyElement">usePreReadyElement</a></li>
+    
+        <li data-name="ReactImReady.useReady"><a href="ReactImReady.html#.useReady">useReady</a></li>
+    
+        <li data-name="ReactImReady.useReadyElement"><a href="ReactImReady.html#.useReadyElement">useReadyElement</a></li>
+    
+    </ul>
+    <ul class="events itemMembers expends">
+    
+    </ul>
+
+    
+</li>
+
+        
+            
+
+<li class="item" data-name="NgxImReady">
+    <span class="title">
+        <a href="NgxImReady.html">NgxImReady</a>
+        
+    </span>
+    <ul class="members itemMembers expends">
+    
+    </ul>
+    <ul class="typedefs itemMembers expends">
+    
+    </ul>
+    <ul class="methods itemMembers expends">
+    
+    </ul>
+    <ul class="events itemMembers expends">
+    
+    </ul>
+
+    
+</li>
+
+        
+            
+
+<li class="item" data-name="eg.ImReady">
+    <span class="title">
+        <a href="eg.ImReady.html">eg.ImReady</a>
+        
+    </span>
+    <ul class="members itemMembers expends">
+    
+    </ul>
+    <ul class="typedefs itemMembers expends">
+    
+    <span class="subtitle">Typedefs</span>
+    
+        <li data-name="eg.ImReady.ImReadyEvents"><a href="eg.ImReady.html#.ImReadyEvents">ImReadyEvents</a></li>
+    
+        <li data-name="eg.ImReady.ImReadyHooksProps"><a href="eg.ImReady.html#.ImReadyHooksProps">ImReadyHooksProps</a></li>
+    
+        <li data-name="eg.ImReady.ImReadyHooksValue"><a href="eg.ImReady.html#.ImReadyHooksValue">ImReadyHooksValue</a></li>
+    
+        <li data-name="eg.ImReady.ImReadyLoaderEvents"><a href="eg.ImReady.html#.ImReadyLoaderEvents">ImReadyLoaderEvents</a></li>
+    
+        <li data-name="eg.ImReady.ImReadyLoaderOptions"><a href="eg.ImReady.html#.ImReadyLoaderOptions">ImReadyLoaderOptions</a></li>
+    
+        <li data-name="eg.ImReady.ImReadyOptions"><a href="eg.ImReady.html#.ImReadyOptions">ImReadyOptions</a></li>
+    
+        <li data-name="eg.ImReady.ImReadyReactiveProps"><a href="eg.ImReady.html#.ImReadyReactiveProps">ImReadyReactiveProps</a></li>
+    
+        <li data-name="eg.ImReady.OnError"><a href="eg.ImReady.html#.OnError">OnError</a></li>
+    
+        <li data-name="eg.ImReady.OnLoaderError"><a href="eg.ImReady.html#.OnLoaderError">OnLoaderError</a></li>
+    
+        <li data-name="eg.ImReady.OnLoaderPreReady"><a href="eg.ImReady.html#.OnLoaderPreReady">OnLoaderPreReady</a></li>
+    
+        <li data-name="eg.ImReady.OnLoaderReady"><a href="eg.ImReady.html#.OnLoaderReady">OnLoaderReady</a></li>
+    
+        <li data-name="eg.ImReady.OnPreReady"><a href="eg.ImReady.html#.OnPreReady">OnPreReady</a></li>
+    
+        <li data-name="eg.ImReady.OnPreReadyElement"><a href="eg.ImReady.html#.OnPreReadyElement">OnPreReadyElement</a></li>
+    
+        <li data-name="eg.ImReady.OnReady"><a href="eg.ImReady.html#.OnReady">OnReady</a></li>
+    
+        <li data-name="eg.ImReady.OnReadyElement"><a href="eg.ImReady.html#.OnReadyElement">OnReadyElement</a></li>
+    
+    </ul>
+    <ul class="methods itemMembers expends">
+    
+    <span class="subtitle">Methods</span>
+    
+        <li data-name="eg.ImReady#check"><a href="eg.ImReady.html#check">check</a></li>
+    
+        <li data-name="eg.ImReady#clear"><a href="eg.ImReady.html#clear">clear</a></li>
+    
+        <li data-name="eg.ImReady#destroy"><a href="eg.ImReady.html#destroy">destroy</a></li>
+    
+        <li data-name="eg.ImReady#getTotalCount"><a href="eg.ImReady.html#getTotalCount">getTotalCount</a></li>
+    
+        <li data-name="eg.ImReady#hasError"><a href="eg.ImReady.html#hasError">hasError</a></li>
+    
+        <li data-name="eg.ImReady#isPreReady"><a href="eg.ImReady.html#isPreReady">isPreReady</a></li>
+    
+        <li data-name="eg.ImReady#isReady"><a href="eg.ImReady.html#isReady">isReady</a></li>
+    
+    </ul>
+    <ul class="events itemMembers expends">
+    
+    <span class="subtitle">Events</span>
+    
+        <li data-name="eg.ImReady#event:error"><a href="eg.ImReady.html#event:error">error</a></li>
+    
+        <li data-name="eg.ImReady#event:preReady"><a href="eg.ImReady.html#event:preReady">preReady</a></li>
+    
+        <li data-name="eg.ImReady#event:preReadyElement"><a href="eg.ImReady.html#event:preReadyElement">preReadyElement</a></li>
+    
+        <li data-name="eg.ImReady#event:ready"><a href="eg.ImReady.html#event:ready">ready</a></li>
+    
+        <li data-name="eg.ImReady#event:readyElement"><a href="eg.ImReady.html#event:readyElement">readyElement</a></li>
+    
+    </ul>
+
+    
+</li>
+
+        
+    
+    </ul>
+</div>
+
+    <div class="main">
+        <h1 class="page-title" data-filename="imready_src_ImReadyManager.ts.html">Source: imready/src/ImReadyManager.ts</h1>
+        
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/*
+egjs-imready
+Copyright (c) 2020-present NAVER Corp.
+MIT license
+*/
+import Component, { ComponentEvent } from "@egjs/component";
+import { ElementLoader } from "./loaders/ElementLoader";
+import { ArrayFormat, ElementInfo, ImReadyEvents, ImReadyLoaderOptions, ImReadyOptions } from "./types";
+import { toArray, getContentElements, hasLoadingAttribute } from "./utils";
+/**
+ * @alias eg.ImReady
+ * @extends eg.Component
+ */
+class ImReadyManager extends Component&lt;ImReadyEvents> {
+  public options!: ImReadyOptions;
+  private readyCount = 0;
+  private preReadyCount = 0;
+  private totalCount = 0;
+  private totalErrorCount = 0;
+  private isPreReadyOver = true;
+  private elementInfos: ElementInfo[] = [];
+  /**
+   * @param - ImReady's options
+   */
+  constructor(options: Partial&lt;ImReadyOptions> = {}) {
+    super();
+    this.options = {
+      loaders: {},
+      prefix: "data-",
+      ...options,
+    };
+  }
+  /**
+   * Checks whether elements are in the ready state.
+   * @ko 엘리먼트가 준비 상태인지 체크한다.
+   * @elements - Elements to check ready status. &lt;ko> 준비 상태를 체크할 엘리먼트들.&lt;/ko>
+   * @example
+     * ```html
+     * &lt;div>
+     *    &lt;img src="./1.jpg" data-width="1280" data-height="853" style="width:100%"/>
+     *    &lt;img src="./2.jpg" data-width="1280" data-height="853"/>
+     *    &lt;img src="ERR" data-width="1280" data-height="853"/>
+     * &lt;/div>
+     * ```
+     * ## Javascript
+     * ```js
+     * import ImReady from "@egjs/imready";
+     *
+     * const im = new ImReady(); // umd: eg.ImReady
+     * im.check(document.querySelectorAll("img")).on({
+     *   preReadyElement: e => {
+     *     // 1, 3
+     *     // 2, 3
+     *     // 3, 3
+     *     console.log(e.preReadyCount, e.totalCount),
+     *   },
+     * });
+     * ```
+   */
+  public check(elements: ArrayFormat&lt;HTMLElement>): this {
+    const { prefix } = this.options;
+
+    this.clear();
+    this.elementInfos = toArray(elements).map((element, index) => {
+      const loader = this.getLoader(element, { prefix });
+
+      loader.check();
+      loader.on("error", e => {
+        this.onError(index, e.target);
+      }).on("preReady", e => {
+        const info = this.elementInfos[index];
+
+        info.hasLoading = e.hasLoading;
+        info.isSkip = e.isSkip;
+        const isPreReady = this.checkPreReady(index);
+
+        this.onPreReadyElement(index);
+
+        isPreReady &amp;&amp; this.onPreReady();
+      }).on("ready", ({ withPreReady, hasLoading, isSkip }) => {
+        const info = this.elementInfos[index];
+
+        info.hasLoading = hasLoading;
+        info.isSkip = isSkip;
+
+        const isPreReady = withPreReady &amp;&amp; this.checkPreReady(index);
+        const isReady = this.checkReady(index);
+
+        // Pre-ready and ready occur simultaneously
+        withPreReady &amp;&amp; this.onPreReadyElement(index);
+        this.onReadyElement(index);
+
+        isPreReady &amp;&amp; this.onPreReady();
+        isReady &amp;&amp; this.onReady();
+      });
+
+      return {
+        loader,
+        element,
+        hasLoading: false,
+        hasError: false,
+        isPreReady: false,
+        isReady: false,
+        isSkip: false,
+      };
+    });
+
+    const length = this.elementInfos.length;
+
+    this.totalCount = length;
+    if (!length) {
+      setTimeout(() => {
+        this.onPreReady();
+        this.onReady();
+      });
+    }
+    return this;
+  }
+  /**
+   * Gets the total count of elements to be checked.
+   * @ko 체크하는 element의 총 개수를 가져온다.
+   */
+  public getTotalCount() {
+    return this.totalCount;
+  }
+  /**
+   * Whether the elements are all pre-ready. (all sizes are known)
+   * @ko 엘리먼트들이 모두 사전 준비가 됐는지 (사이즈를 전부 알 수 있는지) 여부.
+   */
+  public isPreReady() {
+    return this.elementInfos.every(info => info.isPreReady);
+  }
+  /**
+   * Whether the elements are all ready.
+   * @ko 엘리먼트들이 모두 준비가 됐는지 여부.
+   */
+  public isReady() {
+    return this.elementInfos.every(info => info.isReady);
+  }
+  /**
+   * Whether an error has occurred in the elements in the current state.
+   * @ko 현재 상태에서 엘리먼트들이 에러가 발생했는지 여부.
+   */
+  public hasError() {
+    return this.totalErrorCount > 0;
+  }
+  /**
+   * Clears events of elements being checked.
+   * @ko 체크 중인 엘리먼트들의 이벤트를 해제 한다.
+   */
+  public clear() {
+    this.isPreReadyOver = false;
+    this.totalCount = 0;
+    this.preReadyCount = 0;
+    this.readyCount = 0;
+    this.totalErrorCount = 0;
+    this.elementInfos.forEach(info => {
+      if (info.loader) {
+        info.loader.destroy();
+      }
+    });
+    this.elementInfos = [];
+  }
+  /**
+   * Destory all events.
+   * @ko 모든 이벤트를 해제 한다.
+   */
+  public destroy() {
+    this.clear();
+    this.off();
+  }
+  private getLoader(element: HTMLElement, options: ImReadyLoaderOptions) {
+    const tagName = element.tagName.toLowerCase();
+    const loaders = this.options.loaders;
+    const prefix = options.prefix;
+    const tags = Object.keys(loaders);
+
+    if (loaders[tagName]) {
+      return new loaders[tagName](element, options);
+    }
+    const loader = new ElementLoader(element, options);
+    const children = toArray(element.querySelectorAll&lt;HTMLElement>(tags.join(", ")));
+
+    loader.setHasLoading(children.some(el => hasLoadingAttribute(el, prefix)));
+    let withPreReady = false;
+
+    const childrenImReady = this.clone().on("error", e => {
+      loader.onError(e.target);
+    }).on("ready", () => {
+      loader.onReady(withPreReady);
+    });
+
+    loader.on("requestChildren", () => {
+      // has not data size
+      const contentElements = getContentElements(element, tags, this.options.prefix);
+
+      childrenImReady.check(contentElements).on("preReady", e => {
+        withPreReady = e.isReady;
+        if (!withPreReady) {
+          loader.onPreReady();
+        }
+      });
+    }).on("reqeustReadyChildren", () => {
+      // has data size
+      // loader call preReady
+      // check only video, image elements
+      childrenImReady.check(children);
+    }).on("requestDestroy", () => {
+      childrenImReady.destroy();
+    });
+
+    return loader;
+  }
+  private clone() {
+    return new ImReadyManager({ ...this.options });
+  }
+  private checkPreReady(index: number) {
+    this.elementInfos[index].isPreReady = true;
+    ++this.preReadyCount;
+
+
+    if (this.preReadyCount &lt; this.totalCount) {
+      return false;
+    }
+    return true;
+  }
+  private checkReady(index: number) {
+    this.elementInfos[index].isReady = true;
+    ++this.readyCount;
+
+    if (this.readyCount &lt; this.totalCount) {
+      return false;
+    }
+    return true;
+  }
+
+
+  private onError(index: number, target: HTMLElement) {
+    const info = this.elementInfos[index];
+
+    info.hasError = true;
+    /**
+     * An event occurs if the image, video fails to load.
+     * @ko 이미지, 비디오가 로딩에 실패하면 이벤트가 발생한다.
+     * @event eg.ImReady#error
+     * @param {eg.ImReady.OnError} e - The object of data to be sent to an event &lt;ko>이벤트에 전달되는 데이터 객체&lt;/ko>
+     * @example
+     * ```html
+     * &lt;div>
+     *    &lt;img src="./1.jpg" data-width="1280" data-height="853" style="width:100%"/>
+     *    &lt;img src="./2.jpg"/>
+     *    &lt;img src="ERR"/>
+     * &lt;/div>
+     * ```
+     * ## Javascript
+     * ```js
+     * import ImReady from "@egjs/imready";
+     *
+     * const im = new ImReady(); // umd: eg.ImReady
+     * im.check([document.querySelector("div")]).on({
+     *   error: e => {
+     *     // &lt;div>...&lt;/div>, 0, &lt;img src="ERR"/>
+     *     console.log(e.element, e.index, e.target),
+     *   },
+     * });
+     * ```
+     */
+    this.trigger(new ComponentEvent("error", {
+      element: info.element,
+      index,
+      target,
+      errorCount: this.getErrorCount(),
+      totalErrorCount: ++this.totalErrorCount,
+    }));
+  }
+  private onPreReadyElement(index: number) {
+    const info = this.elementInfos[index];
+    /**
+     * An event occurs when the element is pre-ready (when the loading attribute is applied or the size is known)
+     * @ko 해당 엘리먼트가 사전 준비되었을 때(loading 속성이 적용되었거나 사이즈를 알 수 있을 때) 이벤트가 발생한다.
+     * @event eg.ImReady#preReadyElement
+     * @param {eg.ImReady.OnPreReadyElement} e - The object of data to be sent to an event &lt;ko>이벤트에 전달되는 데이터 객체&lt;/ko>
+     * @example
+     * ```html
+     * &lt;div>
+     *    &lt;img src="./1.jpg" data-width="1280" data-height="853" style="width:100%"/>
+     *    &lt;img src="./2.jpg" data-width="1280" data-height="853"/>
+     *    &lt;img src="ERR" data-width="1280" data-height="853"/>
+     * &lt;/div>
+     * ```
+     * ## Javascript
+     * ```js
+     * import ImReady from "@egjs/imready";
+     *
+     * const im = new ImReady(); // umd: eg.ImReady
+     * im.check(document.querySelectorAll("img")).on({
+     *   preReadyElement: e => {
+     *     // 1, 3
+     *     // 2, 3
+     *     // 3, 3
+     *     console.log(e.preReadyCount, e.totalCount),
+     *   },
+     * });
+     * ```
+     */
+    this.trigger(new ComponentEvent("preReadyElement", {
+      element: info.element,
+      index,
+
+      preReadyCount: this.preReadyCount,
+      readyCount: this.readyCount,
+      totalCount: this.totalCount,
+
+      isPreReady: this.isPreReady(),
+      isReady: this.isReady(),
+      hasLoading: info.hasLoading,
+      isSkip: info.isSkip,
+    }));
+  }
+  private onPreReady() {
+    this.isPreReadyOver = true;
+    /**
+     * An event occurs when all element are pre-ready (When all elements have the loading attribute applied or the size is known)
+     * @ko 모든 엘리먼트들이 사전 준비된 경우 (모든 엘리먼트들이 loading 속성이 적용되었거나 사이즈를 알 수 있는 경우) 이벤트가 발생한다.
+     * @event eg.ImReady#preReady
+     * @param {eg.ImReady.OnPreReady} e - The object of data to be sent to an event &lt;ko>이벤트에 전달되는 데이터 객체&lt;/ko>
+     * @example
+     * ```html
+     * &lt;div>
+     *    &lt;img src="./1.jpg" data-width="1280" data-height="853" style="width:100%"/>
+     *    &lt;img src="./2.jpg" data-width="1280" data-height="853"/>
+     *    &lt;img src="ERR" data-width="1280" data-height="853"/>
+     * &lt;/div>
+     * ```
+     * ## Javascript
+     * ```js
+     * import ImReady from "@egjs/imready";
+     *
+     * const im = new ImReady(); // umd: eg.ImReady
+     * im.check(document.querySelectorAll("img")).on({
+     *   preReady: e => {
+     *     // 0, 3
+     *     console.log(e.readyCount, e.totalCount),
+     *   },
+     * });
+     * ```
+     */
+    this.trigger(new ComponentEvent("preReady", {
+      readyCount: this.readyCount,
+      totalCount: this.totalCount,
+      isReady: this.isReady(),
+      hasLoading: this.hasLoading(),
+    }));
+  }
+  private onReadyElement(index: number) {
+    const info = this.elementInfos[index];
+    /**
+     * An event occurs when the element is ready
+     * @ko 해당 엘리먼트가 준비가 되었을 때 이벤트가 발생한다.
+     * @event eg.ImReady#readyElement
+     * @param {eg.ImReady.OnReadyElement} e - The object of data to be sent to an event &lt;ko>이벤트에 전달되는 데이터 객체&lt;/ko>
+     * @example
+     * ```html
+     * &lt;div>
+     *    &lt;img src="./1.jpg" data-width="1280" data-height="853" style="width:100%"/>
+     *    &lt;img src="./2.jpg" data-width="1280" data-height="853"/>
+     *    &lt;img src="ERR" data-width="1280" data-height="853"/>
+     * &lt;/div>
+     * ```
+     * ## Javascript
+     * ```js
+     * import ImReady from "@egjs/imready";
+     *
+     * const im = new ImReady(); // umd: eg.ImReady
+     * im.check(document.querySelectorAll("img")).on({
+     *   readyElement: e => {
+     *     // 1, 0, false, 3
+     *     // 2, 1, false, 3
+     *     // 3, 2, true, 3
+     *     console.log(e.readyCount, e.index, e.hasError, e.totalCount),
+     *   },
+     * });
+     * ```
+     */
+    this.trigger(new ComponentEvent("readyElement", {
+      index,
+      element: info.element,
+
+      hasError: info.hasError,
+      errorCount: this.getErrorCount(),
+      totalErrorCount: this.totalErrorCount,
+
+      preReadyCount: this.preReadyCount,
+      readyCount: this.readyCount,
+      totalCount: this.totalCount,
+
+      isPreReady: this.isPreReady(),
+      isReady: this.isReady(),
+
+      hasLoading: info.hasLoading,
+      isPreReadyOver: this.isPreReadyOver,
+      isSkip: info.isSkip,
+    }));
+  }
+  private onReady() {
+    /**
+     * An event occurs when all element are ready
+     * @ko 모든 엘리먼트들이 준비된 경우 이벤트가 발생한다.
+     * @event eg.ImReady#ready
+     * @param {eg.ImReady.OnReady} e - The object of data to be sent to an event &lt;ko>이벤트에 전달되는 데이터 객체&lt;/ko>
+     * @example
+     * ```html
+     * &lt;div>
+     *    &lt;img src="./1.jpg" data-width="1280" data-height="853" style="width:100%"/>
+     *    &lt;img src="./2.jpg" data-width="1280" data-height="853"/>
+     *    &lt;img src="ERR" data-width="1280" data-height="853"/>
+     * &lt;/div>
+     * ```
+     * ## Javascript
+     * ```js
+     * import ImReady from "@egjs/imready";
+     *
+     * const im = new ImReady(); // umd: eg.ImReady
+     * im.check(document.querySelectorAll("img")).on({
+     *   preReady: e => {
+     *     // 0, 3
+     *     console.log(e.readyCount, e.totalCount),
+     *   },
+     *   ready: e => {
+     *     // 1, 3
+     *     console.log(e.errorCount, e.totalCount),
+     *   },
+     * });
+     * ```
+     */
+    this.trigger(new ComponentEvent("ready", {
+      errorCount: this.getErrorCount(),
+      totalErrorCount: this.totalErrorCount,
+      totalCount: this.totalCount,
+    }));
+  }
+  private getErrorCount() {
+    return this.elementInfos.filter(info => info.hasError).length;
+  }
+  private hasLoading() {
+    return this.elementInfos.some(info => info.hasLoading);
+  }
+}
+
+export default ImReadyManager;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+
+
+        
+        <!-- disqus code -->
+        <div id="disqus_thread"></div>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        <a href="//disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+        <!-- // disqus code -->
+        
+
+        <footer>
+            Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 0.3.12</a> on Fri Feb 24 2023 12:44:53 GMT+0900 (대한민국 표준시)
+        </footer>
+    </div>
+</div>
+<script>prettyPrint();</script>
+<script src="scripts/main.js"></script>
+</body>
+</html>
