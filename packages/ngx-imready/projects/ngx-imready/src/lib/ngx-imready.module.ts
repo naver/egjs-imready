@@ -29,8 +29,6 @@ import { NgxImReadyDirective } from './ngx-imready.directive';
     NgxImReadyDirective,
     NgxImReadyRegisterDirective,
   ],
-  imports: [
-  ],
   exports: [
     NgxImReadyDirective,
     NgxImReadyRegisterDirective,
