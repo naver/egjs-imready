@@ -21,3 +21,4 @@ export {
   PROPS,
 } from "./consts";
 export * from "./types";
+export * from "./reactive";

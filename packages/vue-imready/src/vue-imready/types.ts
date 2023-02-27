@@ -1,4 +1,4 @@
-import { ImReadyHooksProps, ImReadyHooksValue, ImReadyOptions } from '@egjs/imready';
+import { ImReadyReactiveProps, ImReadyHooksValue, ImReadyOptions } from '@egjs/imready';
 import { Ref } from 'vue';
 
 /**
@@ -14,7 +14,7 @@ export interface ImReadyValue extends ImReadyHooksValue {
 /**
  * @typedef
  * @memberof VueImReady
- * @extends eg.ImReady.ImReadyHooksProps
+ * @extends eg.ImReady.ImReadyReactiveProps
  */
-export interface ImReadyProps extends ImReadyHooksProps {
+export interface ImReadyProps extends ImReadyReactiveProps {
 }

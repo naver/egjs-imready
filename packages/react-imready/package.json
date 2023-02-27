@@ -1,6 +1,6 @@
 {
   "name": "@egjs/react-imready",
-  "version": "1.3.1",
+  "version": "1.4.0",
   "description": "This react module is used to wait for the image or video to be ready.",
   "main": "dist/imready.cjs.js",
   "module": "dist/imready.esm.js",
@@ -27,12 +27,12 @@
     "print-sizes": "^0.1.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
-    "react-scripts": "4.0.0",
+    "react-scripts": "4.0.3",
     "rollup": "^2.33.3",
-    "typescript": "^4.0.3"
+    "typescript": "~4.1"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "SKIP_PREFLIGHT_CHECK=true react-scripts start",
     "build": "rollup -c && npm run declaration && print-sizes ./dist ",
     "declaration": "rm -rf declaration && tsc -p tsconfig.declaration.json",
     "test": "karma start",
@@ -78,6 +78,7 @@
     ]
   },
   "dependencies": {
-    "@egjs/imready": "~1.3.1"
+    "@cfcs/react": "^0.0.24",
+    "@egjs/imready": "~1.4.0"
   }
 }
