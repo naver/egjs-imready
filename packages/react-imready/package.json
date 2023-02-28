@@ -78,7 +78,7 @@
     ]
   },
   "dependencies": {
-    "@cfcs/react": "^0.0.24",
+    "@cfcs/react": "^0.1.0",
     "@egjs/imready": "~1.4.0"
   }
 }

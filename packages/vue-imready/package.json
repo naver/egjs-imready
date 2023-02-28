@@ -31,7 +31,7 @@
     "egjs"
   ],
   "dependencies": {
-    "@cfcs/vue3": "^0.0.24",
+    "@cfcs/vue3": "^0.1.0",
     "@egjs/imready": "~1.4.0"
   },
   "devDependencies": {

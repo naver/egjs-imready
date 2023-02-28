@@ -9,7 +9,7 @@
 		"packages:publish": "lerna-helper publish --ignore @egjs/ngx-imready --commit 'chore: update packages versions'",
 		"docs:build": "rm -rf ./doc && jsdoc -c jsdoc.json",
 		"demo:deploy": "lerna-helper deploy --base @egjs/imready --remote origin",
-    "release": "lerna-helper release --base @egjs/imready --remote upstream --branch main"
+		"release": "lerna-helper release --base @egjs/imready --remote upstream --branch main"
 	},
 	"repository": {
 		"type": "git",

@@ -85,6 +85,7 @@ export const REACTIVE_IMREADY: ReactiveSetupAdapter<
   onInit(() => {
     const selector = props?.selector;
     let checkedElements: HTMLElement[] = [];
+    console.log("props is", props);
 
     children.forEach((child) => {
       if (!child) {
