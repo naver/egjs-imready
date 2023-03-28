@@ -34,7 +34,7 @@
 		"egjs-jsdoc-template": "^1.4.4",
 		"gh-pages": "^2.0.1",
 		"lerna": "^6.3.0",
-		"typescript": "~4.1"
+		"typescript": "~4.8.4"
 	},
 	"workspaces": {
 		"packages": [
