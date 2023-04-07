@@ -31,7 +31,7 @@
     "egjs"
   ],
   "dependencies": {
-    "@cfcs/vue2": "^0.0.24",
+    "@cfcs/vue2": "^0.1.0",
     "@egjs/imready": "~1.4.0"
   },
   "devDependencies": {
@@ -50,7 +50,7 @@
     "print-sizes": "^0.1.0",
     "rollup-plugin-vue": "^5.1.9",
     "tslib": "^2.3.1",
-    "typescript": "~4.1",
+    "typescript": "~4.8.4",
     "vue": "^2.6.12",
     "vue-template-compiler": "^2.6.11"
   },

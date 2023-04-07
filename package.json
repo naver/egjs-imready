@@ -9,7 +9,7 @@
 		"packages:publish": "lerna-helper publish --ignore @egjs/ngx-imready --commit 'chore: update packages versions'",
 		"docs:build": "rm -rf ./doc && jsdoc -c jsdoc.json",
 		"demo:deploy": "lerna-helper deploy --base @egjs/imready --remote origin",
-    "release": "lerna-helper release --base @egjs/imready --remote upstream --branch main"
+		"release": "lerna-helper release --base @egjs/imready --remote upstream --branch main"
 	},
 	"repository": {
 		"type": "git",
@@ -34,7 +34,7 @@
 		"egjs-jsdoc-template": "^1.4.4",
 		"gh-pages": "^2.0.1",
 		"lerna": "^6.3.0",
-		"typescript": "~4.1"
+		"typescript": "~4.8.4"
 	},
 	"workspaces": {
 		"packages": [

@@ -3,7 +3,6 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
   title = 'ngx-imready';
@@ -19,7 +18,6 @@ export class AppComponent {
     this.errorCount = e.errorCount;
   }
   onReady(e) {
-    console.log(e);
     this.isReady = e.isReady;
   }
 }
