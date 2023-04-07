@@ -5,7 +5,7 @@ import {
   Ref,
   isString,
 } from "@cfcs/core";
-import { EVENTS } from "./consts";
+import { EVENTS, PROPS } from "./consts";
 import ImReady from "./ImReady";
 import {
   ImReadyEvents,
@@ -26,17 +26,18 @@ export type ReactiveImReady = ReactiveObject<{
   hasError: boolean;
   isPreReadyOver: boolean;
   add(element: HTMLElement): void;
+  setProps(newProps: Partial<ImReadyReactiveProps>): void;
 }>;
 
 export const REACTIVE_IMREADY: ReactiveSetupAdapter<
   ReactiveImReady,
   ImReadyReactiveState,
-  "add",
+  "add" | "setProps",
   Partial<ImReadyReactiveProps>,
   ImReadyEvents
 > = ({ setEvents, setMethods, on, onInit, onDestroy, getProps }) => {
   setEvents(EVENTS);
-  setMethods(["add"]);
+  setMethods(["add", "setProps"]);
   const children: Array<HTMLElement | Ref<HTMLElement> | string> = [];
   const reactiveImReady = reactive({
     preReadyCount: 0,
@@ -51,8 +52,19 @@ export const REACTIVE_IMREADY: ReactiveSetupAdapter<
     add(element: HTMLElement | Ref<HTMLElement> | string) {
       children.push(element);
     },
+    setProps(newProps: Partial<ImReadyReactiveProps>) {
+      props = {
+        ...props,
+        ...newProps,
+      };
+      PROPS.forEach((name) => {
+        if (name in newProps) {
+          imReady.options[name] = newProps[name] as any;
+        }
+      });
+    },
   });
-  const props = getProps() || {};
+  let props = getProps() || {};
   const imReady = new ImReady(props);
 
   imReady
@@ -85,8 +97,6 @@ export const REACTIVE_IMREADY: ReactiveSetupAdapter<
   onInit(() => {
     const selector = props?.selector;
     let checkedElements: HTMLElement[] = [];
-    console.log("props is", props);
-
     children.forEach((child) => {
       if (!child) {
         return;

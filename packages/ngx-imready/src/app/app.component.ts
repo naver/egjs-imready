@@ -18,7 +18,6 @@ export class AppComponent {
     this.errorCount = e.errorCount;
   }
   onReady(e) {
-    console.log(e);
     this.isReady = e.isReady;
   }
 }
