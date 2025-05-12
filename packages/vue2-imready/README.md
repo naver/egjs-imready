@@ -3,7 +3,7 @@
 <p align="middle">
 <a href="https://www.npmjs.com/package/@egjs/vue2-imready" target="_blank"><img src="https://img.shields.io/npm/v/@egjs/vue2-imready.svg?style=flat-square&color=007acc&label=version" alt="npm version" /></a>
 <img src="https://img.shields.io/badge/language-typescript-blue.svg?style=flat-square"/>
-<a href="https://travis-ci.org/naver/egjs-imready" target="_blank"><img alt="Travis (.org)" src="https://img.shields.io/travis/naver/egjs-imready.svg?style=flat-square&label=build" /></a>
+<a href="https://github.com/naver/egjs-imready/actions/workflows/run-unit.yml" target="_blank"><img alt="Run tests" src="https://github.com/naver/egjs-imready/actions/workflows/run-unit.yml/badge.svg" /></a>
 <a href="https://github.com/naver/egjs-imready/blob/main/LICENSE" target="_blank"><img src="https://img.shields.io/github/license/naver/egjs-imready.svg?style=flat-square&label=license&color=08CE5D"/></a>
 <a href="https://github.com/naver/egjs-imready/tree/main/packages/vue2-imready" target="_blank"><img alt="Vue2" src="https://img.shields.io/static/v1.svg?label=&message=Vue2&style=flat-square&color=61daeb"></a>
 </p>
