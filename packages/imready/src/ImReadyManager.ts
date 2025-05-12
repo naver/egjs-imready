@@ -187,7 +187,7 @@ class ImReadyManager extends Component<ImReadyEvents> {
     const childrenImReady = this.clone().on("error", e => {
       loader.onError(e.target);
     }).on("ready", () => {
-      loader.onReady(withPreReady);
+      loader.onReady();
     });
 
     loader.on("requestChildren", () => {

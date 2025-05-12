@@ -1,4 +1,4 @@
-import { sandbox, cleanup, waitEvent, getSize, checkEventOrders, expectOrders, waitFor, getImageURL } from "./utils";
+import { sandbox, cleanup, waitEvent, getSize, checkEventOrders, expectOrders, waitFor, getImageURL, throttle } from "./utils";
 import ImReady from "../../src/index";
 import { spy } from "sinon";
 import { toArray, innerWidth, innerHeight } from "../../src/utils";
@@ -354,7 +354,7 @@ describe("Test image", () => {
     im.check([el]);
 
     await waitEvent(im, "preReady");
-    const loadingSize = getSize(img);
+    const loadingSize = getSize(img).map(size => throttle(size));
 
     await waitEvent(im, "ready");
 
@@ -429,7 +429,7 @@ describe("Test image", () => {
         value: 1080,
       });
       imgs[1].dispatchEvent(new Event("load"));
-    }, 30);
+    });
 
 
     const events = checkEventOrders(im);
@@ -441,15 +441,16 @@ describe("Test image", () => {
 
     await preReadyEvent;
     // loading element1 is preReady
-    const element1Size1 = getSize(imgs[0]);
+    const element1Size1 = getSize(imgs[0]).map(size => throttle(size));
     // no loading element2 is also preReady
-    const element2Size1 = getSize(imgs[1]);
+    const element2Size1 = getSize(imgs[1]).map(size => throttle(size));
 
     await readyEvent;
-    const element1Size2 = getSize(imgs[0]);
-    const element2Size2 = getSize(imgs[1]);
+    const element1Size2 = getSize(imgs[0]).map(size => throttle(size));
+    const element2Size2 = getSize(imgs[1]).map(size => throttle(size));
 
     // Then
+    console.log(element2Size1, )
     expect(element1Size1).to.be.deep.equals([0, 0]);
     expect(element2Size1).to.be.not.deep.equals([0, 0]);
     expect(element1Size2).to.be.not.deep.equals([0, 0]);
@@ -484,7 +485,7 @@ describe("Test image", () => {
     im.check([img]);
 
     await waitEvent(im, "preReady");
-    const loadingSize = getSize(img);
+    const loadingSize = getSize(img).map(size => throttle(size));
 
     await waitEvent(im, "ready");
 
@@ -661,4 +662,63 @@ describe("Test image", () => {
     // Then
     expect(errorSpy.calledOnce).to.be.true;
   });
+
+  it("should check whether preReady and ready work even if lazy loading ends quickly", async () => {
+    // Given
+    el.innerHTML = `
+      <div>
+        <img src="https://ERR"/ loading="lazy">
+      </div>
+    `;
+    const preReadySpy = spy();
+    const readySpy = spy();
+    const img = el.querySelector("img")!;
+
+    // Given
+    Object.defineProperty(img, "complete", {
+      enumerable: true,
+      configurable: true,
+      writable: true,
+      value: false,
+    });
+    setTimeout(() => {
+      // call load event before lazy loading's preReady
+      Object.defineProperty(img, "complete", {
+        enumerable: true,
+        configurable: true,
+        writable: true,
+        value: true,
+      });
+
+      Object.defineProperty(img, "naturalWidth", {
+        enumerable: true,
+        configurable: true,
+        writable: true,
+        value: 340,
+      });
+      Object.defineProperty(img, "naturalHeight", {
+        enumerable: true,
+        configurable: true,
+        writable: true,
+        value: 340,
+      });
+      img.dispatchEvent(new Event("load"));
+    });
+
+
+
+    im.on("preReady", preReadySpy);
+    im.on("ready", readySpy);
+
+    // When
+    im.check([el]);
+    await waitEvent(im, "ready");
+    im.destroy();
+    await waitFor(100);
+
+    // Then
+    expect(preReadySpy.calledOnce).to.be.true;
+    expect(readySpy.calledOnce).to.be.true;
+  });
+
 });

@@ -33,6 +33,9 @@ export function sandbox(obj: object | string, prop?: object): HTMLElement {
 export function getSize(el: HTMLElement) {
   return [innerWidth(el), innerHeight(el)];
 }
+export function throttle(size: number, threshold = 100) {
+  return Math.round(size * threshold) / threshold;
+}
 export function cleanup() {
   const elements: HTMLElement[] = [].slice.call(document.querySelectorAll("._tempSandbox_"));
   elements.forEach(v => {

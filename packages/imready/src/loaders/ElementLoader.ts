@@ -18,7 +18,7 @@ export class ElementLoader<T extends HTMLElement> extends Loader<T> {
   public check() {
     if (this.isSkip) {
       // I'm Ready
-      this.onAlreadyReady(true);
+      this.onAlreadyReady();
       return false;
     }
 
