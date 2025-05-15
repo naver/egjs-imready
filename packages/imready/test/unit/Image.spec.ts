@@ -450,7 +450,6 @@ describe("Test image", () => {
     const element2Size2 = getSize(imgs[1]).map(size => throttle(size));
 
     // Then
-    console.log(element2Size1, )
     expect(element1Size1).to.be.deep.equals([0, 0]);
     expect(element2Size1).to.be.not.deep.equals([0, 0]);
     expect(element1Size2).to.be.not.deep.equals([0, 0]);

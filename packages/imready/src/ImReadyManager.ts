@@ -195,6 +195,7 @@ class ImReadyManager extends Component<ImReadyEvents> {
 
       childrenImReady.check(contentElements).on("preReady", e => {
         if (!e.isReady) {
+          // isReady가 아닌 경우에만 발생 / ready에서 동시에 발생할 가능성 있음.
           loader.onPreReady();
         }
       });

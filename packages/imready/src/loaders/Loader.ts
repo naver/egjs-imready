@@ -95,6 +95,7 @@ export default abstract class Loader<T extends HTMLElement = any> extends Compon
     });
   }
   public onPreReady() {
+    // 이전에 호출되었거나 ready가 발생했다면 preReady를 발생하지 않는다.
     if (this.isPreReady) {
       return;
     }
@@ -116,6 +117,8 @@ export default abstract class Loader<T extends HTMLElement = any> extends Compon
 
     this.removeAutoSizer();
     this.isReady = true;
+
+    // preReady가 호출이 되지 않았으면 ready 이벤트만 발생하고 대신 withPreReady가 활성화
     this.trigger("ready", {
       element: this.element,
       withPreReady: !isPreReady ,
