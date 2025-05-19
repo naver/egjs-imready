@@ -36,7 +36,7 @@ export default abstract class Loader<T extends HTMLElement = any> extends Compon
   public check() {
     if (this.isSkip || !this.checkElement()) {
       // I'm Ready
-      this.onAlreadyReady(true);
+      this.onAlreadyReady();
       return false;
     }
 
@@ -86,10 +86,7 @@ export default abstract class Loader<T extends HTMLElement = any> extends Compon
       // I'm not ready
       return;
     }
-    // I'm pre-ready and ready!
-    const withPreReady = !this.hasDataSize && !this.hasLoading;
-
-    this.onReady(withPreReady);
+    this.onReady();
   };
   public onError(target: HTMLElement) {
     this.trigger("error", {
@@ -98,6 +95,7 @@ export default abstract class Loader<T extends HTMLElement = any> extends Compon
     });
   }
   public onPreReady() {
+    // 이전에 호출되었거나 ready가 발생했다면 preReady를 발생하지 않는다.
     if (this.isPreReady) {
       return;
     }
@@ -108,20 +106,22 @@ export default abstract class Loader<T extends HTMLElement = any> extends Compon
       isSkip: this.isSkip,
     });
   }
-  public onReady(withPreReady: boolean) {
+  public onReady() {
+    const isPreReady = this.isPreReady;
+
+    this.isPreReady = true;
+
     if (this.isReady) {
       return;
     }
-    withPreReady = !this.isPreReady && withPreReady;
 
-    if (withPreReady) {
-      this.isPreReady = true;
-    }
     this.removeAutoSizer();
     this.isReady = true;
+
+    // preReady가 호출이 되지 않았으면 ready 이벤트만 발생하고 대신 withPreReady가 활성화
     this.trigger("ready", {
       element: this.element,
-      withPreReady,
+      withPreReady: !isPreReady ,
       hasLoading: this.hasLoading,
       isSkip: this.isSkip,
     });
@@ -136,9 +136,9 @@ export default abstract class Loader<T extends HTMLElement = any> extends Compon
       this.onPreReady();
     });
   }
-  public onAlreadyReady(withPreReady: boolean) {
+  public onAlreadyReady() {
     setTimeout(() => {
-      this.onReady(withPreReady);
+      this.onReady();
     });
   }
 }

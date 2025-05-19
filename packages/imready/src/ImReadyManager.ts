@@ -182,12 +182,11 @@ class ImReadyManager extends Component<ImReadyEvents> {
     const children = toArray(element.querySelectorAll<HTMLElement>(tags.join(", ")));
 
     loader.setHasLoading(children.some(el => hasLoadingAttribute(el, prefix)));
-    let withPreReady = false;
 
     const childrenImReady = this.clone().on("error", e => {
       loader.onError(e.target);
     }).on("ready", () => {
-      loader.onReady(withPreReady);
+      loader.onReady();
     });
 
     loader.on("requestChildren", () => {
@@ -195,8 +194,8 @@ class ImReadyManager extends Component<ImReadyEvents> {
       const contentElements = getContentElements(element, tags, this.options.prefix);
 
       childrenImReady.check(contentElements).on("preReady", e => {
-        withPreReady = e.isReady;
-        if (!withPreReady) {
+        if (!e.isReady) {
+          // isReady가 아닌 경우에만 발생 / ready에서 동시에 발생할 가능성 있음.
           loader.onPreReady();
         }
       });
