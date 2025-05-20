@@ -4,7 +4,7 @@
 	"private": true,
 	"scripts": {
 		"packages": "npm run packages:update && npm run packages:build && npm run packages:publish",
-		"packages:update": "lerna-helper version && npm run update-angular-consts",
+		"packages:update": "lerna-helper version",
 		"packages:build": "npm run build --prefix packages/imready && lerna run build --ignore @egjs/imready --ignore @egjs/ngx-imready --ignore docs --stream",
 		"packages:publish": "lerna-helper publish --ignore @egjs/ngx-imready --commit 'chore: update packages versions'",
 		"docs:build": "rm -rf ./doc && jsdoc -c jsdoc.json",

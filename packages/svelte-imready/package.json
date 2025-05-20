@@ -1,6 +1,6 @@
 {
   "name": "@egjs/svelte-imready",
-  "version": "1.2.0",
+  "version": "1.2.2",
   "description": "This svelte module is used to wait for the image or video to be ready.",
   "sideEffects": false,
   "types": "src/index.d.ts",
@@ -63,6 +63,6 @@
   },
   "dependencies": {
     "@cfcs/svelte": "^0.0.24",
-    "@egjs/imready": "~1.4.0"
+    "@egjs/imready": "~1.4.2"
   }
 }
